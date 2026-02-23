@@ -1,0 +1,69 @@
+POST http://localhost:4111/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "tizer",
+  "password": "Zer210487$"
+}
+
+Authorization: Basic dGl6ZXI6WmVyMjEwNDg3JA==
+
+### Negative Create user with existence name
+POST http://localhost:4111/api/v1/admin/users
+Content-Type: application/json
+
+{
+  "username": "tizer",
+  "password": "Zer210487$",
+  "role": "USER"
+}
+
+### Positive Create user
+POST http://localhost:4111/api/v1/admin/users
+Content-Type: application/json
+
+{
+  "username": "tizer_2",
+  "password": "Zer210487$",
+  "role": "USER"
+}
+
+### Negative Create user with blank user name
+POST http://localhost:4111/api/v1/admin/users
+Content-Type: application/json
+
+{
+  "username": "",
+  "password": "Zer210487$",
+  "role": "USER"
+}
+
+### Negative Create user with 17 name length
+POST http://localhost:4111/api/v1/admin/users
+Content-Type: application/json
+
+{
+  "username": "ab123456789012347",
+  "password": "Zer210487$",
+  "role": "USER"
+}
+
+### Negative Create user with 2 name length
+POST http://localhost:4111/api/v1/admin/users
+Content-Type: application/json
+
+{
+  "username": "ab",
+  "password": "Zer210487$",
+  "role": "USER"
+}
+
+### Positive Create acc
+POST http://localhost:4111/api/v1/accounts
+Content-Type: application/json
+Authorization: Basic dGl6ZXI6WmVyMjEwNDg3JA==
+
+### Positive Check acc
+GET http://localhost:4111/api/v1/customer/accounts
+Content-Type: application/json
+Authorization: Basic dGl6ZXI6WmVyMjEwNDg3JA==

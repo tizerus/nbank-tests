@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8d54767e-88b9-403b-8ba6-fdb0c3d69260" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/easycode.ignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requests/itteration_1.http" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/generators/RandomData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/Account.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/BaseModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/CreateUserRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/CreateUserResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/LoginUserRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/UserRole.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/requests/AdminCreateUserRequester.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/requests/CreateAccountRequester.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/requests/GetCustomerAccountsRequester.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/requests/LoginUserRequester.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/requests/Request.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/specs/RequestSpecs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/specs/ResponseSpecs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/itteration1/BaseTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/itteration1/CreateAccTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/itteration1/CreateUserTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/itteration1/LoginUserTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="39qdv4smloQMxe1NkVeP4rQ03s1" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.CreateAccTest.userCanCreateAccountTest.executor": "Run",
+    "JUnit.CreateUserTest.adminCanGenerateUserAuthTokenTest.executor": "Run",
+    "JUnit.CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest (1).executor": "Run",
+    "JUnit.CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest.executor": "Run",
+    "JUnit.LoginUserTest.adminCanGenerateAuthTokenTest.executor": "Run",
+    "JUnit.LoginUserTest.userCanGenerateAuthTokenTest.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true"
+  }
+}]]></component>
+  <component name="RunManager" selected="JUnit.CreateAccTest.userCanCreateAccountTest">
+    <configuration name="CreateAccTest.userCanCreateAccountTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="itteration1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="itteration1" />
+      <option name="MAIN_CLASS_NAME" value="itteration1.CreateAccTest" />
+      <option name="METHOD_NAME" value="userCanCreateAccountTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CreateUserTest.adminCanGenerateUserAuthTokenTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="itteration1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="itteration1" />
+      <option name="MAIN_CLASS_NAME" value="itteration1.CreateUserTest" />
+      <option name="METHOD_NAME" value="adminCanGenerateUserAuthTokenTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="itteration1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="itteration1" />
+      <option name="MAIN_CLASS_NAME" value="itteration1.CreateUserTest" />
+      <option name="METHOD_NAME" value="adminCanNotCreateUserWithIncorrectDataTest(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="itteration1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="itteration1" />
+      <option name="MAIN_CLASS_NAME" value="itteration1.CreateUserTest" />
+      <option name="METHOD_NAME" value="adminCanNotCreateUserWithIncorrectDataTest(java.lang.String,java.lang.String,java.lang.String,java.lang.String)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginUserTest.userCanGenerateAuthTokenTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="itteration1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="itteration1" />
+      <option name="MAIN_CLASS_NAME" value="itteration1.LoginUserTest" />
+      <option name="METHOD_NAME" value="userCanGenerateAuthTokenTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.CreateAccTest.userCanCreateAccountTest" />
+        <item itemvalue="JUnit.CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest (1)" />
+        <item itemvalue="JUnit.CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest" />
+        <item itemvalue="JUnit.CreateUserTest.adminCanGenerateUserAuthTokenTest" />
+        <item itemvalue="JUnit.LoginUserTest.userCanGenerateAuthTokenTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8d54767e-88b9-403b-8ba6-fdb0c3d69260" name="Changes" comment="" />
+      <created>1771427763707</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1771427763707</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
