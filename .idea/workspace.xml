@@ -4,37 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8d54767e-88b9-403b-8ba6-fdb0c3d69260" name="Changes" comment="Improving tests from jun lvl to mid">
-      <change afterPath="$PROJECT_DIR$/src/main/java/comparison/ModelAssertions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/comparison/ModelComparator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/comparison/ModelComparisonConfigLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/config/Config.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/generators/GeneratingRule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/generators/RandomModelGenerator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/CreateAccountResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/GetCustomerAccountsResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/LoginUserResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/requests/skeleton/Endpoint.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/requests/skeleton/HttpRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/requests/skeleton/interfaces/CrudEndpointInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/requests/skeleton/requests/CrudRequester.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/requests/skeleton/requests/ValidatableCrudRequester.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/requests/steps/AdminSteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/model-comparison.properties" afterDir="false" />
+    <list default="true" id="8d54767e-88b9-403b-8ba6-fdb0c3d69260" name="Changes" comment="Improving tests from mid lvl to senior">
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/DepositRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/DepositResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/GetTransferRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/GetTransferResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/Transaction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/TransactionType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/requests/steps/UserSteps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/itteration2/UserDepositTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/itteration2/UserTransactionTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/CreateAccountRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/CreateUserRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/CreateUserRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/requests/AdminCreateUserRequester.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/requests/CreateAccountRequester.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/requests/GetCustomerAccountsRequester.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/requests/LoginUserRequester.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/requests/Request.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/specs/RequestSpecs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/specs/RequestSpecs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/skeleton/Endpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skeleton/Endpoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/skeleton/interfaces/CrudEndpointInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skeleton/interfaces/CrudEndpointInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/skeleton/requests/CrudRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skeleton/requests/CrudRequester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/skeleton/requests/ValidatableCrudRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skeleton/requests/ValidatableCrudRequester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/steps/AdminSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/steps/AdminSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/specs/ResponseSpecs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/specs/ResponseSpecs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/model-comparison.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/model-comparison.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/itteration1/CreateAccTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/itteration1/CreateAccTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/itteration1/CreateUserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/itteration1/CreateUserTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/itteration1/LoginUserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/itteration1/LoginUserTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,11 +34,17 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
+        <option value="Record" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="tests_mid_to_senior_lvl" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
@@ -70,6 +65,16 @@
     "JUnit.CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest.executor": "Run",
     "JUnit.LoginUserTest.adminCanGenerateAuthTokenTest.executor": "Run",
     "JUnit.LoginUserTest.userCanGenerateAuthTokenTest.executor": "Run",
+    "JUnit.UserDepositTest.unauthUserCannotDepositToAcc.executor": "Run",
+    "JUnit.UserDepositTest.userCanPutDepositTest (1).executor": "Run",
+    "JUnit.UserDepositTest.userCanPutDepositTest.executor": "Run",
+    "JUnit.UserDepositTest.userCannotDepositToAnotherUserAcc.executor": "Run",
+    "JUnit.UserDepositTest.userCannotPutDepositTest.executor": "Run",
+    "JUnit.UserDepositTest.userPutDepositTest.executor": "Run",
+    "JUnit.UserTransactionTest.userCanTransferToAnotherAcc.executor": "Run",
+    "JUnit.UserTransactionTest.userCanTransferToHisSecondAcc.executor": "Run",
+    "JUnit.UserTransactionTest.userCannotTransferMoreThanHeHas.executor": "Run",
+    "JUnit.UserTransactionTest.userCannotTransferTest.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true"
   }
@@ -79,82 +84,82 @@
       <recent name="D:\Projects\nbank-tests\src\main\java\requests\skeleton\" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.LoginUserTest.userCanGenerateAuthTokenTest">
-    <configuration name="CreateAccTest.userCanCreateAccountTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.UserTransactionTest.userCanTransferToHisSecondAcc">
+    <configuration name="UserDepositTest.userCanPutDepositTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="itteration1.*" />
+          <option name="PATTERN" value="itteration2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="itteration1" />
-      <option name="MAIN_CLASS_NAME" value="itteration1.CreateAccTest" />
-      <option name="METHOD_NAME" value="userCanCreateAccountTest" />
+      <option name="PACKAGE_NAME" value="itteration2" />
+      <option name="MAIN_CLASS_NAME" value="itteration2.UserDepositTest" />
+      <option name="METHOD_NAME" value="userCanPutDepositTest(float)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CreateUserTest.adminCanCreateUserWithCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserTransactionTest.userCanTransferToAnotherAcc" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="itteration1.*" />
+          <option name="PATTERN" value="itteration2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="itteration1" />
-      <option name="MAIN_CLASS_NAME" value="itteration1.CreateUserTest" />
-      <option name="METHOD_NAME" value="adminCanCreateUserWithCorrectDataTest" />
+      <option name="PACKAGE_NAME" value="itteration2" />
+      <option name="MAIN_CLASS_NAME" value="itteration2.UserTransactionTest" />
+      <option name="METHOD_NAME" value="userCanTransferToAnotherAcc" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserTransactionTest.userCanTransferToHisSecondAcc" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="itteration1.*" />
+          <option name="PATTERN" value="itteration2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="itteration1" />
-      <option name="MAIN_CLASS_NAME" value="itteration1.CreateUserTest" />
-      <option name="METHOD_NAME" value="adminCanNotCreateUserWithIncorrectDataTest(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)" />
+      <option name="PACKAGE_NAME" value="itteration2" />
+      <option name="MAIN_CLASS_NAME" value="itteration2.UserTransactionTest" />
+      <option name="METHOD_NAME" value="userCanTransferToHisSecondAcc" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LoginUserTest.adminCanGenerateAuthTokenTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserTransactionTest.userCannotTransferMoreThanHeHas" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="itteration1.*" />
+          <option name="PATTERN" value="itteration2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="itteration1" />
-      <option name="MAIN_CLASS_NAME" value="itteration1.LoginUserTest" />
-      <option name="METHOD_NAME" value="adminCanGenerateAuthTokenTest" />
+      <option name="PACKAGE_NAME" value="itteration2" />
+      <option name="MAIN_CLASS_NAME" value="itteration2.UserTransactionTest" />
+      <option name="METHOD_NAME" value="userCannotTransferMoreThanHeHas" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LoginUserTest.userCanGenerateAuthTokenTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserTransactionTest.userCannotTransferTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="itteration1.*" />
+          <option name="PATTERN" value="itteration2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="itteration1" />
-      <option name="MAIN_CLASS_NAME" value="itteration1.LoginUserTest" />
-      <option name="METHOD_NAME" value="userCanGenerateAuthTokenTest" />
+      <option name="PACKAGE_NAME" value="itteration2" />
+      <option name="MAIN_CLASS_NAME" value="itteration2.UserTransactionTest" />
+      <option name="METHOD_NAME" value="userCannotTransferTest(float,java.lang.String)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -162,11 +167,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.LoginUserTest.userCanGenerateAuthTokenTest" />
-        <item itemvalue="JUnit.LoginUserTest.adminCanGenerateAuthTokenTest" />
-        <item itemvalue="JUnit.CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest (1)" />
-        <item itemvalue="JUnit.CreateUserTest.adminCanCreateUserWithCorrectDataTest" />
-        <item itemvalue="JUnit.CreateAccTest.userCanCreateAccountTest" />
+        <item itemvalue="JUnit.UserTransactionTest.userCanTransferToHisSecondAcc" />
+        <item itemvalue="JUnit.UserTransactionTest.userCanTransferToAnotherAcc" />
+        <item itemvalue="JUnit.UserDepositTest.userCanPutDepositTest (1)" />
+        <item itemvalue="JUnit.UserTransactionTest.userCannotTransferMoreThanHeHas" />
+        <item itemvalue="JUnit.UserTransactionTest.userCannotTransferTest" />
       </list>
     </recent_temporary>
   </component>
@@ -204,5 +209,16 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Improving tests from jun lvl to mid" />
     <option name="LAST_COMMIT_MESSAGE" value="Improving tests from jun lvl to mid" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/requests/skeleton/requests/CrudRequester.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

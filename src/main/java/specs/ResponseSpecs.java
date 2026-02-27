@@ -3,6 +3,7 @@ package specs;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.ResponseSpecification;
 import org.apache.http.HttpStatus;
+import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 
 public class ResponseSpecs {
@@ -31,6 +32,25 @@ public class ResponseSpecs {
         return defaultResponseSpecBuilder()
                 .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
                 .expectBody(errorKey, Matchers.hasItem(errorValue))
+                .build();
+    }
+
+    public static ResponseSpecification requestReturnsBadResponse(Matcher<?> bodyMatcher) {
+        return defaultResponseSpecBuilder()
+                .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
+                .expectBody(bodyMatcher)
+                .build();
+    }
+
+    public static ResponseSpecification requestReturns403() {
+        return defaultResponseSpecBuilder()
+                .expectStatusCode(HttpStatus.SC_FORBIDDEN)
+                .build();
+    }
+
+    public static ResponseSpecification requestReturns401() {
+        return defaultResponseSpecBuilder()
+                .expectStatusCode(HttpStatus.SC_UNAUTHORIZED)
                 .build();
     }
 
