@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Account extends BaseModel {
+public class CreateAccountRequest extends BaseModel {
 
     private long id;
     private String accountNumber;
