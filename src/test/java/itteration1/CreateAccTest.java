@@ -1,47 +1,39 @@
 package itteration1;
 
-import generators.RandomData;
-import models.Account;
+import generators.RandomModelGenerator;
+import models.CreateAccountResponse;
 import models.CreateUserRequest;
-import models.UserRole;
+import models.GetCustomerAccountsResponse;
 import org.junit.jupiter.api.Test;
-import requests.AdminCreateUserRequester;
-import requests.CreateAccountRequester;
-import requests.GetCustomerAccountsRequester;
+import requests.skeleton.Endpoint;
+import requests.skeleton.requests.CrudRequester;
+import requests.skeleton.requests.ValidatableCrudRequester;
+import requests.steps.AdminSteps;
 import specs.RequestSpecs;
 import specs.ResponseSpecs;
+
+import java.util.List;
 
 public class CreateAccTest extends BaseTest {
 
     @Test
     public void userCanCreateAccountTest() {
-        CreateUserRequest createUserRequest = CreateUserRequest.builder()
-                .username(RandomData.getUserName())
-                .password(RandomData.getPassword())
-                .role(UserRole.USER.toString())
-                .build();
+        CreateUserRequest createUserRequest = AdminSteps.createUserResponse();
 
-        new AdminCreateUserRequester(
-                RequestSpecs.adminSpec(),
-                ResponseSpecs.entityCreated())
-                .post(createUserRequest);
-
-        Account userAcc = new CreateAccountRequester(
+        CreateAccountResponse userAcc = new ValidatableCrudRequester<CreateAccountResponse>(
                 RequestSpecs.authAsUser(createUserRequest.getUsername(), createUserRequest.getPassword()),
+                Endpoint.ACCOUNTS,
                 ResponseSpecs.entityCreated())
-                .postWithoutBody()
-                .extract()
-                .as(Account.class);
+                .post(null);
 
-        Account[] accounts = new GetCustomerAccountsRequester(
+        List<GetCustomerAccountsResponse> accounts = new ValidatableCrudRequester<GetCustomerAccountsResponse>(
                 RequestSpecs.authAsUser(createUserRequest.getUsername(), createUserRequest.getPassword()),
+                Endpoint.CUSTOMER_ACCOUNTS,
                 ResponseSpecs.requestReturnsOk())
-                .get()
-                .extract()
-                .as(Account[].class);
+                .getList();
 
         softAssert.assertThat(accounts)
-                .extracting(Account::getAccountNumber)
+                .extracting(GetCustomerAccountsResponse::getAccountNumber)
                 .as("Extracting all account numbers")
                 .contains(userAcc.getAccountNumber());
     }

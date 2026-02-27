@@ -4,34 +4,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8d54767e-88b9-403b-8ba6-fdb0c3d69260" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/easycode.ignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requests/itteration_1.http" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/generators/RandomData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/Account.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/BaseModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/CreateUserRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/CreateUserResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/LoginUserRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/UserRole.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/requests/AdminCreateUserRequester.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/requests/CreateAccountRequester.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/requests/GetCustomerAccountsRequester.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/requests/LoginUserRequester.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/requests/Request.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/specs/RequestSpecs.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/specs/ResponseSpecs.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/itteration1/BaseTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/itteration1/CreateAccTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/itteration1/CreateUserTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/itteration1/LoginUserTest.java" afterDir="false" />
+    <list default="true" id="8d54767e-88b9-403b-8ba6-fdb0c3d69260" name="Changes" comment="Improving tests from jun lvl to mid">
+      <change afterPath="$PROJECT_DIR$/src/main/java/comparison/ModelAssertions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/comparison/ModelComparator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/comparison/ModelComparisonConfigLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/config/Config.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/generators/GeneratingRule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/generators/RandomModelGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/CreateAccountResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/GetCustomerAccountsResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/LoginUserResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/requests/skeleton/Endpoint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/requests/skeleton/HttpRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/requests/skeleton/interfaces/CrudEndpointInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/requests/skeleton/requests/CrudRequester.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/requests/skeleton/requests/ValidatableCrudRequester.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/requests/steps/AdminSteps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/model-comparison.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/CreateAccountRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/CreateUserRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/CreateUserRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/AdminCreateUserRequester.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/CreateAccountRequester.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/GetCustomerAccountsRequester.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/LoginUserRequester.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/Request.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/specs/RequestSpecs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/specs/RequestSpecs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/itteration1/CreateAccTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/itteration1/CreateAccTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/itteration1/CreateUserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/itteration1/CreateUserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/itteration1/LoginUserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/itteration1/LoginUserTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +64,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "JUnit.CreateAccTest.userCanCreateAccountTest.executor": "Run",
+    "JUnit.CreateUserTest.adminCanCreateUserWithCorrectDataTest.executor": "Run",
     "JUnit.CreateUserTest.adminCanGenerateUserAuthTokenTest.executor": "Run",
     "JUnit.CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest (1).executor": "Run",
     "JUnit.CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest.executor": "Run",
@@ -70,7 +74,12 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.CreateAccTest.userCanCreateAccountTest">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projects\nbank-tests\src\main\java\requests\skeleton\" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.LoginUserTest.userCanGenerateAuthTokenTest">
     <configuration name="CreateAccTest.userCanCreateAccountTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
@@ -87,7 +96,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CreateUserTest.adminCanGenerateUserAuthTokenTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CreateUserTest.adminCanCreateUserWithCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
@@ -97,7 +106,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="itteration1" />
       <option name="MAIN_CLASS_NAME" value="itteration1.CreateUserTest" />
-      <option name="METHOD_NAME" value="adminCanGenerateUserAuthTokenTest" />
+      <option name="METHOD_NAME" value="adminCanCreateUserWithCorrectDataTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -119,7 +128,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LoginUserTest.adminCanGenerateAuthTokenTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
@@ -128,8 +137,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="itteration1" />
-      <option name="MAIN_CLASS_NAME" value="itteration1.CreateUserTest" />
-      <option name="METHOD_NAME" value="adminCanNotCreateUserWithIncorrectDataTest(java.lang.String,java.lang.String,java.lang.String,java.lang.String)" />
+      <option name="MAIN_CLASS_NAME" value="itteration1.LoginUserTest" />
+      <option name="METHOD_NAME" value="adminCanGenerateAuthTokenTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -153,11 +162,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CreateAccTest.userCanCreateAccountTest" />
-        <item itemvalue="JUnit.CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest (1)" />
-        <item itemvalue="JUnit.CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest" />
-        <item itemvalue="JUnit.CreateUserTest.adminCanGenerateUserAuthTokenTest" />
         <item itemvalue="JUnit.LoginUserTest.userCanGenerateAuthTokenTest" />
+        <item itemvalue="JUnit.LoginUserTest.adminCanGenerateAuthTokenTest" />
+        <item itemvalue="JUnit.CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest (1)" />
+        <item itemvalue="JUnit.CreateUserTest.adminCanCreateUserWithCorrectDataTest" />
+        <item itemvalue="JUnit.CreateAccTest.userCanCreateAccountTest" />
       </list>
     </recent_temporary>
   </component>
@@ -170,6 +179,15 @@
       <option name="presentableId" value="Default" />
       <updated>1771427763707</updated>
     </task>
+    <task id="LOCAL-00001" summary="Improving tests from jun lvl to mid">
+      <option name="closed" value="true" />
+      <created>1771864140409</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1771864140409</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -182,5 +200,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Improving tests from jun lvl to mid" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improving tests from jun lvl to mid" />
   </component>
 </project>
