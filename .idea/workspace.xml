@@ -4,26 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8d54767e-88b9-403b-8ba6-fdb0c3d69260" name="Changes" comment="Improving tests from mid lvl to senior">
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/DepositRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/DepositResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/GetTransferRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/GetTransferResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/Transaction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/TransactionType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/requests/steps/UserSteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/itteration2/UserDepositTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/itteration2/UserTransactionTest.java" afterDir="false" />
+    <list default="true" id="8d54767e-88b9-403b-8ba6-fdb0c3d69260" name="Changes" comment="Completing iteration_2">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/requests/skeleton/Endpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skeleton/Endpoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/requests/skeleton/interfaces/CrudEndpointInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skeleton/interfaces/CrudEndpointInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/requests/skeleton/requests/CrudRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skeleton/requests/CrudRequester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/requests/skeleton/requests/ValidatableCrudRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skeleton/requests/ValidatableCrudRequester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/requests/steps/AdminSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/steps/AdminSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/specs/ResponseSpecs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/specs/ResponseSpecs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/model-comparison.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/model-comparison.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/itteration1/CreateAccTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/itteration1/CreateAccTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,29 +39,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "JUnit.CreateAccTest.userCanCreateAccountTest.executor": "Run",
-    "JUnit.CreateUserTest.adminCanCreateUserWithCorrectDataTest.executor": "Run",
-    "JUnit.CreateUserTest.adminCanGenerateUserAuthTokenTest.executor": "Run",
-    "JUnit.CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest (1).executor": "Run",
-    "JUnit.CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest.executor": "Run",
-    "JUnit.LoginUserTest.adminCanGenerateAuthTokenTest.executor": "Run",
-    "JUnit.LoginUserTest.userCanGenerateAuthTokenTest.executor": "Run",
-    "JUnit.UserDepositTest.unauthUserCannotDepositToAcc.executor": "Run",
-    "JUnit.UserDepositTest.userCanPutDepositTest (1).executor": "Run",
-    "JUnit.UserDepositTest.userCanPutDepositTest.executor": "Run",
-    "JUnit.UserDepositTest.userCannotDepositToAnotherUserAcc.executor": "Run",
-    "JUnit.UserDepositTest.userCannotPutDepositTest.executor": "Run",
-    "JUnit.UserDepositTest.userPutDepositTest.executor": "Run",
-    "JUnit.UserTransactionTest.userCanTransferToAnotherAcc.executor": "Run",
-    "JUnit.UserTransactionTest.userCanTransferToHisSecondAcc.executor": "Run",
-    "JUnit.UserTransactionTest.userCannotTransferMoreThanHeHas.executor": "Run",
-    "JUnit.UserTransactionTest.userCannotTransferTest.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JUnit.CreateAccTest.userCanCreateAccountTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateUserTest.adminCanCreateUserWithCorrectDataTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateUserTest.adminCanGenerateUserAuthTokenTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoginUserTest.adminCanGenerateAuthTokenTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoginUserTest.userCanGenerateAuthTokenTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserDepositTest.unauthUserCannotDepositToAcc.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserDepositTest.userCanPutDepositTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserDepositTest.userCanPutDepositTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserDepositTest.userCannotDepositToAnotherUserAcc.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserDepositTest.userCannotPutDepositTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserDepositTest.userPutDepositTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserTransactionTest.userCanTransferToAnotherAcc.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserTransactionTest.userCanTransferToHisSecondAcc.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserTransactionTest.userCannotTransferMoreThanHeHas.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserTransactionTest.userCannotTransferTest.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Projects\nbank-tests\src\main\java\requests\skeleton\" />
@@ -169,7 +152,6 @@
       <list>
         <item itemvalue="JUnit.UserTransactionTest.userCanTransferToHisSecondAcc" />
         <item itemvalue="JUnit.UserTransactionTest.userCanTransferToAnotherAcc" />
-        <item itemvalue="JUnit.UserDepositTest.userCanPutDepositTest (1)" />
         <item itemvalue="JUnit.UserTransactionTest.userCannotTransferMoreThanHeHas" />
         <item itemvalue="JUnit.UserTransactionTest.userCannotTransferTest" />
       </list>
@@ -192,7 +174,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771864140409</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Completing iteration_2">
+      <option name="closed" value="true" />
+      <created>1772219791798</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1772219791798</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -208,17 +198,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Improving tests from jun lvl to mid" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improving tests from jun lvl to mid" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/requests/skeleton/requests/CrudRequester.java</url>
-          <line>45</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Completing iteration_2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Completing iteration_2" />
   </component>
 </project>
