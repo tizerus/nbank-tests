@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import requests.skeleton.Endpoint;
 import requests.skeleton.requests.ValidatableCrudRequester;
 import requests.steps.AdminSteps;
+import requests.steps.UserSteps;
 import specs.RequestSpecs;
 import specs.ResponseSpecs;
 
@@ -18,17 +19,14 @@ public class CreateAccTest extends BaseTest {
     public void userCanCreateAccountTest() {
         CreateUserRequest createUserRequest = AdminSteps.createUserResponse();
 
-        CreateAccountResponse userAcc = new ValidatableCrudRequester<CreateAccountResponse>(
-                RequestSpecs.authAsUser(createUserRequest.getUsername(), createUserRequest.getPassword()),
-                Endpoint.ACCOUNTS,
-                ResponseSpecs.entityCreated())
-                .post(null);
+        CreateAccountResponse userAcc = UserSteps
+                .createAccount(createUserRequest);
 
         List<GetCustomerAccountsResponse> accounts = new ValidatableCrudRequester<GetCustomerAccountsResponse>(
                 RequestSpecs.authAsUser(createUserRequest.getUsername(), createUserRequest.getPassword()),
                 Endpoint.CUSTOMER_ACCOUNTS,
                 ResponseSpecs.requestReturnsOk())
-                .getList();
+                .getAll();
 
         softAssert.assertThat(accounts)
                 .extracting(GetCustomerAccountsResponse::getAccountNumber)

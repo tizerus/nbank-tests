@@ -1,6 +1,5 @@
 package requests.skeleton.requests;
 
-import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
@@ -8,8 +7,6 @@ import models.BaseModel;
 import requests.skeleton.Endpoint;
 import requests.skeleton.HttpRequest;
 import requests.skeleton.interfaces.CrudEndpointInterface;
-
-import java.util.List;
 
 import static io.restassured.RestAssured.given;
 
@@ -20,9 +17,28 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
     }
 
     @Override
-    public ValidatableResponse get() {
+    public ValidatableResponse get(long id) {
         return given()
                 .spec(requestSpecification)
+                .get(String.format(endpoint.getUrl(), id))
+                .then()
+                .assertThat()
+                .spec(responseSpecification);
+    }
+
+    public ValidatableResponse getAll() {
+        return given()
+                .spec(requestSpecification)
+                .get(endpoint.getUrl())
+                .then()
+                .assertThat()
+                .spec(responseSpecification);
+    }
+
+    public ValidatableResponse getAll(long id) {
+        return given()
+                .spec(requestSpecification)
+                .pathParam("id", id)
                 .get(endpoint.getUrl())
                 .then()
                 .assertThat()
