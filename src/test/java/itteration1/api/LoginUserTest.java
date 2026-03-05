@@ -1,4 +1,4 @@
-package itteration1;
+package itteration1.api;
 
 import generators.RandomModelGenerator;
 import models.CreateAccountResponse;

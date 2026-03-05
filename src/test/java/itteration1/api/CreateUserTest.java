@@ -1,4 +1,4 @@
-package itteration1;
+package itteration1.api;
 
 import comparison.ModelAssertions;
 import generators.RandomModelGenerator;

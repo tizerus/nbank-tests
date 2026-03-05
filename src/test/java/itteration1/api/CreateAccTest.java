@@ -1,12 +1,10 @@
-package itteration1;
+package itteration1.api;
 
-import generators.RandomModelGenerator;
 import models.CreateAccountResponse;
 import models.CreateUserRequest;
 import models.GetCustomerAccountsResponse;
 import org.junit.jupiter.api.Test;
 import requests.skeleton.Endpoint;
-import requests.skeleton.requests.CrudRequester;
 import requests.skeleton.requests.ValidatableCrudRequester;
 import requests.steps.AdminSteps;
 import specs.RequestSpecs;
