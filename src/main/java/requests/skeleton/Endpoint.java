@@ -13,6 +13,7 @@ import models.GetCustomerAccountsResponse;
 import models.LoginUserRequest;
 import models.LoginUserResponse;
 import models.GetTransferRequest;
+import models.Profile;
 import models.Transaction;
 import models.GetTransferResponse;
 
@@ -54,6 +55,11 @@ public enum Endpoint {
             "/accounts/{id}/transactions",
             null,
             Transaction.class
+    ),
+    PROFILE(
+            "/customer/profile",
+            null,
+            Profile.class
     )
     ;
 

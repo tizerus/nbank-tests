@@ -5,8 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8d54767e-88b9-403b-8ba6-fdb0c3d69260" name="Changes" comment="Completing iteration_2">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/Profile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/generators/RandomData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/generators/RandomData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/CreateUserResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/CreateUserResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/GetCustomerAccountsResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/GetCustomerAccountsResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/TransactionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/TransactionType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/skeleton/Endpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skeleton/Endpoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/skeleton/interfaces/CrudEndpointInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skeleton/interfaces/CrudEndpointInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/skeleton/requests/CrudRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skeleton/requests/CrudRequester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/skeleton/requests/ValidatableCrudRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skeleton/requests/ValidatableCrudRequester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/itteration2/UserDepositTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/itteration2/UserDepositTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/itteration2/UserTransactionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/itteration2/UserTransactionTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,29 +50,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;JUnit.CreateAccTest.userCanCreateAccountTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CreateUserTest.adminCanCreateUserWithCorrectDataTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CreateUserTest.adminCanGenerateUserAuthTokenTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest (1).executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LoginUserTest.adminCanGenerateAuthTokenTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LoginUserTest.userCanGenerateAuthTokenTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserDepositTest.unauthUserCannotDepositToAcc.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserDepositTest.userCanPutDepositTest (1).executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserDepositTest.userCanPutDepositTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserDepositTest.userCannotDepositToAnotherUserAcc.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserDepositTest.userCannotPutDepositTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserDepositTest.userPutDepositTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserTransactionTest.userCanTransferToAnotherAcc.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserTransactionTest.userCanTransferToHisSecondAcc.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserTransactionTest.userCannotTransferMoreThanHeHas.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserTransactionTest.userCannotTransferTest.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.CreateAccTest.userCanCreateAccountTest.executor": "Run",
+    "JUnit.CreateUserTest.adminCanCreateUserWithCorrectDataTest.executor": "Run",
+    "JUnit.CreateUserTest.adminCanGenerateUserAuthTokenTest.executor": "Run",
+    "JUnit.CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest (1).executor": "Run",
+    "JUnit.CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest.executor": "Run",
+    "JUnit.LoginUserTest.adminCanGenerateAuthTokenTest.executor": "Run",
+    "JUnit.LoginUserTest.userCanGenerateAuthTokenTest.executor": "Run",
+    "JUnit.UserDepositTest.unauthUserCannotDepositToAcc.executor": "Run",
+    "JUnit.UserDepositTest.userCanPutDepositTest (1).executor": "Run",
+    "JUnit.UserDepositTest.userCanPutDepositTest.executor": "Run",
+    "JUnit.UserDepositTest.userCannotDepositToAnotherUserAcc.executor": "Run",
+    "JUnit.UserDepositTest.userCannotPutDepositTest.executor": "Run",
+    "JUnit.UserDepositTest.userPutDepositTest.executor": "Run",
+    "JUnit.UserTransactionTest.userCanTransferToAnotherAcc.executor": "Run",
+    "JUnit.UserTransactionTest.userCanTransferToHisSecondAcc.executor": "Run",
+    "JUnit.UserTransactionTest.userCannotTransferMoreThanHeHas.executor": "Run",
+    "JUnit.UserTransactionTest.userCannotTransferTest.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Projects\nbank-tests\src\main\java\requests\skeleton\" />
@@ -154,6 +165,7 @@
         <item itemvalue="JUnit.UserTransactionTest.userCanTransferToAnotherAcc" />
         <item itemvalue="JUnit.UserTransactionTest.userCannotTransferMoreThanHeHas" />
         <item itemvalue="JUnit.UserTransactionTest.userCannotTransferTest" />
+        <item itemvalue="JUnit.UserDepositTest.userCanPutDepositTest" />
       </list>
     </recent_temporary>
   </component>

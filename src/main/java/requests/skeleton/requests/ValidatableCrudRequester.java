@@ -27,6 +27,14 @@ public class ValidatableCrudRequester<T extends BaseModel> extends HttpRequest i
                 .as(endpoint.getResponseModel());
     }
 
+    @Override
+    public T get() {
+        return (T) crudRequester
+                .get()
+                .extract()
+                .as(endpoint.getResponseModel());
+    }
+
     public List<T> getAll() {
         Response response = crudRequester
                 .getAll()
