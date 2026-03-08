@@ -1,4 +1,4 @@
-package itteration1.ui;
+package ui.itteration1;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
@@ -18,13 +18,14 @@ public class LoginUserTest {
     @BeforeEach
     public void selenideSetup() {
         Configuration.remote = "http://localhost:4444/wd/hub";
-        Configuration.baseUrl = "http://172.19.48.1:3000";
+        //Configuration.baseUrl = "http://172.19.48.1:3000"; Minsk
+        Configuration.baseUrl = "http://172.30.192.1:3000";
         Configuration.browserSize = "1920x1080";
         Configuration.browser = "chrome";
 
-        Configuration.browserCapabilities.setCapability("sselenoid:options",
+        Configuration.browserCapabilities.setCapability("selenoid:options",
                 Map.of("enableVNC", true, "enableLog", true)
-                );
+                                                       );
     }
 
     @Test

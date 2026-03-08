@@ -5,16 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8d54767e-88b9-403b-8ba6-fdb0c3d69260" name="Changes" comment="Completing iteration_2">
-      <change afterPath="$PROJECT_DIR$/src/test/java/itteration1/ui/CreateAccountTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/itteration1/ui/CreateUserTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/itteration1/ui/LoginUserTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/itteration1/BaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/itteration1/api/BaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/itteration1/CreateAccTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/itteration1/api/CreateAccTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/itteration1/CreateUserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/itteration1/api/CreateUserTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/itteration1/LoginUserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/itteration1/api/LoginUserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/itteration1/api/BaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/ApiBaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/itteration1/api/CreateAccTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/itteration1/CreateAccTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/itteration1/api/CreateUserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/itteration1/CreateUserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/itteration1/api/LoginUserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/itteration1/LoginUserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/itteration1/ui/CreateAccountTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/itteration1/CreateAccountTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/itteration1/ui/CreateUserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/itteration1/CreateUserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/itteration1/ui/LoginUserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/itteration1/LoginUserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/itteration2/UserDepositTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/itteration2/UserDepositTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/itteration2/UserTransactionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/itteration2/UserTransactionTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,86 +41,94 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;JUnit.CreateAccTest.userCanCreateAccountTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CreateUserTest.adminCanCreateUserWithCorrectDataTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CreateUserTest.adminCanGenerateUserAuthTokenTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest (1).executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LoginUserTest.adminCanGenerateAuthTokenTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LoginUserTest.adminCanLoginWithCorrectDataTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LoginUserTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LoginUserTest.userCanGenerateAuthTokenTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LoginUserTest.userCanLoginWithCorrectDataTest.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.CreateAccTest.userCanCreateAccountTest.executor": "Run",
+    "JUnit.CreateUserTest.adminCanCreateUserTest.executor": "Run",
+    "JUnit.CreateUserTest.adminCanCreateUserWithCorrectDataTest.executor": "Run",
+    "JUnit.CreateUserTest.adminCanGenerateUserAuthTokenTest.executor": "Run",
+    "JUnit.CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest (1).executor": "Run",
+    "JUnit.CreateUserTest.adminCanNotCreateUserWithIncorrectDataTest.executor": "Run",
+    "JUnit.CreateUserTest.adminCannotCreateUserWithInvalidDataTest.executor": "Run",
+    "JUnit.LoginUserTest.adminCanGenerateAuthTokenTest.executor": "Run",
+    "JUnit.LoginUserTest.adminCanLoginWithCorrectDataTest (1).executor": "Run",
+    "JUnit.LoginUserTest.adminCanLoginWithCorrectDataTest.executor": "Run",
+    "JUnit.LoginUserTest.executor": "Run",
+    "JUnit.LoginUserTest.userCanGenerateAuthTokenTest.executor": "Run",
+    "JUnit.LoginUserTest.userCanLoginWithCorrectDataTest (1).executor": "Run",
+    "JUnit.LoginUserTest.userCanLoginWithCorrectDataTest.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Projects\nbank-tests\src\main\java\requests\skeleton\" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="itteration1" />
+    </key>
   </component>
-  <component name="RunManager" selected="JUnit.LoginUserTest.userCanLoginWithCorrectDataTest">
-    <configuration name="LoginUserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.LoginUserTest.userCanLoginWithCorrectDataTest (1)">
+    <configuration name="CreateUserTest.adminCanCreateUserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="itteration1.ui.*" />
+          <option name="PATTERN" value="ui.itteration1.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="itteration1.ui" />
-      <option name="MAIN_CLASS_NAME" value="itteration1.ui.LoginUserTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LoginUserTest.adminCanGenerateAuthTokenTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="nbank-tests" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="itteration1.api.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="itteration1.api" />
-      <option name="MAIN_CLASS_NAME" value="itteration1.api.LoginUserTest" />
-      <option name="METHOD_NAME" value="adminCanGenerateAuthTokenTest" />
+      <option name="PACKAGE_NAME" value="ui.itteration1" />
+      <option name="MAIN_CLASS_NAME" value="ui.itteration1.CreateUserTest" />
+      <option name="METHOD_NAME" value="adminCanCreateUserTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LoginUserTest.adminCanLoginWithCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CreateUserTest.adminCannotCreateUserWithInvalidDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="itteration1.ui.*" />
+          <option name="PATTERN" value="ui.itteration1.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="itteration1.ui" />
-      <option name="MAIN_CLASS_NAME" value="itteration1.ui.LoginUserTest" />
+      <option name="PACKAGE_NAME" value="ui.itteration1" />
+      <option name="MAIN_CLASS_NAME" value="ui.itteration1.CreateUserTest" />
+      <option name="METHOD_NAME" value="adminCannotCreateUserWithInvalidDataTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginUserTest.adminCanLoginWithCorrectDataTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ui.itteration1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ui.itteration1" />
+      <option name="MAIN_CLASS_NAME" value="ui.itteration1.LoginUserTest" />
       <option name="METHOD_NAME" value="adminCanLoginWithCorrectDataTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LoginUserTest.userCanGenerateAuthTokenTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LoginUserTest.userCanLoginWithCorrectDataTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="itteration1.api.*" />
+          <option name="PATTERN" value="ui.itteration1.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="itteration1.api" />
-      <option name="MAIN_CLASS_NAME" value="itteration1.api.LoginUserTest" />
-      <option name="METHOD_NAME" value="userCanGenerateAuthTokenTest" />
+      <option name="PACKAGE_NAME" value="ui.itteration1" />
+      <option name="MAIN_CLASS_NAME" value="ui.itteration1.LoginUserTest" />
+      <option name="METHOD_NAME" value="userCanLoginWithCorrectDataTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -130,12 +138,12 @@
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="itteration1.ui.*" />
+          <option name="PATTERN" value="itteration1.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="itteration1.ui" />
-      <option name="MAIN_CLASS_NAME" value="itteration1.ui.LoginUserTest" />
+      <option name="PACKAGE_NAME" value="itteration1" />
+      <option name="MAIN_CLASS_NAME" value="itteration1.LoginUserTest" />
       <option name="METHOD_NAME" value="userCanLoginWithCorrectDataTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -144,11 +152,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.LoginUserTest.userCanLoginWithCorrectDataTest (1)" />
+        <item itemvalue="JUnit.LoginUserTest.adminCanLoginWithCorrectDataTest (1)" />
+        <item itemvalue="JUnit.CreateUserTest.adminCannotCreateUserWithInvalidDataTest" />
+        <item itemvalue="JUnit.CreateUserTest.adminCanCreateUserTest" />
         <item itemvalue="JUnit.LoginUserTest.userCanLoginWithCorrectDataTest" />
-        <item itemvalue="JUnit.LoginUserTest.adminCanLoginWithCorrectDataTest" />
-        <item itemvalue="JUnit.LoginUserTest" />
-        <item itemvalue="JUnit.LoginUserTest.userCanGenerateAuthTokenTest" />
-        <item itemvalue="JUnit.LoginUserTest.adminCanGenerateAuthTokenTest" />
       </list>
     </recent_temporary>
   </component>
@@ -185,6 +193,18 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Improving tests from jun lvl to mid" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improving tests from jun lvl to mid" />
+    <MESSAGE value="commit before chery picking" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit before chery picking" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/ui/itteration1/CreateUserTest.java</url>
+          <line>73</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

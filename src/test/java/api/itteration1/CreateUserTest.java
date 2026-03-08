@@ -1,5 +1,6 @@
-package itteration1.api;
+package api.itteration1;
 
+import api.ApiBaseTest;
 import comparison.ModelAssertions;
 import generators.RandomModelGenerator;
 import models.CreateUserRequest;
@@ -17,7 +18,7 @@ import specs.ResponseSpecs;
 
 import java.util.stream.Stream;
 
-public class CreateUserTest extends BaseTest {
+public class CreateUserTest extends ApiBaseTest {
 
     @Test
     public void adminCanCreateUserWithCorrectDataTest() {

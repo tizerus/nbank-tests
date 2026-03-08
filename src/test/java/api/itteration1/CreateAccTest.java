@@ -1,5 +1,6 @@
-package itteration1.api;
+package api.itteration1;
 
+import api.ApiBaseTest;
 import models.CreateAccountResponse;
 import models.CreateUserRequest;
 import models.GetCustomerAccountsResponse;
@@ -13,7 +14,7 @@ import specs.ResponseSpecs;
 
 import java.util.List;
 
-public class CreateAccTest extends BaseTest {
+public class CreateAccTest extends ApiBaseTest {
 
     @Test
     public void userCanCreateAccountTest() {

@@ -1,5 +1,6 @@
-package itteration1.api;
+package api.itteration1;
 
+import api.ApiBaseTest;
 import generators.RandomModelGenerator;
 import models.CreateAccountResponse;
 import models.CreateUserRequest;
@@ -13,7 +14,7 @@ import requests.skeleton.requests.ValidatableCrudRequester;
 import specs.RequestSpecs;
 import specs.ResponseSpecs;
 
-public class LoginUserTest extends BaseTest {
+public class LoginUserTest extends ApiBaseTest {
 
     @Test
     public void adminCanGenerateAuthTokenTest() {

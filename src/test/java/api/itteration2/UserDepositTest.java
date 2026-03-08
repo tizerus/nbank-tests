@@ -1,9 +1,7 @@
-package itteration2;
+package api.itteration2;
 
 import comparison.ModelAssertions;
-import itteration1.BaseTest;
-import models.CreateAccountResponse;
-import models.CreateUserRequest;
+import api.ApiBaseTest;
 import models.DepositRequest;
 import models.DepositResponse;
 import models.User;
@@ -21,7 +19,7 @@ import specs.ResponseSpecs;
 
 import java.util.stream.Stream;
 
-public class UserDepositTest extends BaseTest {
+public class UserDepositTest extends ApiBaseTest {
 
     public static Stream<Arguments> invalidAmountData() {
         return Stream.of(

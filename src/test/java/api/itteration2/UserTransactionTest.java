@@ -1,8 +1,7 @@
-package itteration2;
+package api.itteration2;
 
-import itteration1.BaseTest;
+import api.ApiBaseTest;
 import models.GetTransferRequest;
-import models.GetTransferResponse;
 import models.Transaction;
 import models.TransactionType;
 import models.User;
@@ -25,7 +24,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.groups.Tuple.tuple;
 
-public class UserTransactionTest extends BaseTest {
+public class UserTransactionTest extends ApiBaseTest {
 
     public static Stream<Arguments> invalidAmountData() {
         return Stream.of(

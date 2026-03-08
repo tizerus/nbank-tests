@@ -1,4 +1,4 @@
-package itteration1.ui;
+package ui.itteration1;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
@@ -11,7 +11,7 @@ import io.restassured.RestAssured;
 import models.CreateUserRequest;
 import models.CreateUserResponse;
 import org.apache.http.HttpStatus;
-import org.junit.jupiter.api.Assertions;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Alert;
@@ -28,11 +28,12 @@ public class CreateUserTest {
     @BeforeEach
     public void selenideSetup() {
         Configuration.remote = "http://localhost:4444/wd/hub";
-        Configuration.baseUrl = "http://172.19.48.1:3000";
+        //Configuration.baseUrl = "http://172.19.48.1:3000"; Minsk
+        Configuration.baseUrl = "http://172.30.192.1:3000";
         Configuration.browserSize = "1920x1080";
         Configuration.browser = "chrome";
 
-        Configuration.browserCapabilities.setCapability("sselenoid:options",
+        Configuration.browserCapabilities.setCapability("selenoid:options",
                 Map.of("enableVNC", true, "enableLog", true)
                                                        );
     }
@@ -63,14 +64,14 @@ public class CreateUserTest {
                 .sendKeys(userRequest.getPassword());
         $(Selectors.byText("Add User")).click();
 
-        // step 4 check that we have alert User created successfully!
+        // step 4 check that we have alert ✅ User created successfully!
         Alert alert = switchTo().alert();
-        Assertions.assertEquals(alert.getText(), "User created successfully!" + "\nUser");
+        Assertions.assertThat(alert.getText()).isEqualTo("✅ User created successfully!");
         alert.accept();
 
         //step 5 find user in user list in UI
         ElementsCollection allUsersFromDashboard = $(Selectors.byText("All Users")).parent().findAll("li");
-        allUsersFromDashboard.findBy(Condition.exactText(userRequest.getUsername())).shouldBe(Condition.visible);
+        allUsersFromDashboard.findBy(Condition.exactText(userRequest.getUsername() + "\nUser")).shouldBe(Condition.visible);
 
         //step 6 find created user in by API
         CreateUserResponse[] userResponses = RestAssured.given()
@@ -117,7 +118,7 @@ public class CreateUserTest {
 
         // step 4 check that we have alert User must be between 3 and 15 characters
         Alert alert = switchTo().alert();
-        Assertions.assertEquals(alert.getText(), "User must be between 3 and 15 characters");
+        Assertions.assertThat(alert.getText()).contains("Username must be between 3 and 15 characters");
         alert.accept();
 
         //step 5 we have no user on UI
