@@ -1,16 +1,16 @@
 package api.itteration1;
 
 import api.ApiBaseTest;
-import models.CreateAccountResponse;
-import models.CreateUserRequest;
-import models.GetCustomerAccountsResponse;
+import api.models.CreateAccountResponse;
+import api.models.CreateUserRequest;
+import api.models.GetCustomerAccountsResponse;
 import org.junit.jupiter.api.Test;
-import requests.skeleton.Endpoint;
-import requests.skeleton.requests.ValidatableCrudRequester;
-import requests.steps.AdminSteps;
-import requests.steps.UserSteps;
-import specs.RequestSpecs;
-import specs.ResponseSpecs;
+import api.requests.skeleton.Endpoint;
+import api.requests.skeleton.requests.ValidatableCrudRequester;
+import api.requests.steps.AdminSteps;
+import api.requests.steps.UserSteps;
+import api.specs.RequestSpecs;
+import api.specs.ResponseSpecs;
 
 import java.util.List;
 

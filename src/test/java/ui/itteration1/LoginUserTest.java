@@ -1,59 +1,38 @@
 package ui.itteration1;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selectors;
-import com.codeborne.selenide.Selenide;
-import models.CreateUserRequest;
-import org.junit.jupiter.api.BeforeEach;
+import api.models.CreateUserRequest;
 import org.junit.jupiter.api.Test;
-import requests.steps.AdminSteps;
+import api.requests.steps.AdminSteps;
+import ui.BaseUiTest;
+import ui.pages.AdminPanel;
+import ui.pages.LoginPage;
+import ui.pages.UserDashboard;
 
-import java.util.Map;
+import static com.codeborne.selenide.Condition.visible;
 
-import static com.codeborne.selenide.Selenide.$;
-
-public class LoginUserTest {
-
-    @BeforeEach
-    public void selenideSetup() {
-        Configuration.remote = "http://localhost:4444/wd/hub";
-        //Configuration.baseUrl = "http://172.19.48.1:3000"; Minsk
-        Configuration.baseUrl = "http://172.30.192.1:3000";
-        Configuration.browserSize = "1920x1080";
-        Configuration.browser = "chrome";
-
-        Configuration.browserCapabilities.setCapability("selenoid:options",
-                Map.of("enableVNC", true, "enableLog", true)
-                                                       );
-    }
+public class LoginUserTest extends BaseUiTest {
 
     @Test
     public void adminCanLoginWithCorrectDataTest() {
-        CreateUserRequest admin = CreateUserRequest.builder()
-                .username("admin")
-                .password("admin")
-                .build();
-        Selenide.open("/login");
+        CreateUserRequest admin = CreateUserRequest.getAdmin();
 
-        $(Selectors.byAttribute("placeholder", "Username")).sendKeys(admin.getUsername());
-        $(Selectors.byAttribute("placeholder", "Password")).sendKeys(admin.getPassword());
-        $("button").click();
-        $(Selectors.byText("Admin Panel")).shouldBe(Condition.visible);
+        new LoginPage().open()
+                .login(admin.getUsername(), admin.getPassword(), AdminPanel.class)
+                .getAdminPanelText()
+                .shouldBe(visible);
     }
 
     @Test
     public void userCanLoginWithCorrectDataTest() {
         CreateUserRequest createUserRequest = AdminSteps.createUserResponse();
-        Selenide.open("/login");
-
-        $(Selectors.byAttribute("placeholder", "Username"))
-                .sendKeys(createUserRequest.getUsername());
-        $(Selectors.byAttribute("placeholder", "Password"))
-                .sendKeys(createUserRequest.getPassword());
-        $("button").click();
-        $(Selectors.byClassName("welcome-text")).shouldBe(Condition.visible).shouldHave(Condition.text("Welcome, noname!"));
-        $(Selectors.byText("User Dashboard")).shouldBe(Condition.visible);
+        UserDashboard loginPage = new LoginPage().open()
+                .login(createUserRequest.getUsername(), createUserRequest.getPassword(), UserDashboard.class);
+        loginPage
+                .getWelcomeText()
+                .shouldBe(visible)
+                .shouldHave(Condition.text("Welcome, noname!"));
+        loginPage.getUserDashboardTextElement().shouldBe(visible);
     }
 
 }

@@ -1,31 +1,31 @@
-package itteration2;
+package api.itteration2;
 
-import generators.RandomData;
-import itteration1.BaseTest;
-import models.GetTransferRequest;
-import models.Transaction;
-import models.TransactionType;
-import models.User;
+import api.generators.RandomData;
+import api.ApiBaseTest;
+import api.models.GetTransferRequest;
+import api.models.Transaction;
+import api.models.TransactionType;
+import api.models.User;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import requests.skeleton.Endpoint;
-import requests.skeleton.requests.CrudRequester;
-import requests.skeleton.requests.ValidatableCrudRequester;
-import requests.steps.AdminSteps;
-import requests.steps.UserSteps;
-import specs.RequestSpecs;
-import specs.ResponseSpecs;
+import api.requests.skeleton.Endpoint;
+import api.requests.skeleton.requests.CrudRequester;
+import api.requests.skeleton.requests.ValidatableCrudRequester;
+import api.requests.steps.AdminSteps;
+import api.requests.steps.UserSteps;
+import api.specs.RequestSpecs;
+import api.specs.ResponseSpecs;
 
 import java.util.List;
 import java.util.stream.Stream;
 
 import static org.assertj.core.groups.Tuple.tuple;
 
-public class UserTransactionTest extends BaseTest {
+public class UserTransactionTest extends ApiBaseTest {
 
     public static Stream<Arguments> invalidAmountData() {
         return Stream.of(

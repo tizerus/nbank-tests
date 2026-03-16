@@ -1,20 +1,20 @@
 package api.itteration1;
 
 import api.ApiBaseTest;
-import comparison.ModelAssertions;
-import generators.RandomModelGenerator;
-import models.CreateUserRequest;
-import models.CreateUserResponse;
-import models.UserRole;
+import api.comparison.ModelAssertions;
+import api.generators.RandomModelGenerator;
+import api.models.CreateUserRequest;
+import api.models.CreateUserResponse;
+import api.models.UserRole;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import requests.skeleton.Endpoint;
-import requests.skeleton.requests.CrudRequester;
-import requests.skeleton.requests.ValidatableCrudRequester;
-import specs.RequestSpecs;
-import specs.ResponseSpecs;
+import api.requests.skeleton.Endpoint;
+import api.requests.skeleton.requests.CrudRequester;
+import api.requests.skeleton.requests.ValidatableCrudRequester;
+import api.specs.RequestSpecs;
+import api.specs.ResponseSpecs;
 
 import java.util.stream.Stream;
 
