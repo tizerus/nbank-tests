@@ -1,6 +1,7 @@
-package api.itteration2;
+package itteration2;
 
-import api.ApiBaseTest;
+import generators.RandomData;
+import itteration1.BaseTest;
 import models.GetTransferRequest;
 import models.Transaction;
 import models.TransactionType;
@@ -24,7 +25,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.groups.Tuple.tuple;
 
-public class UserTransactionTest extends ApiBaseTest {
+public class UserTransactionTest extends BaseTest {
 
     public static Stream<Arguments> invalidAmountData() {
         return Stream.of(
@@ -40,6 +41,9 @@ public class UserTransactionTest extends ApiBaseTest {
         User user1 = AdminSteps.createUserAndAcc(1);
         User user2 = AdminSteps.createUserAndAcc(1);
 
+        float balanceBeforeTransfer1 = user2.getBalance(user2.getAccountsNumbers().get(0));
+        float balanceBeforeTransfer2 = user2.getBalance(user2.getAccountsNumbers().get(0));
+
         new CrudRequester(
                 RequestSpecs.authAsUser(user1.getUserRequest().getUsername(), user1.getUserRequest().getPassword()),
                 Endpoint.TRANSFER,
@@ -49,15 +53,24 @@ public class UserTransactionTest extends ApiBaseTest {
                         .receiverAccountId(user2.getAccountResponse().get(0).getId())
                         .amount(amount)
                         .build());
+
+        float user1BalanceAfterDeposit = user2.getBalance(user2.getAccountsNumbers().get(0));
+        float user2BalanceAfterDeposit = user2.getBalance(user2.getAccountsNumbers().get(0));
+
+        Assertions.assertThat(balanceBeforeTransfer1).isEqualTo(user1BalanceAfterDeposit);
+        Assertions.assertThat(balanceBeforeTransfer2).isEqualTo(user2BalanceAfterDeposit);
     }
 
     @Test
     public void userCannotTransferMoreThanHeHas() {
-        float amountToTransfer = 3000F;
+        float amountToTransfer = RandomData.generateFloatInclusive(0.01F, 5000);
         User user1 = AdminSteps.createUserAndAcc(1);
         User user2 = AdminSteps.createUserAndAcc(1);
 
         UserSteps.putDeposit(user1.getUserRequest(), user1.getAccountResponse().get(0), amountToTransfer);
+
+        float balanceBeforeTransfer1 = user2.getBalance(user2.getAccountsNumbers().get(0));
+        float balanceBeforeTransfer2 = user2.getBalance(user2.getAccountsNumbers().get(0));
 
         new CrudRequester(
                 RequestSpecs.authAsUser(user1.getUserRequest().getUsername(), user1.getUserRequest().getPassword()),
@@ -70,17 +83,28 @@ public class UserTransactionTest extends ApiBaseTest {
                         .amount(amountToTransfer + 0.01F)
                         .build());
 
+        float user1BalanceAfterDeposit = user2.getBalance(user2.getAccountsNumbers().get(0));
+        float user2BalanceAfterDeposit = user2.getBalance(user2.getAccountsNumbers().get(0));
+
+        Assertions.assertThat(balanceBeforeTransfer1).isEqualTo(user1BalanceAfterDeposit);
+        Assertions.assertThat(balanceBeforeTransfer2).isEqualTo(user2BalanceAfterDeposit);
     }
 
     @Test
     public void userCanTransferToAnotherAcc() {
-        float amount = 3000F;
+        float amount = 5000;
+        float amountToTransfer = 10000;
         User user1 = AdminSteps.createUserAndAcc(1);
         User user2 = AdminSteps.createUserAndAcc(1);
 
         UserSteps.putDeposit(user1.getUserRequest(), user1.getAccountResponse().get(0), amount);
+        UserSteps.putDeposit(user1.getUserRequest(), user1.getAccountResponse().get(0), amount);
+
+        float balanceBeforeTransfer1 = user2.getBalance(user2.getAccountsNumbers().get(0));
+        float balanceBeforeTransfer2 = user2.getBalance(user2.getAccountsNumbers().get(0));
+
         UserSteps.transfer(user1.getUserRequest(), user1.getAccountResponse().get(0),
-                user2.getAccountResponse().get(0), amount);
+                user2.getAccountResponse().get(0), amountToTransfer);
 
         List<Transaction> transferResponse = new ValidatableCrudRequester<Transaction>(
                 RequestSpecs.authAsUser(user1.getUserRequest().getUsername(), user1.getUserRequest().getPassword()),
@@ -94,19 +118,28 @@ public class UserTransactionTest extends ApiBaseTest {
                         Transaction::getRelatedAccountId)
                 .contains(
                         tuple(
-                                amount,
+                                amountToTransfer,
                                 TransactionType.TRANSFER_OUT,
                                 user2.getAccountResponse().get(0).getId()
                              )
                          );
+
+        float user1BalanceAfterDeposit = user2.getBalance(user2.getAccountsNumbers().get(0));
+        float user2BalanceAfterDeposit = user2.getBalance(user2.getAccountsNumbers().get(0));
+
+        Assertions.assertThat(balanceBeforeTransfer1).isEqualTo(user1BalanceAfterDeposit - amountToTransfer);
+        Assertions.assertThat(balanceBeforeTransfer2 + amountToTransfer).isEqualTo(user2BalanceAfterDeposit);
     }
 
     @Test
     public void userCanTransferToHisSecondAcc() {
-        float amountToTransfer = 3000F;
+        float amountToTransfer = RandomData.generateFloatInclusive(0.01F, 5000);
         User user1 = AdminSteps.createUserAndAcc(2);
 
         UserSteps.putDeposit(user1.getUserRequest(), user1.getAccountResponse().get(0), amountToTransfer);
+
+        float balanceBeforeTransfer = user1.getBalance(user1.getAccountsNumbers().get(0));
+
         UserSteps.transfer(user1.getUserRequest(), user1.getAccountResponse().get(0),
                 user1.getAccountResponse().get(1), amountToTransfer);
 
@@ -127,6 +160,12 @@ public class UserTransactionTest extends ApiBaseTest {
                                 user1.getAccountResponse().get(1).getId()
                              )
                          );
+
+        float balanceAcc1 = user1.getBalance(user1.getAccountsNumbers().get(0));
+        float balanceAcc2 = user1.getBalance(user1.getAccountsNumbers().get(1));
+
+        Assertions.assertThat(0.0F).isEqualTo(balanceAcc1);
+        Assertions.assertThat(amountToTransfer).isEqualTo(balanceAcc2);
 
     }
 
