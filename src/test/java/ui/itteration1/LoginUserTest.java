@@ -2,6 +2,7 @@ package ui.itteration1;
 
 import com.codeborne.selenide.Condition;
 import api.models.CreateUserRequest;
+import common.annotations.Browsers;
 import org.junit.jupiter.api.Test;
 import api.requests.steps.AdminSteps;
 import ui.BaseUiTest;
@@ -14,6 +15,7 @@ import static com.codeborne.selenide.Condition.visible;
 public class LoginUserTest extends BaseUiTest {
 
     @Test
+    @Browsers(values = {"firefox"})
     public void adminCanLoginWithCorrectDataTest() {
         CreateUserRequest admin = CreateUserRequest.getAdmin();
 
@@ -24,6 +26,7 @@ public class LoginUserTest extends BaseUiTest {
     }
 
     @Test
+    @Browsers(values = {"chrome"})
     public void userCanLoginWithCorrectDataTest() {
         CreateUserRequest createUserRequest = AdminSteps.createUserResponse();
         UserDashboard loginPage = new LoginPage().open()

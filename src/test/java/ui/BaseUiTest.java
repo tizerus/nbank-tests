@@ -6,10 +6,15 @@ import api.models.CreateUserRequest;
 import api.specs.RequestSpecs;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import common.extension.BrowserMatchExtension;
+import common.extension.AdminSessionExtension;
+import common.extension.UserSessionExtension;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.Map;
 
+@ExtendWith({AdminSessionExtension.class, UserSessionExtension.class, BrowserMatchExtension.class})
 public class BaseUiTest extends ApiBaseTest {
 
     @BeforeEach
