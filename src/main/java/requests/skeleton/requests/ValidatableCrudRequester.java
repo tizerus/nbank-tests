@@ -20,6 +20,14 @@ public class ValidatableCrudRequester<T extends BaseModel> extends HttpRequest i
     }
 
     @Override
+    public T get(long id) {
+        return (T) crudRequester
+                .get(id)
+                .extract()
+                .as(endpoint.getResponseModel());
+    }
+
+    @Override
     public T get() {
         return (T) crudRequester
                 .get()
@@ -27,9 +35,18 @@ public class ValidatableCrudRequester<T extends BaseModel> extends HttpRequest i
                 .as(endpoint.getResponseModel());
     }
 
-    public List<T> getList() {
+    public List<T> getAll() {
         Response response = crudRequester
-                .get()
+                .getAll()
+                .extract()
+                .response();
+        Class<T> responseType = (Class<T>) endpoint.getResponseModel();
+        return response.jsonPath().getList(".", responseType);
+    }
+
+    public List<T> getAll(long id) {
+        Response response = crudRequester
+                .getAll(id)
                 .extract()
                 .response();
         Class<T> responseType = (Class<T>) endpoint.getResponseModel();

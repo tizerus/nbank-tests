@@ -6,18 +6,16 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class GetCustomerAccountsResponse extends BaseModel {
+public class GetTransferResponse extends BaseModel {
 
-    private long id;
-    private String accountNumber;
-    private float balance;
-    private List<Transaction> transactions;
+    private long senderAccountId;
+    private long receiverAccountId;
+    private float amount;
+    private String message;
 
 }

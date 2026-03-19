@@ -13,11 +13,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class GetCustomerAccountsResponse extends BaseModel {
+public class Profile extends BaseModel {
 
     private long id;
-    private String accountNumber;
-    private float balance;
-    private List<Transaction> transactions;
+    private String username;
+    private String password;
+    private String name;
+    private UserRole role;
+    private List<GetCustomerAccountsResponse> accounts;
 
 }
