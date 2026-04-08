@@ -1,15 +1,14 @@
 package api.specs;
 
 import api.config.Config;
-import api.models.CreateUserRequest;
+import api.models.LoginUserRequest;
+import api.requests.skeleton.Endpoint;
+import api.requests.skeleton.requests.CrudRequester;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
-import api.models.LoginUserRequest;
-import api.requests.skeleton.Endpoint;
-import api.requests.skeleton.requests.CrudRequester;
 
 import java.util.HashMap;
 import java.util.List;

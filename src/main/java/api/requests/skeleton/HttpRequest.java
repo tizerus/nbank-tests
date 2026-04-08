@@ -5,7 +5,8 @@ import io.restassured.specification.ResponseSpecification;
 
 public class HttpRequest {
 
-    public HttpRequest(RequestSpecification requestSpecification, Endpoint endpoint, ResponseSpecification responseSpecification) {
+    public HttpRequest(RequestSpecification requestSpecification, Endpoint endpoint,
+            ResponseSpecification responseSpecification) {
         this.requestSpecification = requestSpecification;
         this.endpoint = endpoint;
         this.responseSpecification = responseSpecification;
