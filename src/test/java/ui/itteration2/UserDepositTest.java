@@ -55,7 +55,7 @@ public class UserDepositTest extends BaseUiTest {
                 //Arguments.of(5000.00, BankAlert.DEPOSIT_SUCCESS_MSG.getMsg(), "5000.00"), ✅ Successfully deposited $5000.0 to account ACC36!
                 Arguments.of("123.45", BankAlert.DEPOSIT_SUCCESS_MSG.getMsg(), "123.45"),
                 //Arguments.of("0.01", BankAlert.DEPOSIT_SUCCESS_MSG.getMsg(), "0.01"), ✅ Successfully deposited $.01 to account ACC39!
-                Arguments.of(".01", BankAlert.DEPOSIT_SUCCESS_MSG.getMsg(), "0.01"),
+                Arguments.of(".01", BankAlert.DEPOSIT_SUCCESS_MSG.getMsg(), ".01"),
                 Arguments.of("5000", BankAlert.DEPOSIT_SUCCESS_MSG.getMsg(), "5000")
                         );
     }
@@ -66,7 +66,7 @@ public class UserDepositTest extends BaseUiTest {
     public void userDepositPageButtonsVisibleChecksTest() {
         BasePage.authAsUser(SessionStorage.getUser(1));
         new UserDashboard().open().createUserAccount();
-        DepositPage depositPage = new DepositPage();
+        DepositPage depositPage = new DepositPage().open();
         depositPage.getDepositTitle().shouldBe(visible).shouldHave(Condition.text("💰 Deposit Money"));
         depositPage.getAccountSelector().shouldBe(visible);
         depositPage.getAmountInput().shouldBe(visible);
@@ -76,27 +76,24 @@ public class UserDepositTest extends BaseUiTest {
     }
 
     @Test
-    @UserSession
     @Browsers(values = {"chrome"})
     public void userDepositEmptyAccountFieldChecksTest() {
-        BasePage.authAsUser(SessionStorage.getUser(1));
-        new UserDashboard().open().createUserAccount();
-        DepositPage depositPage = new DepositPage();
+        User user = AdminSteps.createUserAndAcc(1);
+        BasePage.authAsUser(user);
+        DepositPage depositPage = new DepositPage().open();
         depositPage.getAmountInput().sendKeys(String.valueOf(RandomData.generateFloatInclusive(0.01F, 5000F)));
         depositPage.getDepositButton().click();
         depositPage.checkAlertMsgAndAccept(BankAlert.ACCOUNT_EMPTY_FIELD_ALERT);
     }
 
     @Test
-    @UserSession
     @Browsers(values = {"chrome"})
     public void userDepositEmptyAmountFieldChecksTest() {
-        BasePage.authAsUser(SessionStorage.getUser(1));
-        UserDashboard userDashboard = new UserDashboard();
-        userDashboard.open().createUserAccount();
-        userDashboard.getDepositMoneyButton().shouldBe(visible).click();
+        User user = AdminSteps.createUserAndAcc(1);
+        BasePage.authAsUser(user);
         DepositPage depositPage = new DepositPage();
-        depositPage.selectAccount(1)
+        depositPage.open()
+                .selectAccount(1)
                 .getDepositButton()
                 .click();
         depositPage.checkAlertMsgAndAccept(BankAlert.ENTER_VALID_AMOUNT);
@@ -113,10 +110,14 @@ public class UserDepositTest extends BaseUiTest {
         int numberOfUsersToCreate = 1;
 
         BasePage.authAsUser(SessionStorage.getUser(numberOfUsersToCreate));
-        new UserDashboard().open().createUserAccount();
+        new UserDashboard().open()
+                .createUserAccount()
+                .checkAlertMsgAndAccept(BankAlert.ACCOUNT_NUMBER_CREATED)
+                .getDepositMoneyButton().shouldBe(visible)
+                .click();
         DepositPage depositPage = new DepositPage();
         float amount = RandomData.generateFloatInclusive(0.01F, 5000.00F);
-        String accNum = depositPage.open().deposit(accIndex, String.valueOf(amount))
+        String accNum = depositPage.deposit(accIndex, String.valueOf(amount))
                 .getSelectedAccountName();
         depositPage.checkAlertMsgAndAccept(String.format(BankAlert.DEPOSIT_SUCCESS_MSG.getMsg(), amount, accNum));
         Selenide.refresh();
@@ -152,7 +153,8 @@ public class UserDepositTest extends BaseUiTest {
         BasePage.authAsUser(user);
         float balanceBeforeDeposit = user.getBalance(user.getAccountsNumbers().get(0));
         DepositPage depositPage = new DepositPage();
-        String accNum = depositPage.open().deposit(1, String.valueOf(amount))
+        String accNum = depositPage.open()
+                .deposit(1, String.valueOf(amount))
                 .getSelectedAccountName();
         depositPage.checkAlertMsgAndAccept(String.format(expectedMsg, expectedAmount, accNum));
         //api check

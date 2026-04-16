@@ -4,9 +4,11 @@ import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
 import lombok.Getter;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NotFoundException;
 
 import java.util.List;
 
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
@@ -32,8 +34,16 @@ public class TransactionPage extends BasePage<TransactionPage> {
         return this;
     }
 
-    public TransactionPage selectAccountByValue(String value) {
-        accountSelector.selectOptionByValue(value);
+    public TransactionPage selectAccountByValue(String accName) {
+        accountSelector.$$("option").shouldHave(sizeGreaterThan(2));
+        var options = accountSelector.$$("option");
+        var account = options.stream()
+                .filter(acc -> acc.getText().contains(accName))
+                .findFirst()
+                .orElseThrow(() -> new NotFoundException("Can't find account: " + accName +
+                        " in array: " + options.stream().map(SelenideElement::getText).toList()));
+        String valueToSelect = account.getValue();
+        accountSelector.selectOptionByValue(valueToSelect);
         return this;
     }
 

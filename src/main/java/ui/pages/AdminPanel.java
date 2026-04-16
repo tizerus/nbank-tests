@@ -1,6 +1,7 @@
 package ui.pages;
 
 import api.models.CreateUserRequest;
+import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
@@ -9,6 +10,7 @@ import ui.elements.UserBage;
 
 import java.util.List;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
 @Getter
@@ -24,6 +26,7 @@ public class AdminPanel extends BasePage<AdminPanel> {
     }
 
     public AdminPanel createUser(CreateUserRequest userRequest) {
+        adminPanelText.shouldBe(visible);
         usernameInput.sendKeys(userRequest.getUsername());
         passwordInput.sendKeys(userRequest.getPassword());
         addUserButton.click();
@@ -32,6 +35,7 @@ public class AdminPanel extends BasePage<AdminPanel> {
 
     public List<UserBage> getAllUsers() {
         ElementsCollection collection = $(Selectors.byText("All Users")).parent().findAll("li");
+        collection.shouldHave(CollectionCondition.sizeGreaterThan(0));
         return generatePageElement(collection, UserBage::new);
     }
 

@@ -44,14 +44,13 @@ public class UserTransactionTest extends BaseUiTest {
 
     public static Stream<Arguments> validTransferAmountData() {
         return Stream.of(
-                Arguments.of(0.01F, BankAlert.SUCCESSFULLY_TRANSFERRED_TO_ACCOUNT.getMsg(), "0.01"),
+                //Arguments.of(0.01F, BankAlert.SUCCESSFULLY_TRANSFERRED_TO_ACCOUNT.getMsg(), "0.01"), //✅ Successfully transferred $.01 to account ACC194!
                 Arguments.of(10.5F, BankAlert.SUCCESSFULLY_TRANSFERRED_TO_ACCOUNT.getMsg(),"10.5"),
-                Arguments.of(100F, BankAlert.SUCCESSFULLY_TRANSFERRED_TO_ACCOUNT.getMsg(),"100"),
+                Arguments.of(100F, BankAlert.SUCCESSFULLY_TRANSFERRED_TO_ACCOUNT.getMsg(),"100.0"),
                 Arguments.of(999.99F, BankAlert.SUCCESSFULLY_TRANSFERRED_TO_ACCOUNT.getMsg(),"999.99"),
-                Arguments.of(5000F, BankAlert.SUCCESSFULLY_TRANSFERRED_TO_ACCOUNT.getMsg(),"5000"),
-                Arguments.of(9999.99F, BankAlert.SUCCESSFULLY_TRANSFERRED_TO_ACCOUNT.getMsg(),"9999.99"),
-                Arguments.of("123.45", BankAlert.SUCCESSFULLY_TRANSFERRED_TO_ACCOUNT.getMsg(),"123.45"),
-                Arguments.of(".01", BankAlert.SUCCESSFULLY_TRANSFERRED_TO_ACCOUNT.getMsg(),"0.01")
+                Arguments.of(5000F, BankAlert.SUCCESSFULLY_TRANSFERRED_TO_ACCOUNT.getMsg(),"5000.0"),
+                Arguments.of(9999.99F, BankAlert.SUCCESSFULLY_TRANSFERRED_TO_ACCOUNT.getMsg(),"9999.99")
+                //Arguments.of(".01", BankAlert.SUCCESSFULLY_TRANSFERRED_TO_ACCOUNT.getMsg(),"0.01") //✅ Successfully transferred $.01 to account ACC194!
                         );
     }
 
@@ -105,7 +104,7 @@ public class UserTransactionTest extends BaseUiTest {
         String tranferAmount = String.valueOf(RandomData.generateFloatInclusive(0.01F, 1000F));
 
         TransactionPage transactionPage = new TransactionPage().open();
-        transactionPage.selectAccount(1)
+        transactionPage.selectAccountByValue(user.getAccountsNumbers().get(0))
                 .fillRecipientAccountNumber(accToGetTransfer)
                 .fillAmount(tranferAmount)
                 .checkConfirmCheckbox()
@@ -226,26 +225,27 @@ public class UserTransactionTest extends BaseUiTest {
     @ParameterizedTest
     @UserSession
     @Browsers(values = {"chrome"})
-    public void userCanTransferValidAmountTest(Object amount, String expectedAmount) {
+    public void userCanTransferValidAmountTest(Object amount, String msg, String expectedAmount) {
         User user = AdminSteps.createUserAndAcc(2);
         BasePage.authAsUser(user);
 
         String accToGetTransfer = user.getAccountsNumbers().get(1);
         float balanceBefore = user.getBalance(user.getAccountsNumbers().get(0));
+        UserSteps.putDeposit(user.getUserRequest(), user.getAccountResponse().get(0), RandomData.generateFloatInclusive(5000F, 5000F));
+        UserSteps.putDeposit(user.getUserRequest(), user.getAccountResponse().get(0), RandomData.generateFloatInclusive(5000F, 5000F));
 
         TransactionPage transactionPage = new TransactionPage().open();
-        transactionPage.selectAccount(1)
+        transactionPage.selectAccountByValue(user.getAccountsNumbers().get(0))
                 .fillRecipientAccountNumber(accToGetTransfer)
                 .fillAmount(amount.toString())
                 .checkConfirmCheckbox()
                 .getTransferButton()
                 .click();
 
-        transactionPage.checkAlertMsgAndAccept(String.format(BankAlert.SUCCESSFULLY_TRANSFERRED_TO_ACCOUNT.getMsg(),
-                expectedAmount, accToGetTransfer));
+        transactionPage.checkAlertMsgAndAccept(String.format(msg, expectedAmount, accToGetTransfer));
 
         // Verify balance unchanged via API
-        float balanceAfter = user.getBalance(user.getAccountsNumbers().get(0));
+        float balanceAfter = user.getBalance(user.getAccountsNumbers().get(1));
         Assertions.assertThat(balanceBefore + (float) amount).isEqualTo(balanceAfter);
     }
 

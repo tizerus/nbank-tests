@@ -5,7 +5,6 @@ import api.generators.RandomModelGenerator;
 import api.models.CreateUserRequest;
 import api.models.CreateUserResponse;
 import api.requests.steps.AdminSteps;
-import com.codeborne.selenide.Condition;
 import common.annotations.AdminSession;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -24,7 +23,7 @@ public class CreateUserTest extends BaseUiTest {
                 .getAllUsers().stream()
                 .anyMatch(userBage -> userBage.getUsername().equals(userRequest.getUsername()));
         Assertions.assertThat(match)
-                .withFailMessage("Пользователь с именем % не наиден", userRequest.getUsername())
+                .withFailMessage("Пользователь с именем %s не наиден", userRequest.getUsername())
                 .isTrue();
 
         CreateUserResponse createdUser = AdminSteps.getAllUsers().stream()
@@ -44,7 +43,8 @@ public class CreateUserTest extends BaseUiTest {
                 .getAllUsers().stream()
                 .anyMatch(userBage -> userBage.getUsername().equals(userRequest.getUsername()));
         Assertions.assertThat(match)
-                .withFailMessage("Пользователь с именем % наиден, но не должен был быть создан", userRequest.getUsername())
+                .withFailMessage("Пользователь с именем %s наиден, но не должен был быть создан",
+                        userRequest.getUsername())
                 .isFalse();
 
         long createdUsersWithSameNameAsNewUser = AdminSteps.getAllUsers().stream()

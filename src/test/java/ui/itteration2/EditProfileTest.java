@@ -56,7 +56,6 @@ public class EditProfileTest extends BaseUiTest {
 
     @MethodSource("invalidUserName")
     @ParameterizedTest
-    @UserSession
     @Browsers(values = {"chrome"})
     public void userCantEditProfileWithInvalidNameTest(String name, String msg) {
         User user = AdminSteps.createUserAndAcc(1);
@@ -77,7 +76,7 @@ public class EditProfileTest extends BaseUiTest {
 
     @MethodSource("validUserNames")
     @ParameterizedTest
-    @UserSession
+    //@UserSession
     @Browsers(values = {"chrome"})
     public void userCanEditProfileWithValidNameTest(String validName) {
         User user = AdminSteps.createUserAndAcc(1);
@@ -94,6 +93,5 @@ public class EditProfileTest extends BaseUiTest {
         //api check
         Assertions.assertThat(user.getProfileName()).isEqualTo(validName);
     }
-
 
 }

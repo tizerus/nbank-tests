@@ -6,10 +6,10 @@ import api.models.CreateUserRequest;
 import api.specs.RequestSpecs;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import common.extension.BrowserMatchExtension;
 import common.extension.AdminSessionExtension;
+import common.extension.BrowserMatchExtension;
 import common.extension.UserSessionExtension;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.Map;
@@ -17,13 +17,15 @@ import java.util.Map;
 @ExtendWith({AdminSessionExtension.class, UserSessionExtension.class, BrowserMatchExtension.class})
 public class BaseUiTest extends ApiBaseTest {
 
-    @BeforeEach
-    public void selenideSetup() {
+    @BeforeAll // изменил на beforeAll т.к. быыл конфликт в порядке инициализации с
+    // @ExtendWith({AdminSessionExtension.class
+    public static void selenideSetup() {
         //Configuration.remote = Config.getProperty("remote");
         Configuration.baseUrl = Config.getProperty("baseUrl");
         //Configuration.baseUrl = "http://172.30.192.1:3000"; warsaw
         Configuration.browserSize = Config.getProperty("browserSize");
         Configuration.browser = Config.getProperty("browser");
+        Configuration.headless = Boolean.parseBoolean(Config.getProperty("headless"));
 
         Configuration.browserCapabilities.setCapability("selenoid:options",
                 Map.of("enableVNC", true, "enableLog", true)

@@ -8,6 +8,7 @@ import ui.elements.DepositUserAccount;
 
 import java.util.List;
 
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
@@ -61,7 +62,8 @@ public class DepositPage extends BasePage<DepositPage> {
     }
 
     public String getSelectedAccountName() {
-        return accountSelector.getSelectedOption().getText().split(" ")[0];
+        accountSelector.$$("option").shouldHave(sizeGreaterThan(1));
+        return accountSelector.shouldBe(visible).getSelectedOption().getText().split(" ")[0];
     }
 
     public List<DepositUserAccount> getAllOptions() {
