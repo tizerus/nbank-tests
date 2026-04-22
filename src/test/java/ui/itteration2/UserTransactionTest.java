@@ -136,12 +136,11 @@ public class UserTransactionTest extends BaseUiTest {
     }
 
     @Test
-    @UserSession
+    //@UserSession
     @Browsers(values = {"chrome"})
     public void transactionEmptyAmountFieldTest() {
-        BasePage.authAsUser(SessionStorage.getUser(1));
-        UserDashboard userDashboard = new UserDashboard();
-        userDashboard.open().createUserAccount();
+        User user = AdminSteps.createUserAndAcc(1);
+        BasePage.authAsUser(user);
 
         TransactionPage transactionPage = new TransactionPage().open();
         transactionPage.selectAccount(1)
@@ -155,12 +154,11 @@ public class UserTransactionTest extends BaseUiTest {
     }
 
     @Test
-    @UserSession
+    //@UserSession
     @Browsers(values = {"chrome"})
     public void transactionUncheckedConfirmCheckboxTest() {
-        BasePage.authAsUser(SessionStorage.getUser(1));
-        UserDashboard userDashboard = new UserDashboard();
-        userDashboard.open().createUserAccount();
+        User user = AdminSteps.createUserAndAcc(1);
+        BasePage.authAsUser(user);
 
         TransactionPage transactionPage = new TransactionPage().open();
         transactionPage.selectAccount(1)

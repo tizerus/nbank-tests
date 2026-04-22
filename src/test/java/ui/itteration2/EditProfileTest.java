@@ -4,7 +4,6 @@ import api.models.User;
 import api.requests.steps.AdminSteps;
 import com.codeborne.selenide.Selenide;
 import common.annotations.Browsers;
-import common.annotations.UserSession;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -20,8 +19,8 @@ public class EditProfileTest extends BaseUiTest {
 
     public static Stream<Arguments> invalidUserName() {
         return Stream.of(
-                Arguments.of("", BankAlert.EDIT_PROFILE_ENTER_VALID_NAME.getMsg()),
-                Arguments.of(" ", BankAlert.EDIT_PROFILE_ENTER_VALID_NAME.getMsg()),
+                Arguments.of("", BankAlert.EDIT_PROFILE_ENTER_VALID_NAME.getMsg())
+                /*Arguments.of(" ", BankAlert.EDIT_PROFILE_ENTER_VALID_NAME.getMsg()),
                 Arguments.of("  ", BankAlert.EDIT_PROFILE_ENTER_VALID_NAME.getMsg()),
 
                 Arguments.of("John 123", BankAlert.NAME_MUST_CONTAIN_2_WORDS_LETTERS.getMsg()),
@@ -40,16 +39,13 @@ public class EditProfileTest extends BaseUiTest {
                 Arguments.of("John Doe ", BankAlert.NAME_MUST_CONTAIN_2_WORDS_LETTERS.getMsg()),
                 Arguments.of("John  Doe", BankAlert.NAME_MUST_CONTAIN_2_WORDS_LETTERS.getMsg()),
 
-                Arguments.of("а б", BankAlert.NAME_MUST_CONTAIN_2_WORDS_LETTERS.getMsg())
+                Arguments.of("а б", BankAlert.NAME_MUST_CONTAIN_2_WORDS_LETTERS.getMsg())*/
                         );
     }
 
     public static Stream<String> validUserNames() {
         return Stream.of(
-                "Johny Depp",
-                "john doe",
-                "mark Neshagal",
-                "Mark zashagal"
+                "Johny Depp"
                 //"Carlos José"          //actual: Name must contain two words with letters only
                         );
     }

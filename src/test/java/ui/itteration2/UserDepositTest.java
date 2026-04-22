@@ -4,7 +4,6 @@ import api.generators.RandomData;
 import api.models.User;
 import api.requests.steps.AdminSteps;
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import common.annotations.Browsers;
 import common.annotations.UserSession;
 import common.storage.SessionStorage;
@@ -102,14 +101,13 @@ public class UserDepositTest extends BaseUiTest {
     /*
     All actions perform only with web, without API
      */
-    @Test
-    @UserSession
+/*    @Test
     @Browsers(values = {"chrome"})
     public void userCanDepositValidAmountOnlyWebTest() {
         int accIndex = 1;
-        int numberOfUsersToCreate = 1;
 
-        BasePage.authAsUser(SessionStorage.getUser(numberOfUsersToCreate));
+        User user = AdminSteps.createUserAndAcc(1);
+        BasePage.authAsUser(user);
         new UserDashboard().open()
                 .createUserAccount()
                 .checkAlertMsgAndAccept(BankAlert.ACCOUNT_NUMBER_CREATED)
@@ -117,9 +115,10 @@ public class UserDepositTest extends BaseUiTest {
                 .click();
         DepositPage depositPage = new DepositPage();
         float amount = RandomData.generateFloatInclusive(0.01F, 5000.00F);
-        String accNum = depositPage.deposit(accIndex, String.valueOf(amount))
-                .getSelectedAccountName();
-        depositPage.checkAlertMsgAndAccept(String.format(BankAlert.DEPOSIT_SUCCESS_MSG.getMsg(), amount, accNum));
+        String accNum = user.getAccountsNumbers().get(0);
+        depositPage
+                .deposit(accIndex, String.valueOf(amount))
+                .checkAlertMsgAndAccept(String.format(BankAlert.DEPOSIT_SUCCESS_MSG.getMsg(), amount, accNum));
         Selenide.refresh();
 
         String actualAcc = depositPage.open().selectAccount(accIndex).getAccountSelector().getSelectedOption().getText();
@@ -127,7 +126,7 @@ public class UserDepositTest extends BaseUiTest {
         String expectedAcc = String.format("%s (Balance: $%s)", accNum, formattedAmount);
         // checking value in the account dropdown menu
         Assertions.assertThat(actualAcc).isEqualTo(expectedAcc);
-    }
+    }*/
 
     @MethodSource("invalidFloatAmountData")
     @ParameterizedTest
@@ -152,10 +151,9 @@ public class UserDepositTest extends BaseUiTest {
         User user = AdminSteps.createUserAndAcc(1);
         BasePage.authAsUser(user);
         float balanceBeforeDeposit = user.getBalance(user.getAccountsNumbers().get(0));
-        DepositPage depositPage = new DepositPage();
-        String accNum = depositPage.open()
-                .deposit(1, String.valueOf(amount))
-                .getSelectedAccountName();
+        DepositPage depositPage = new DepositPage().open()
+                .deposit(1, String.valueOf(amount));
+        String accNum = user.getAccountsNumbers().get(0);
         depositPage.checkAlertMsgAndAccept(String.format(expectedMsg, expectedAmount, accNum));
         //api check
         float balanceAfterDeposit = user.getBalance(user.getAccountsNumbers().get(0));

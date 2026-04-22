@@ -4,20 +4,26 @@ import api.models.CreateUserRequest;
 import api.requests.steps.UserSteps;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SessionStorage {
 
-    private static final SessionStorage INSTANCE = new SessionStorage();
+    private static final ThreadLocal<SessionStorage> INSTANCE = ThreadLocal.withInitial(SessionStorage::new);
 
-    private final LinkedHashMap<CreateUserRequest, UserSteps> userSteps = new LinkedHashMap<>();
+    private final Map<CreateUserRequest, UserSteps> userSteps = Collections.synchronizedMap(new LinkedHashMap<>());
 
     private SessionStorage(){}
 
+    private static SessionStorage getInstance() {
+        return INSTANCE.get();
+    }
+
     public static void addUsers(List<CreateUserRequest> users) {
         for (CreateUserRequest user: users) {
-            INSTANCE.userSteps.put(user, new UserSteps(user));
+            getInstance().userSteps.put(user, new UserSteps(user));
         }
     }
 
@@ -27,7 +33,7 @@ public class SessionStorage {
      */
 
     public static CreateUserRequest getUser(int userNumber) {
-        return new ArrayList<>(INSTANCE.userSteps.keySet()).get(userNumber - 1);
+        return new ArrayList<>(getInstance().userSteps.keySet()).get(userNumber - 1);
     }
 
     public static CreateUserRequest getUser() {
@@ -35,7 +41,11 @@ public class SessionStorage {
     }
 
     public static UserSteps getUserSteps(int userNumber) {
-        return new ArrayList<>(INSTANCE.userSteps.values()).get(userNumber - 1);
+        return new ArrayList<>(getInstance().userSteps.values()).get(userNumber - 1);
+    }
+
+    public static UserSteps getUserSteps(CreateUserRequest userRequest) {
+        return getInstance().userSteps.get(userRequest);
     }
 
     public static UserSteps getUserSteps() {
@@ -43,7 +53,8 @@ public class SessionStorage {
     }
 
     public static void clear() {
-        INSTANCE.userSteps.clear();
+        getInstance().userSteps.clear();
+        INSTANCE.remove();
     }
 
 }
