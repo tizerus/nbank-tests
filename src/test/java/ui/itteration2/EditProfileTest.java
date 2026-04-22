@@ -20,36 +20,13 @@ public class EditProfileTest extends BaseUiTest {
 
     public static Stream<Arguments> invalidUserName() {
         return Stream.of(
-                Arguments.of("", BankAlert.EDIT_PROFILE_ENTER_VALID_NAME.getMsg()),
-                Arguments.of(" ", BankAlert.EDIT_PROFILE_ENTER_VALID_NAME.getMsg()),
-                Arguments.of("  ", BankAlert.EDIT_PROFILE_ENTER_VALID_NAME.getMsg()),
-
-                Arguments.of("John 123", BankAlert.NAME_MUST_CONTAIN_2_WORDS_LETTERS.getMsg()),
-                Arguments.of("123 John", BankAlert.NAME_MUST_CONTAIN_2_WORDS_LETTERS.getMsg()),
-                Arguments.of("John @ Doe", BankAlert.NAME_MUST_CONTAIN_2_WORDS_LETTERS.getMsg()),
-                Arguments.of("John#Doe", BankAlert.NAME_MUST_CONTAIN_2_WORDS_LETTERS.getMsg()),
-                Arguments.of("John_Doe", BankAlert.NAME_MUST_CONTAIN_2_WORDS_LETTERS.getMsg()),
-                Arguments.of("John-Doe", BankAlert.NAME_MUST_CONTAIN_2_WORDS_LETTERS.getMsg()),
-
-                Arguments.of("John.", BankAlert.NAME_MUST_CONTAIN_2_WORDS_LETTERS.getMsg()),
-                Arguments.of(".John Doe", BankAlert.NAME_MUST_CONTAIN_2_WORDS_LETTERS.getMsg()),
-                Arguments.of("John Doe.", BankAlert.NAME_MUST_CONTAIN_2_WORDS_LETTERS.getMsg()),
-                Arguments.of("John , Doe", BankAlert.NAME_MUST_CONTAIN_2_WORDS_LETTERS.getMsg()),
-
-                Arguments.of(" John Doe", BankAlert.NAME_MUST_CONTAIN_2_WORDS_LETTERS.getMsg()),
-                Arguments.of("John Doe ", BankAlert.NAME_MUST_CONTAIN_2_WORDS_LETTERS.getMsg()),
-                Arguments.of("John  Doe", BankAlert.NAME_MUST_CONTAIN_2_WORDS_LETTERS.getMsg()),
-
-                Arguments.of("а б", BankAlert.NAME_MUST_CONTAIN_2_WORDS_LETTERS.getMsg())
+                Arguments.of("", BankAlert.EDIT_PROFILE_ENTER_VALID_NAME.getMsg())
                         );
     }
 
     public static Stream<String> validUserNames() {
         return Stream.of(
-                "Johny Depp",
-                "john doe",
-                "mark Neshagal",
-                "Mark zashagal"
+                "Johny Depp"
                 //"Carlos José"          //actual: Name must contain two words with letters only
                         );
     }

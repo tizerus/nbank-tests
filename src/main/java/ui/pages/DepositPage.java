@@ -14,6 +14,7 @@ import static com.codeborne.selenide.Selenide.$;
 @Getter
 public class DepositPage extends BasePage<DepositPage> {
 
+    public static String BALANCE = "%s (Balance: $%s)";
     private SelenideElement depositTitle = $(Selectors.byXpath("//h1[contains(text(), 'Deposit Money')]"));
     private SelenideElement accountSelector = $(Selectors.byCssSelector("select.form-control.account-selector"));
     private SelenideElement amountInput = $(Selectors.byPlaceholder("Enter amount"));
@@ -67,6 +68,10 @@ public class DepositPage extends BasePage<DepositPage> {
     public List<DepositUserAccount> getAllOptions() {
         ElementsCollection collection = accountSelector.parent().findAll("option");
         return generatePageElement(collection, DepositUserAccount::new);
+    }
+
+    public static String getBalanceString(String accNum, String formattedAmount) {
+        return String.format(BALANCE, accNum, formattedAmount);
     }
 
 }

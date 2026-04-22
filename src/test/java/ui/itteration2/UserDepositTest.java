@@ -123,7 +123,7 @@ public class UserDepositTest extends BaseUiTest {
 
         String actualAcc = depositPage.open().selectAccount(accIndex).getAccountSelector().getSelectedOption().getText();
         String formattedAmount = String.format("%.2f", amount).replace(',', '.');
-        String expectedAcc = String.format("%s (Balance: $%s)", accNum, formattedAmount);
+        String expectedAcc = DepositPage.getBalanceString(accNum, formattedAmount);
         // checking value in the account dropdown menu
         Assertions.assertThat(actualAcc).isEqualTo(expectedAcc);
     }
