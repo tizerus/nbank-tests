@@ -22,6 +22,21 @@ public class Config {
     }
 
     public static String getProperty(String key) {
+        if (key == null || key.isBlank()) {
+            return null;
+        }
+        // Приоритет 1 System property (наивысший приоритет)
+        String value = System.getProperty(key);
+        if (value != null) {
+            return value;
+        }
+        // Приоритет 2 переменная окружения
+        String envKey = key.toUpperCase().replace('.', '_');
+        value = System.getenv(envKey);
+        if (value != null) {
+            return value;
+        }
+        // Приоритет 3 config.properties
         return INSTANCE.properties.getProperty(key);
     }
 

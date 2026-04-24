@@ -15,8 +15,8 @@ public class SelenideThreadLocalConfigExtension implements BeforeEachCallback {
     public void beforeEach(ExtensionContext context) {
         // Настройка для текущего потока
         Configuration.remote = Config.getProperty("remote");
-        Configuration.baseUrl = Config.getProperty("baseUrl");
-        Configuration.browserSize = Config.getProperty("browserSize");
+        Configuration.baseUrl = Config.getProperty("base.ui.url");
+        Configuration.browserSize = Config.getProperty("browser.size");
         Configuration.browser = Config.getProperty("browser");
 
         ChromeOptions chromeOptions = getChromeOptions();

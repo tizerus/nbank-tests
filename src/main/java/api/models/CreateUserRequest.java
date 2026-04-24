@@ -24,8 +24,8 @@ public class CreateUserRequest extends BaseModel {
 
     public static CreateUserRequest getAdmin() {
         return CreateUserRequest.builder()
-                .username(Config.getProperty("adminName"))
-                .password(Config.getProperty("adminPassword"))
+                .username(Config.getProperty("admin.name"))
+                .password(Config.getProperty("admin.password"))
                 .build();
     }
 

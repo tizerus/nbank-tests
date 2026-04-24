@@ -33,7 +33,7 @@ public class RequestSpecs {
                 .setContentType(ContentType.JSON)
                 .setAccept(ContentType.JSON)
                 .addFilters(List.of(new RequestLoggingFilter(), new ResponseLoggingFilter()))
-                .setBaseUri(Config.getProperty("server") + Config.getProperty("apiVersion"));
+                .setBaseUri(Config.getProperty("base.api.url") + Config.getProperty("api.version"));
     }
 
     public static RequestSpecification unAuthSpec() {
