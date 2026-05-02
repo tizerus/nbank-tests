@@ -19,7 +19,7 @@ public class BaseUiTest extends ApiBaseTest {
 
     @BeforeEach
     public void selenideSetup() {
-        Configuration.remote = Config.getProperty("remote");
+        //Configuration.remote = Config.getProperty("remote");
         Configuration.baseUrl = Config.getProperty("baseUrl");
         //Configuration.baseUrl = "http://172.30.192.1:3000"; warsaw
         Configuration.browserSize = Config.getProperty("browserSize");

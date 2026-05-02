@@ -12,11 +12,13 @@ import api.requests.skeleton.interfaces.CrudEndpointInterface;
 import java.util.Arrays;
 import java.util.List;
 
-public class ValidatableCrudRequester<T extends BaseModel> extends HttpRequest implements CrudEndpointInterface, GetAllEndpointInterface {
+public class ValidatableCrudRequester<T extends BaseModel> extends HttpRequest
+        implements CrudEndpointInterface, GetAllEndpointInterface {
 
     private CrudRequester crudRequester;
 
-    public ValidatableCrudRequester(RequestSpecification requestSpecification, Endpoint endpoint, ResponseSpecification responseSpecification) {
+    public ValidatableCrudRequester(RequestSpecification requestSpecification, Endpoint endpoint,
+            ResponseSpecification responseSpecification) {
         super(requestSpecification, endpoint, responseSpecification);
         this.crudRequester = new CrudRequester(requestSpecification, endpoint, responseSpecification);
     }

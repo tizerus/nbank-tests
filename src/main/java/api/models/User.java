@@ -34,6 +34,16 @@ public class User {
                 .toList();
     }
 
+    public String getProfileName() {
+        return new ValidatableCrudRequester<Profile>(
+                RequestSpecs.authAsUser(getUserName(), getPassword()),
+                Endpoint.PROFILE,
+                ResponseSpecs.requestReturnsOk()
+        )
+                .get()
+                .getName();
+    }
+
     public float getBalance(String accName) {
         return new ValidatableCrudRequester<Profile>(
                 RequestSpecs.authAsUser(getUserName(), getPassword()),

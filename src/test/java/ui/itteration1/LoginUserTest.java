@@ -15,7 +15,7 @@ import static com.codeborne.selenide.Condition.visible;
 public class LoginUserTest extends BaseUiTest {
 
     @Test
-    @Browsers(values = {"firefox"})
+    @Browsers(values = {"chrome"})
     public void adminCanLoginWithCorrectDataTest() {
         CreateUserRequest admin = CreateUserRequest.getAdmin();
 
