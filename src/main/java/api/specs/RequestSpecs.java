@@ -16,18 +16,24 @@ import java.util.Map;
 
 public class RequestSpecs {
 
-    private static Map<String, String> authHeaderMap = new HashMap<>(
+    /*private static Map<String, String> authHeaderMap = new HashMap<>(
             Map.of("admin", "Basic YWRtaW46YWRtaW4=")
-    );
+    );*/
+    private static final ThreadLocal<Map<String, String>> authHeaderMap =
+            ThreadLocal.withInitial(() -> new HashMap<>(Map.of("admin", "Basic YWRtaW46YWRtaW4=")));
 
     private RequestSpecs() {}
+
+    private static Map<String, String> getAuthHeaderMap() {
+        return authHeaderMap.get();
+    }
 
     private static RequestSpecBuilder defaultRequestSpecBuilder() {
         return new RequestSpecBuilder()
                 .setContentType(ContentType.JSON)
                 .setAccept(ContentType.JSON)
                 .addFilters(List.of(new RequestLoggingFilter(), new ResponseLoggingFilter()))
-                .setBaseUri(Config.getProperty("server") + Config.getProperty("apiVersion"));
+                .setBaseUri(Config.getProperty("base.api.url") + Config.getProperty("api.version"));
     }
 
     public static RequestSpecification unAuthSpec() {
@@ -36,7 +42,7 @@ public class RequestSpecs {
 
     public static RequestSpecification adminSpec() {
         return defaultRequestSpecBuilder()
-                .addHeader("Authorization",authHeaderMap.get("admin"))
+                .addHeader("Authorization", getAuthHeaderMap().get("admin"))
                 .build();
     }
 
@@ -48,7 +54,7 @@ public class RequestSpecs {
 
     public static String getUserAuthHeader(String username, String password) {
         String auth;
-        if (!authHeaderMap.containsKey(username)) {
+        if (!getAuthHeaderMap().containsKey(username)) {
             auth = new CrudRequester(
                     RequestSpecs.unAuthSpec(),
                     Endpoint.LOGIN,
@@ -57,9 +63,9 @@ public class RequestSpecs {
                     .post(LoginUserRequest.builder().username(username).password(password).build())
                     .extract()
                     .header("Authorization");
-            authHeaderMap.put(username, auth);
+            getAuthHeaderMap().put(username, auth);
         } else {
-            auth = authHeaderMap.get(username);
+            auth = getAuthHeaderMap().get(username);
         }
 
         return auth;

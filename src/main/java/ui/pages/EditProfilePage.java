@@ -1,6 +1,7 @@
 package ui.pages;
 
 import com.codeborne.selenide.Selectors;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import lombok.Getter;
 
@@ -20,6 +21,8 @@ public class EditProfilePage extends BasePage<EditProfilePage> {
     }
 
     public EditProfilePage editProfileName(String newName) {
+        Selenide.sleep(300);
+        nameInput.shouldBe(visible).click();
         nameInput.shouldBe(visible).sendKeys(newName);
         saveChangesButton.shouldBe(visible).click();
         return this;

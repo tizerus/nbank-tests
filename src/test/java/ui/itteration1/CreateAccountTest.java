@@ -1,5 +1,6 @@
 package ui.itteration1;
 
+import api.models.CreateUserRequest;
 import api.models.GetCustomerAccountsResponse;
 import common.annotations.UserSession;
 import common.storage.SessionStorage;
@@ -17,12 +18,13 @@ public class CreateAccountTest extends BaseUiTest {
     @Test
     @UserSession
     public void userCanCreateAccountTest() {
-        BasePage.authAsUser(SessionStorage.getUser(1));
+        CreateUserRequest userRequest = SessionStorage.getUser(1);
 
+        BasePage.authAsUser(userRequest);
         new UserDashboard().open()
                 .createUserAccount();
 
-        List<GetCustomerAccountsResponse> existingUserAccounts = SessionStorage.getUserSteps(1).getAllAccounts();
+        List<GetCustomerAccountsResponse> existingUserAccounts = SessionStorage.getUserSteps(userRequest).getAllAccounts();
         Assertions.assertThat(existingUserAccounts).hasSize(1);
         GetCustomerAccountsResponse createdUserAcc = existingUserAccounts.get(0);
         Assertions.assertThat(createdUserAcc.getBalance()).isZero();
