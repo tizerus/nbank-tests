@@ -98,36 +98,6 @@ public class UserDepositTest extends BaseUiTest {
         depositPage.checkAlertMsgAndAccept(BankAlert.ENTER_VALID_AMOUNT);
     }
 
-    /*
-    All actions perform only with web, without API
-     */
-/*    @Test
-    @Browsers(values = {"chrome"})
-    public void userCanDepositValidAmountOnlyWebTest() {
-        int accIndex = 1;
-
-        User user = AdminSteps.createUserAndAcc(1);
-        BasePage.authAsUser(user);
-        new UserDashboard().open()
-                .createUserAccount()
-                .checkAlertMsgAndAccept(BankAlert.ACCOUNT_NUMBER_CREATED)
-                .getDepositMoneyButton().shouldBe(visible)
-                .click();
-        DepositPage depositPage = new DepositPage();
-        float amount = RandomData.generateFloatInclusive(0.01F, 5000.00F);
-        String accNum = user.getAccountsNumbers().get(0);
-        depositPage
-                .deposit(accIndex, String.valueOf(amount))
-                .checkAlertMsgAndAccept(String.format(BankAlert.DEPOSIT_SUCCESS_MSG.getMsg(), amount, accNum));
-        Selenide.refresh();
-
-        String actualAcc = depositPage.open().selectAccount(accIndex).getAccountSelector().getSelectedOption().getText();
-        String formattedAmount = String.format("%.2f", amount).replace(',', '.');
-        String expectedAcc = String.format("%s (Balance: $%s)", accNum, formattedAmount);
-        // checking value in the account dropdown menu
-        Assertions.assertThat(actualAcc).isEqualTo(expectedAcc);
-    }*/
-
     @MethodSource("invalidFloatAmountData")
     @ParameterizedTest
     @UserSession
