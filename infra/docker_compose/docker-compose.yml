@@ -8,9 +8,8 @@ services:
 
   frontend:
     image: nobugsme/nbank-ui:latest
-    # не открваем порт наружу, а даем доступ контеинерам сети
-    expose:
-      - "80"
+    ports:
+      - "3000:3000"
     depends_on:
       - backend
     networks:

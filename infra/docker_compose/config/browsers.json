@@ -1,0 +1,32 @@
+{
+    "firefox": {
+        "default": "89.0",
+        "versions": {
+            "89.0": {
+                "image": "selenoid/firefox:89.0",
+                "port": "4444",
+                "path": "/wd/hub"
+            }
+        }
+    },
+    "chrome": {
+        "default": "128.0",
+        "versions": {
+            "128.0": {
+                "image": "selenoid/chrome:128.0",
+                "port": "4444",
+                "path": "/"
+            }
+        }
+    },
+    "opera": {
+        "default": "76.0",
+        "versions": {
+            "76.0": {
+                "image": "selenoid/opera:76.0",
+                "port": "4444",
+                "path": "/"
+            }
+        }
+    }
+}
