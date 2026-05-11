@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import ui.BaseUiTest;
 import ui.pages.AdminPanel;
 import ui.pages.BankAlert;
+import utils.WaitUtils;
 
 public class CreateUserTest extends BaseUiTest {
 
@@ -18,11 +19,17 @@ public class CreateUserTest extends BaseUiTest {
     @AdminSession
     public void adminCanCreateUserTest() {
         CreateUserRequest userRequest = RandomModelGenerator.generate(CreateUserRequest.class);
-        boolean match = new AdminPanel().open().createUser(userRequest)
-                .checkAlertMsgAndAccept(BankAlert.USER_CREATED_SUCCESSFULLY)
-                .getAllUsers().stream()
-                .anyMatch(userBage -> userBage.getUsername().equals(userRequest.getUsername()));
-        Assertions.assertThat(match)
+
+        var adminPanel = new AdminPanel().open().createUser(userRequest)
+                .checkAlertMsgAndAccept(BankAlert.USER_CREATED_SUCCESSFULLY);
+
+        Boolean userExists = WaitUtils.getDefaultAwait()
+                .alias("Ожидание появления пользователя в списке")
+                .until(() -> adminPanel.getAllUsers().stream()
+                                .anyMatch(userBage -> userBage.getUsername().equals(userRequest.getUsername())),
+                        exists -> exists);
+
+        Assertions.assertThat(userExists)
                 .withFailMessage("Пользователь с именем %s не наиден", userRequest.getUsername())
                 .isTrue();
 
