@@ -34,7 +34,6 @@ jobs:
         run: |
           pwd
           cd ./infra/docker_compose
-          ls
           chmod +x ./restart_docker_compose.sh
           ./restart_docker_compose.sh
 
@@ -57,45 +56,14 @@ jobs:
           docker exec docker_compose-nginx-1 curl -v http://frontend:3000 || echo "Cannot reach frontend"
           docker exec docker_compose-nginx-1 curl -v http://backend:4111 || echo "Cannot reach backend"
 
-      - name: Check network connectivity
-        run: |
-          echo "=== Check Docker network ==="
-          docker network ls
-          docker network inspect nbank-network
-    
-          echo "=== Test connectivity from Selenoid to nginx ==="
-          docker exec docker_compose-selenoid-1 curl -v http://docker_compose-nginx-1:80 || echo "Cannot reach nginx from selenoid"
-          docker exec docker_compose-selenoid-1 curl -v http://nginx:80 || echo "Cannot reach nginx by service name"
-    
-          echo "=== Test connectivity from Selenoid to host ==="
-          docker exec docker_compose-selenoid-1 curl -v http://host.docker.internal:80 || echo "host.docker.internal not available"
-          docker exec docker_compose-selenoid-1 curl -v http://172.17.0.1:80 || echo "Gateway IP not available"
-
-      - name: Debug container internals
-        run: |
-          echo "=== Check what's running inside backend container ==="
-          docker exec docker_compose-backend-1 ps aux
-          docker exec docker_compose-backend-1 netstat -tulpn 2>/dev/null || echo "netstat not available"
-    
-          echo "=== Test backend inside container ==="
-          docker exec docker_compose-backend-1 wget -qO- http://localhost:4111 2>&1 || echo "Cannot connect to backend inside container"
-    
-          echo "=== Check what's running inside frontend container ==="
-          docker exec docker_compose-frontend-1 ps aux
-          docker exec docker_compose-frontend-1 netstat -tulpn 2>/dev/null || echo "netstat not available"
-    
-          echo "=== Test frontend inside container ==="
-          docker exec docker_compose-frontend-1 wget -qO- http://localhost:3000 2>&1 || echo "Cannot connect to frontend inside container"
-
       - name: Run Api tests
         run: mvn clean test -q -P api
         env:
           BASE_API_URL: "http://localhost:4111"
-          REMOTE: "http://localhost:4444/wd/hub"
 
       - name: Run UI tests
         run: mvn clean test -q -P ui
         env:
-          BASE_UI_URL: "http://localhost:80"
+          BASE_UI_URL: "http://nginx:80"
           BASE_API_URL: "http://localhost:4111"
-          REMOTE: "http://localhost:4444/wd/hub"
+          REMOTE: "http://selenoid:4444/wd/hub"
