@@ -71,6 +71,22 @@ jobs:
           docker exec docker_compose-selenoid-1 curl -v http://host.docker.internal:80 || echo "host.docker.internal not available"
           docker exec docker_compose-selenoid-1 curl -v http://172.17.0.1:80 || echo "Gateway IP not available"
 
+      - name: Debug container internals
+        run: |
+          echo "=== Check what's running inside backend container ==="
+          docker exec docker_compose-backend-1 ps aux
+          docker exec docker_compose-backend-1 netstat -tulpn 2>/dev/null || echo "netstat not available"
+    
+          echo "=== Test backend inside container ==="
+          docker exec docker_compose-backend-1 wget -qO- http://localhost:4111 2>&1 || echo "Cannot connect to backend inside container"
+    
+          echo "=== Check what's running inside frontend container ==="
+          docker exec docker_compose-frontend-1 ps aux
+          docker exec docker_compose-frontend-1 netstat -tulpn 2>/dev/null || echo "netstat not available"
+    
+          echo "=== Test frontend inside container ==="
+          docker exec docker_compose-frontend-1 wget -qO- http://localhost:3000 2>&1 || echo "Cannot connect to frontend inside container"
+
       - name: Run Api tests
         run: mvn clean test -q -P api
         env:
