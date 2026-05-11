@@ -1,0 +1,40 @@
+name: Run tests
+
+#trigger
+on: [push, workflow_dispatch]
+
+jobs:
+  run-tests:
+    name: Setup services (review apps) and run tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository # copy repossitory files into agent runner
+        uses: actions/checkout@v4
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: "coretto"
+          java-version:  "21"
+
+      - name: Setup Maven 3.9.11
+        uses: stCarolas/setup-maven@v4.5
+        with:
+          maven-version: 3.9.11
+
+      - name: Cache maven repo
+        uses: actions/cache@v4
+        with:
+          path: ~/m2/repository
+          key:  ${{runner.os}}-maven-{{hashFiles('**.pom.xml')}}
+          restore-keys: |
+            ${{runner.os}}-maven-
+
+      - name: Setup services
+        run: infra/docker_compose/restart_docker_compose.sh
+
+      - name: Run Api tests
+        run: mvn clean test -q -P api
+
+      - name: Run UI tests
+        run: mvn clean test -q -P ui
