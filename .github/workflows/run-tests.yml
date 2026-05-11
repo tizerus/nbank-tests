@@ -32,9 +32,11 @@ jobs:
 
       - name: Setup services
         run: |
-          cd infra/docker_compose
-          chmod +x infra/docker_compose/restart_docker_compose.sh
-          infra/docker_compose/restart_docker_compose.sh
+          pwd
+          cd ./infra/docker_compose
+          ls
+          chmod +x ./restart_docker_compose.sh
+          ./restart_docker_compose.sh
 
       - name: Run Api tests
         run: mvn clean test -q -P api
