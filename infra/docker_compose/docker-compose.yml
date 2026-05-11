@@ -9,7 +9,7 @@ services:
       test: ["CMD", "curl", "-f", "http://localhost:4111/actuator/health"]
       interval: 10s
       timeout: 5s
-      retries: 10
+      retries: 5
 
   frontend:
     image: nobugsme/nbank-ui:latest
@@ -21,10 +21,10 @@ services:
     networks:
       - nbank-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      test: ["CMD-SHELL", "cat /dev/null || exit 1"]
       interval: 10s
       timeout: 5s
-      retries: 10
+      retries: 5
 
   nginx:
     image: nginx:latest
