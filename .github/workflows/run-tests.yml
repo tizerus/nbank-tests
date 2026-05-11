@@ -32,6 +32,7 @@ jobs:
 
       - name: Setup services
         run: |
+          cd infra/docker_compose
           chmod +x infra/docker_compose/restart_docker_compose.sh
           infra/docker_compose/restart_docker_compose.sh
 
