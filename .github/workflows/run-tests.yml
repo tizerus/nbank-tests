@@ -42,11 +42,11 @@ jobs:
         run: mvn clean test -q -P api
         env:
           BASE_API_URL: "http://localhost:4111"
-          REMOTE_URL: "http://localhost:4444/wd/hub"
+          REMOTE: "http://localhost:4444/wd/hub"
 
       - name: Run UI tests
         run: mvn clean test -q -P ui
         env:
           BASE_UI_URL: "http://localhost:3000"
           BASE_API_URL: "http://localhost:4111"
-          REMOTE_URL: "http://localhost:4444/wd/hub"
+          REMOTE: "http://localhost:4444/wd/hub"
