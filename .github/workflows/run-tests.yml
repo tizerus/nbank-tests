@@ -42,16 +42,34 @@ jobs:
         run: |
           echo "=== Check running containers ==="
           docker ps
-    
+
           echo "=== Check nginx logs ==="
-          docker logs nginx --tail 50
-    
+          docker logs docker_compose-nginx-1 --tail 50
+
           echo "=== Test nginx directly ==="
           curl -v http://localhost:80
           curl -v http://localhost:80/api/v1/  # если есть API endpoint
-    
+
           echo "=== Check nginx config ==="
-          docker exec nginx cat /etc/nginx/nginx.conf
+          docker exec docker_compose-nginx-1 cat /etc/nginx/nginx.conf
+
+          echo "=== Check that frontend is reachable from nginx ==="
+          docker exec docker_compose-nginx-1 curl -v http://frontend:3000 || echo "Cannot reach frontend"
+          docker exec docker_compose-nginx-1 curl -v http://backend:4111 || echo "Cannot reach backend"
+
+      - name: Check network connectivity
+        run: |
+          echo "=== Check Docker network ==="
+          docker network ls
+          docker network inspect nbank-network
+    
+          echo "=== Test connectivity from Selenoid to nginx ==="
+          docker exec docker_compose-selenoid-1 curl -v http://docker_compose-nginx-1:80 || echo "Cannot reach nginx from selenoid"
+          docker exec docker_compose-selenoid-1 curl -v http://nginx:80 || echo "Cannot reach nginx by service name"
+    
+          echo "=== Test connectivity from Selenoid to host ==="
+          docker exec docker_compose-selenoid-1 curl -v http://host.docker.internal:80 || echo "host.docker.internal not available"
+          docker exec docker_compose-selenoid-1 curl -v http://172.17.0.1:80 || echo "Gateway IP not available"
 
       - name: Run Api tests
         run: mvn clean test -q -P api
