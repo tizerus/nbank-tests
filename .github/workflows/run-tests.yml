@@ -1,7 +1,7 @@
 name: Run tests
 
 #trigger
-on: [push, workflow_dispatch]
+on: [ push, workflow_dispatch ]
 
 jobs:
   run-tests:
@@ -15,7 +15,7 @@ jobs:
         uses: actions/setup-java@v5.2.0
         with:
           distribution: "corretto"
-          java-version:  "21"
+          java-version: "21"
 
       - name: Setup Maven 3.9.11
         uses: stCarolas/setup-maven@v5.1
@@ -26,7 +26,7 @@ jobs:
         uses: actions/cache@v5.0.5
         with:
           path: ~/m2/repository
-          key:  ${{runner.os}}-maven-${{hashFiles('**.pom.xml')}}
+          key: ${{runner.os}}-maven-${{hashFiles('**.pom.xml')}}
           restore-keys: |
             ${{runner.os}}-maven-
 
@@ -37,6 +37,21 @@ jobs:
           ls
           chmod +x ./restart_docker_compose.sh
           ./restart_docker_compose.sh
+
+      - name: Check nginx
+        run: |
+          echo "=== Check running containers ==="
+          docker ps
+    
+          echo "=== Check nginx logs ==="
+          docker logs nginx --tail 50
+    
+          echo "=== Test nginx directly ==="
+          curl -v http://localhost:80
+          curl -v http://localhost:80/api/v1/  # если есть API endpoint
+    
+          echo "=== Check nginx config ==="
+          docker exec nginx cat /etc/nginx/nginx.conf
 
       - name: Run Api tests
         run: mvn clean test -q -P api
