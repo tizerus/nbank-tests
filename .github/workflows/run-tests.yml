@@ -18,12 +18,12 @@ jobs:
           java-version:  "21"
 
       - name: Setup Maven 3.9.11
-        uses: stCarolas/setup-maven@v4.5
+        uses: stCarolas/setup-maven@v5.1
         with:
           maven-version: 3.9.11
 
       - name: Cache maven repo
-        uses: actions/cache@v4
+        uses: actions/cache@v5.0.5
         with:
           path: ~/m2/repository
           key:  ${{runner.os}}-maven-{{hashFiles('**.pom.xml')}}
@@ -31,7 +31,9 @@ jobs:
             ${{runner.os}}-maven-
 
       - name: Setup services
-        run: infra/docker_compose/restart_docker_compose.sh
+        run: |
+          chmod +x infra/docker_compose/restart_docker_compose.sh
+          infra/docker_compose/restart_docker_compose.sh
 
       - name: Run Api tests
         run: mvn clean test -q -P api
