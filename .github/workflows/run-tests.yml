@@ -47,6 +47,6 @@ jobs:
       - name: Run UI tests
         run: mvn clean test -q -P ui
         env:
-          BASE_UI_URL: "http://localhost:3000"
+          BASE_UI_URL: "http://localhost:80"
           BASE_API_URL: "http://localhost:4111"
           REMOTE: "http://localhost:4444/wd/hub"
