@@ -1,7 +1,20 @@
 name: Run tests
 
 #trigger
-on: [ push, workflow_dispatch ]
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'src/**'
+  pull_request:
+    branches:
+      - main
+      - master
+    paths:
+      - 'src/**'
+  workflow_dispatch:
 
 jobs:
   run-tests:
@@ -76,8 +89,24 @@ jobs:
           BASE_API_URL: "http://localhost:4111"
 
       - name: Run UI tests
-        run: mvn clean test -q -P ui
+        run: mvn clean test -q -P ui -DskipCheckstyle=true
         env:
           BASE_UI_URL: "http://nginx:80"
           BASE_API_URL: "http://localhost:4111"
           REMOTE: "http://localhost:4444/wd/hub"
+
+      - name: Build Docker image and push to docker hub
+        if: success()
+        run: |
+          echo "Building Docker image..."
+          
+          docker build -t nbank_tests:latest .
+          echo "✅ Docker image built successfully"
+          
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_LOGIN }}" --password-stdin
+          COMMIT_HASH=$(git rev-parse --short HEAD)
+          docker tag nbank_tests:latest ${{ secrets.DOCKERHUB_LOGIN }}/nbank_tests_repo:$COMMIT_HASH
+          docker push ${{ secrets.DOCKERHUB_LOGIN }}/nbank_tests_repo:$COMMIT_HASH
+          
+          docker logout
+          echo "✅ Docker image pushed successfully to Docker Hub"

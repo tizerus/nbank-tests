@@ -17,6 +17,9 @@
         <junit.version>6.0.3</junit.version>
         <lombok.version>1.18.42</lombok.version>
         <awaitility.version>4.3.0</awaitility.version>
+        <checkstyle.version>13.4.2</checkstyle.version>
+        <skipCheckstyle>false</skipCheckstyle>
+        <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
         <checkstyle.config.location>checkstyle.xml</checkstyle.config.location>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -119,6 +122,35 @@
                     <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
                     <outputDirectory>${project.build.directory}/site</outputDirectory>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven-checkstyle-plugin.version}</version>
+                <configuration>
+                    <!-- Путь к вашему файлу конфигурации Checkstyle -->
+                    <configLocation>${checkstyle.config.location}</configLocation>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                    <skip>${skipCheckstyle}</skip>
+                    <linkXRef>false</linkXRef>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>${checkstyle.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
