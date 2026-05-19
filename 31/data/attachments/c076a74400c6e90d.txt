@@ -1,0 +1,4 @@
+[2026-05-19T21:02:13.190Z] [WARNING] Unable to evaluate script: unexpected alert open: {Alert text : ✅ New Account Created! Account Number: ACC60}
+
+
+[2026-05-19T21:02:13.285Z] [WARNING] Unable to evaluate script: unexpected alert open: {Alert text : ✅ New Account Created! Account Number: ACC60}
