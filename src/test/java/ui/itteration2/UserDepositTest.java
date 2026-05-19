@@ -6,10 +6,12 @@ import api.requests.steps.AdminSteps;
 import com.codeborne.selenide.Condition;
 import common.annotations.Browsers;
 import common.annotations.UserSession;
+import common.extension.ScreenshotOnFailureExtension;
 import common.storage.SessionStorage;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -22,7 +24,7 @@ import ui.pages.UserDashboard;
 import java.util.stream.Stream;
 
 import static com.codeborne.selenide.Condition.visible;
-
+@ExtendWith(ScreenshotOnFailureExtension.class)
 public class UserDepositTest extends BaseUiTest {
 
     public static Stream<Arguments> invalidFloatAmountData() {

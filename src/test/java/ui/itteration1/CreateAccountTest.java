@@ -3,16 +3,18 @@ package ui.itteration1;
 import api.models.CreateUserRequest;
 import api.models.GetCustomerAccountsResponse;
 import common.annotations.UserSession;
+import common.extension.ScreenshotOnFailureExtension;
 import common.storage.SessionStorage;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import ui.BaseUiTest;
 import ui.pages.BankAlert;
 import ui.pages.BasePage;
 import ui.pages.UserDashboard;
 
 import java.util.List;
-
+@ExtendWith(ScreenshotOnFailureExtension.class)
 public class CreateAccountTest extends BaseUiTest {
 
     @Test

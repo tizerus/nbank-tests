@@ -4,7 +4,9 @@ import api.models.User;
 import api.requests.steps.AdminSteps;
 import com.codeborne.selenide.Selenide;
 import common.annotations.Browsers;
+import common.extension.ScreenshotOnFailureExtension;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -14,7 +16,7 @@ import ui.pages.BasePage;
 import ui.pages.EditProfilePage;
 
 import java.util.stream.Stream;
-
+@ExtendWith(ScreenshotOnFailureExtension.class)
 public class EditProfileTest extends BaseUiTest {
 
     public static Stream<Arguments> invalidUserName() {
