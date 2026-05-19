@@ -2,9 +2,11 @@ package common.extension;
 
 import api.config.Config;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import io.qameta.allure.selenide.LogType;
+import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -13,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 
-public class SelenideThreadLocalConfigExtension implements BeforeEachCallback {
+public class SelenideThreadLocalConfigExtension implements BeforeEachCallback, AfterEachCallback {
 
     @Override
     public void beforeEach(ExtensionContext context) {
@@ -40,6 +42,11 @@ public class SelenideThreadLocalConfigExtension implements BeforeEachCallback {
         chromeOptions.setCapability("selenoid:options", selenoidOptions);
 
         Configuration.browserCapabilities = chromeOptions;
+    }
+
+    @Override
+    public void afterEach(ExtensionContext context) throws Exception {
+        Selenide.closeWebDriver();
     }
 
     private ChromeOptions getChromeOptions() {
