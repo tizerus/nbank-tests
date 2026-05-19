@@ -44,7 +44,7 @@ public class SelenideThreadLocalConfigExtension implements BeforeEachCallback {
     private ChromeOptions getChromeOptions() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--max_old_space_size=512");
-        options.addArguments("--headless=new");
+        //options.addArguments("--headless=new");
         options.addArguments("--disable-dev-shm-usage");
         return options;
     }
