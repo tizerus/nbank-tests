@@ -96,6 +96,7 @@ jobs:
         if: always()
         run: |
           chmod +x .swagger-coverage-commandline/bin/swagger-coverage-commandline
+          curl -v http://localhost:4111/api/v1/api-docs
 
           .swagger-coverage-commandline/bin/swagger-coverage-commandline \
             -s http://localhost:4111/api/v1/api-docs \
