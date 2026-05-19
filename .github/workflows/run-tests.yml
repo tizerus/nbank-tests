@@ -97,12 +97,9 @@ jobs:
         run: |
           chmod +x .swagger-coverage-commandline/bin/swagger-coverage-commandline
 
-          BASIC_AUTH=$(echo -n "${{ secrets.API_LOGIN }}:${{ secrets.API_PASSWORD }}" | base64)
-
           .swagger-coverage-commandline/bin/swagger-coverage-commandline \
             -s http://localhost:4111/api/v1/api-docs \
-            -i swagger-coverage-output \
-            -H "Authorization: Basic $BASIC_AUTH"
+            -i swagger-coverage-output
 
        # 1. Загружаем историю предыдущих отчётов из ветки gh-pages
       - name: Get previous Allure report history
