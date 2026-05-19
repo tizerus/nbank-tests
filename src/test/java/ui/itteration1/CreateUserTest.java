@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import ui.BaseUiTest;
 import ui.pages.AdminPanel;
 import ui.pages.BankAlert;
-import utils.WaitUtils;
 
 public class CreateUserTest extends BaseUiTest {
 

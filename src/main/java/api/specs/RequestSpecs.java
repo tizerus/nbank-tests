@@ -4,6 +4,8 @@ import api.config.Config;
 import api.models.LoginUserRequest;
 import api.requests.skeleton.Endpoint;
 import api.requests.skeleton.requests.CrudRequester;
+import com.github.viclovsky.swagger.coverage.SwaggerCoverageRestAssured;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -32,7 +34,8 @@ public class RequestSpecs {
         return new RequestSpecBuilder()
                 .setContentType(ContentType.JSON)
                 .setAccept(ContentType.JSON)
-                .addFilters(List.of(new RequestLoggingFilter(), new ResponseLoggingFilter()))
+                .addFilters(List.of(new RequestLoggingFilter(), new ResponseLoggingFilter(),
+                        new AllureRestAssured(), new SwaggerCoverageRestAssured()))
                 .setBaseUri(Config.getProperty("base.api.url") + Config.getProperty("api.version"));
     }
 

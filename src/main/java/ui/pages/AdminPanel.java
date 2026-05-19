@@ -6,6 +6,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import common.utils.StepLogger;
 import lombok.Getter;
 import ui.elements.UserBage;
 
@@ -36,9 +37,11 @@ public class AdminPanel extends BasePage<AdminPanel> {
 
     public List<UserBage> getAllUsers() {
         Selenide.refresh();
-        ElementsCollection collection = $(Selectors.byText("All Users")).parent().findAll("li");
-        collection.shouldHave(CollectionCondition.sizeGreaterThan(0));
-        return generatePageElement(collection, UserBage::new);
+        return StepLogger.log("Get all users from Dashboard", () -> {
+            ElementsCollection collection = $(Selectors.byText("All Users")).parent().findAll("li");
+            collection.shouldHave(CollectionCondition.sizeGreaterThan(0));
+            return generatePageElement(collection, UserBage::new);
+        });
     }
 
 }
