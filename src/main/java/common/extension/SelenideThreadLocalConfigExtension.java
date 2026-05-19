@@ -1,17 +1,13 @@
 package common.extension;
 
 import api.config.Config;
-import com.codeborne.selenide.logevents.SelenideLogger;
-import io.qameta.allure.selenide.AllureSelenide;
-import io.qameta.allure.selenide.LogType;
+import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
-import com.codeborne.selenide.Configuration;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
 
 public class SelenideThreadLocalConfigExtension implements BeforeEachCallback {
 
@@ -22,7 +18,7 @@ public class SelenideThreadLocalConfigExtension implements BeforeEachCallback {
         Configuration.baseUrl = Config.getProperty("base.ui.url");
         Configuration.browserSize = Config.getProperty("browser.size");
         Configuration.browser = Config.getProperty("browser");
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
+        /*SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
                 .screenshots(true)
                 .savePageSource(true)
                 .includeSelenideSteps(true)
@@ -30,7 +26,7 @@ public class SelenideThreadLocalConfigExtension implements BeforeEachCallback {
                 .enableLogs(LogType.PERFORMANCE, Level.INFO)
                 .enableLogs(LogType.SERVER, Level.INFO)
                 .enableLogs(LogType.CLIENT, Level.INFO)
-                .enableLogs(LogType.DRIVER, Level.INFO));
+                .enableLogs(LogType.DRIVER, Level.INFO));*/
 
         ChromeOptions chromeOptions = getChromeOptions();
         Map<String, Object> selenoidOptions = new HashMap<>();
