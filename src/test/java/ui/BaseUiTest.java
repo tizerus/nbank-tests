@@ -13,13 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
         BrowserMatchExtension.class})
 public class BaseUiTest extends ApiBaseTest {
 
-    /*@AfterEach
-    public void tearDown() {
-        try {
-            Selenide.closeWebDriver();
-        } catch (Exception e) {
-            System.err.println("Error closing WebDriver: " + e.getMessage());
-        }
-    }*/
+
 
 }
