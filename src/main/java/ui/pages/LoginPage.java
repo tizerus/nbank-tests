@@ -12,7 +12,7 @@ public class LoginPage extends BasePage<LoginPage> {
 
     @Override
     public String url() {
-        return "/login";
+        return "";
     }
 
     public <T extends BasePage<T>> T login(String userName, String password, Class<T> expectedPage) {
