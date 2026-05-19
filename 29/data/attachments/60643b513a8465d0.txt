@@ -1,0 +1,29 @@
+[2026-05-19T19:32:27.264Z] [SEVERE] http://nginx/static/js/main.95516938.js 1:306091 "❌ Failed to decode auth token:" TypeError: Cannot read properties of null (reading 'replace')
+    at http://nginx/static/js/main.95516938.js:2:305915
+    at Ui (http://nginx/static/js/main.95516938.js:2:84013)
+    at Es (http://nginx/static/js/main.95516938.js:2:99864)
+    at Ss (http://nginx/static/js/main.95516938.js:2:99748)
+    at Es (http://nginx/static/js/main.95516938.js:2:100546)
+    at Ss (http://nginx/static/js/main.95516938.js:2:99748)
+    at Es (http://nginx/static/js/main.95516938.js:2:99885)
+    at tc (http://nginx/static/js/main.95516938.js:2:126623)
+    at http://nginx/static/js/main.95516938.js:2:124002
+    at MessagePort.R (http://nginx/static/js/main.95516938.js:2:182589)
+
+[2026-05-19T19:32:27.264Z] [WARNING] http://nginx/static/js/main.95516938.js 1:306221 "⚠️ No auth token found, skipping profile request."
+
+[2026-05-19T19:32:30.193Z] [SEVERE] http://nginx/api/v1/customer/profile - Failed to load resource: the server responded with a status of 403 ()
+
+[2026-05-19T19:32:30.197Z] [SEVERE] http://nginx/static/js/main.95516938.js 1:306606 "❌ Failed to fetch user profile:" Object
+
+[2026-05-19T19:32:30.781Z] [SEVERE] http://nginx/api/v1/admin/users - Failed to load resource: the server responded with a status of 400 ()
+
+[2026-05-19T19:32:30.781Z] [SEVERE] http://nginx/static/js/main.95516938.js 1:264244 "❌ Failed to create user:" Object
+
+[2026-05-19T19:32:32.403Z] [SEVERE] http://nginx/api/v1/admin/users - Failed to load resource: the server responded with a status of 500 ()
+
+[2026-05-19T19:32:32.407Z] [SEVERE] http://nginx/static/js/main.95516938.js 1:263430 "Server responded with an error:" 500 Object
+
+[2026-05-19T19:32:32.762Z] [SEVERE] http://nginx/api/v1/customer/profile - Failed to load resource: the server responded with a status of 403 ()
+
+[2026-05-19T19:32:32.762Z] [SEVERE] http://nginx/static/js/main.95516938.js 1:306606 "❌ Failed to fetch user profile:" Object
