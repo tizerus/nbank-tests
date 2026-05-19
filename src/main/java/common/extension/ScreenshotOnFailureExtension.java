@@ -14,6 +14,7 @@ public class ScreenshotOnFailureExtension implements TestWatcher {
 
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
+        Allure.step("Entering Screenshot On Failure Extension");
         if (WebDriverRunner.hasWebDriverStarted() && WebDriverRunner.getWebDriver() != null) {
             try {
                 byte[] screenshot = Selenide.screenshot(OutputType.BYTES);

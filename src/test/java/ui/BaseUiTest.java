@@ -11,9 +11,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith({SelenideThreadLocalConfigExtension.class,
-        ScreenshotOnFailureExtension.class,
         AdminSessionExtension.class,
         UserSessionExtension.class,
+        ScreenshotOnFailureExtension.class,
         BrowserMatchExtension.class})
 public class BaseUiTest extends ApiBaseTest {
 
