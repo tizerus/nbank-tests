@@ -1,0 +1,109 @@
+name: Run tests
+
+#trigger
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - main
+      - master
+    paths:
+      - 'src/**'
+  workflow_dispatch:
+
+jobs:
+  run-tests:
+    name: Setup services (review apps) and run tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository # copy repossitory files into agent runner
+        uses: actions/checkout@v6.0.2
+
+      - name: Setup JDK
+        uses: actions/setup-java@v5.2.0
+        with:
+          distribution: "corretto"
+          java-version: "21"
+
+      - name: Setup Maven 3.9.11
+        uses: stCarolas/setup-maven@v5.1
+        with:
+          maven-version: 3.9.11
+
+      - name: Cache maven repo
+        uses: actions/cache@v5.0.5
+        with:
+          path: ~/m2/repository
+          key: ${{runner.os}}-maven-${{hashFiles('**.pom.xml')}}
+          restore-keys: |
+            ${{runner.os}}-maven-
+
+      - name: Setup services
+        run: |
+          pwd
+          cd ./infra/docker_compose
+          chmod +x ./restart_docker_compose.sh
+          ./restart_docker_compose.sh
+
+      - name: Check nginx
+        run: |
+          echo "=== Check running containers ==="
+          docker ps
+
+          echo "=== Check nginx logs ==="
+          docker logs docker_compose-nginx-1 --tail 50
+
+          echo "=== Test nginx directly ==="
+          curl -v http://localhost:80
+          curl -v http://localhost:80/api/v1/  # если есть API endpoint
+
+          echo "=== Check nginx config ==="
+          docker exec docker_compose-nginx-1 cat /etc/nginx/nginx.conf
+
+          echo "=== Check that frontend is reachable from nginx ==="
+          docker exec docker_compose-nginx-1 curl -v http://frontend:3000 || echo "Cannot reach frontend"
+          docker exec docker_compose-nginx-1 curl -v http://backend:4111 || echo "Cannot reach backend"
+      - name: Debug Selenoid after startup
+        run: |
+          echo "=== Selenoid status API ==="
+          curl -s http://localhost:4444/status | jq '.' || curl -s http://localhost:4444/status
+    
+          echo -e "\n=== Selenoid logs ==="
+          docker logs docker_compose-selenoid-1 --tail 50
+    
+          echo -e "\n=== Check if browsers.json is mounted correctly ==="
+          docker exec docker_compose-selenoid-1 ls -la /etc/selenoid/
+          docker exec docker_compose-selenoid-1 cat /etc/selenoid/browsers.json 2>/dev/null || echo "browsers.json not found"
+    
+          echo -e "\n=== Check available browser versions ==="
+          curl -s http://localhost:4444/status | grep -o '"chrome":{[^}]*}' || echo "Chrome not found in status"
+
+      - name: Run Api tests
+        run: mvn clean test -q -P api
+        env:
+          BASE_API_URL: "http://localhost:4111"
+
+      - name: Run UI tests
+        run: mvn clean test -q -P ui -DskipCheckstyle=true
+        env:
+          BASE_UI_URL: "http://nginx:80"
+          BASE_API_URL: "http://localhost:4111"
+          REMOTE: "http://localhost:4444/wd/hub"
+
+      - name: Build Docker image and push to docker hub
+        if: success()
+        run: |
+          echo "Building Docker image..."
+          
+          docker build -t nbank_tests:latest .
+          echo "✅ Docker image built successfully"
+          
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_LOGIN }}" --password-stdin
+          COMMIT_HASH=$(git rev-parse --short HEAD)
+          docker tag nbank_tests:latest ${{ secrets.DOCKERHUB_LOGIN }}/nbank_tests_repo:$COMMIT_HASH
+          docker push ${{ secrets.DOCKERHUB_LOGIN }}/nbank_tests_repo:$COMMIT_HASH
+          
+          docker logout
+          echo "✅ Docker image pushed successfully to Docker Hub"
