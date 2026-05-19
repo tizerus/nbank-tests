@@ -94,9 +94,11 @@ jobs:
 
       - name: Run swagger coverage
         if: always()
-        run: .swagger-coverage-commandline/bin/swagger-coverage-commandline \
-              -s http://localhost:4111/swagger-ui/index.html \
-              -i target/swagger-coverage/output
+        run: |
+          chmod +x .swagger-coverage-commandline/bin/swagger-coverage-commandline
+          .swagger-coverage-commandline/bin/swagger-coverage-commandline \
+            -s http://localhost:4111/swagger-ui/index.html \
+            -i swagger-coverage-output
 
        # 1. Загружаем историю предыдущих отчётов из ветки gh-pages
       - name: Get previous Allure report history
