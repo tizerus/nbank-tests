@@ -20,6 +20,9 @@ import api.specs.ResponseSpecs;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.containsString;
+
 public class CreateUserTest extends ApiBaseTest {
 
     @Test
@@ -84,6 +87,48 @@ public class CreateUserTest extends ApiBaseTest {
                 .getAll();
 
         Assertions.assertThat(createUserResponse).isNotIn(userAfterDelete);
+    }
+
+    @Test
+    public void adminCanNotDeleteNonExistentUserTest() {
+        long nonExistentId = 999999L;
+
+        new CrudRequester(
+                RequestSpecs.adminSpec(),
+                Endpoint.ADMIN_USER,
+                ResponseSpecs.requestReturns404())
+                .delete(nonExistentId, null);
+    }
+
+    @Test
+    public void unAuthUserCanNotDeleteUserTest() {
+        CreateUserRequest createUserRequest = RandomModelGenerator.generate(CreateUserRequest.class);
+
+        CreateUserResponse createUserResponse = new ValidatableCrudRequester<CreateUserResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.ADMIN_USER,
+                ResponseSpecs.entityCreated())
+                .post(createUserRequest);
+
+        new CrudRequester(
+                RequestSpecs.unAuthSpec(),
+                Endpoint.ADMIN_USER,
+                ResponseSpecs.requestReturns401())
+                .delete(createUserResponse.getId(), null);
+    }
+
+    @Test
+    public void adminCanNotDeleteUserWithInvalidIdFormatTest() {
+        // Используем прямой вызов с некорректным ID
+        String invalidUrl = Endpoint.ADMIN_USER.getUrl().replace("{id}", "invalid");
+
+        given()
+                .spec(RequestSpecs.adminSpec())
+                .delete(invalidUrl)
+                .then()
+                .assertThat()
+                .statusCode(405)
+                .body("message", containsString("Invalid ID format"));
     }
 
 }
