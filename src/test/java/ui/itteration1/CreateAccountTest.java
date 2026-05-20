@@ -2,7 +2,6 @@ package ui.itteration1;
 
 import api.generators.RandomModelGenerator;
 import api.models.CreateUserRequest;
-import api.models.CreateUserResponse;
 import api.models.GetCustomerAccountsResponse;
 import api.requests.skeleton.Endpoint;
 import api.requests.skeleton.requests.ValidatableCrudRequester;
@@ -28,29 +27,28 @@ public class CreateAccountTest extends BaseUiTest {
     public void userCanCreateAccountTest() {
         CreateUserRequest userRequest = RandomModelGenerator.generate(CreateUserRequest.class);
 
-        CreateUserResponse user = new ValidatableCrudRequester<CreateUserResponse>(
+        /*CreateUserResponse user = new ValidatableCrudRequester<CreateUserResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.ADMIN_USER,
                 ResponseSpecs.entityCreated())
-                .post(userRequest);
+                .post(userRequest);*/
 
         BasePage.authAsUser(userRequest);
         new UserDashboard().open()
                 .createUserAccount();
 
-        int accCount = new ValidatableCrudRequester<GetCustomerAccountsResponse>(
+        List<GetCustomerAccountsResponse> accCount = new ValidatableCrudRequester<GetCustomerAccountsResponse>(
                 RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
                 Endpoint.CUSTOMER_ACCOUNTS,
                 ResponseSpecs.requestReturnsOk())
-                .getAll(GetCustomerAccountsResponse[].class)
-                .size();
+                .getAll(GetCustomerAccountsResponse[].class);
 
-        List<GetCustomerAccountsResponse> existingUserAccounts = user.getAccounts();
-        Assertions.assertThat(existingUserAccounts).hasSize(accCount);
-        GetCustomerAccountsResponse createdUserAcc = existingUserAccounts.get(0);
-        Assertions.assertThat(createdUserAcc.getBalance()).isZero();
+        //List<GetCustomerAccountsResponse> existingUserAccounts = user.getAccounts();
+        Assertions.assertThat(accCount).hasSize(1);
+        Assertions.assertThat(accCount.get(0).getBalance()).isZero();
 
-        new UserDashboard().checkAlertMsgAndAccept(BankAlert.ACCOUNT_NUMBER_CREATED.getMsg() + createdUserAcc.getAccountNumber());
+        new UserDashboard().checkAlertMsgAndAccept(BankAlert.ACCOUNT_NUMBER_CREATED.getMsg()
+                + accCount.get(0).getAccountNumber());
     }
 
 }
