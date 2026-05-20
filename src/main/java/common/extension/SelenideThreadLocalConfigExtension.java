@@ -83,11 +83,9 @@ public class SelenideThreadLocalConfigExtension implements BeforeEachCallback, A
             driverThreadLocal.remove();
         }
 
-        // 3. Альтернативно, если используете Selenide
         try {
             Selenide.closeWebDriver();
         } catch (Exception e) {
-            // Логируем, но не бросаем
             System.err.println("Error closing WebDriver: " + e.getMessage());
         }
     }
