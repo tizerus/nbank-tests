@@ -32,6 +32,10 @@ jobs:
         with:
           maven-version: 3.9.11
 
+      - name: Install jq
+        if: always()
+        run: sudo apt-get install -y jq
+
       - name: Cache maven repo
         uses: actions/cache@v5.0.5
         with:
@@ -101,7 +105,15 @@ jobs:
             -s http://localhost:4111/v3/api-docs \
             -i swagger-coverage-output
 
-       # 1. Загружаем историю предыдущих отчётов из ветки gh-pages
+      - name: Get coverage value
+        id: get-coverage
+        if: always()
+        run: |
+          COVERAGE=$(jq -r '.coverage // 0' swagger-coverage-output/coverage.json)
+          COVERAGE=$(printf "%.0f" "$COVERAGE")
+          echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
+          echo "API Coverage: $COVERAGE%"
+
       - name: Get previous Allure report history
         uses: actions/checkout@v6.0.2
         if: always()
@@ -147,3 +159,85 @@ jobs:
           
           docker logout
           echo "✅ Docker image pushed successfully to Docker Hub"
+
+  quality-gate:
+    name: API Coverage Quality Gate
+    needs: run-tests  # Важно! Этот job зависит от run-tests
+    runs-on: ubuntu-latest
+    if: always()  # Запускается даже если предыдущий job failed (чтобы всегда видеть coverage)
+
+    steps:
+      - name: Download coverage report
+        uses: actions/download-artifact@v4
+        with:
+          name: swagger-coverage-data
+          path: ./coverage-report
+
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: Check coverage threshold
+        id: check-coverage
+        run: |
+          COVERAGE_FILE="./coverage-report/swagger-coverage-output/coverage.json"
+          THRESHOLD=50
+
+          echo "=== API Coverage Quality Gate ==="
+          echo "Threshold: ${THRESHOLD}%"
+
+          if [ ! -f "$COVERAGE_FILE" ]; then
+            echo "❌ ERROR: Coverage file not found!"
+            echo "Looking for: $COVERAGE_FILE"
+            echo "Available files:"
+            ls -la ./coverage-report/ || echo "No coverage report found"
+            exit 1
+          fi
+
+          COVERAGE=$(jq -r '.coverage // 0' "$COVERAGE_FILE")
+          COVERAGE=$(printf "%.0f" "$COVERAGE")
+
+          echo "Current API Coverage: ${COVERAGE}%"
+
+          # Детальный отчет
+          echo ""
+          echo "📊 Endpoint Coverage Summary:"
+          TOTAL_ENDPOINTS=$(jq '.endpoints | length' "$COVERAGE_FILE")
+          COVERED_ENDPOINTS=$(jq '[.endpoints[] | select(.coverage >= 100)] | length' "$COVERAGE_FILE")
+          PARTIAL_ENDPOINTS=$(jq '[.endpoints[] | select(.coverage > 0 and .coverage < 100)] | length' "$COVERAGE_FILE")
+          UNCOVERED_ENDPOINTS=$(jq '[.endpoints[] | select(.coverage == 0)] | length' "$COVERAGE_FILE")
+
+          echo "   Total endpoints: $TOTAL_ENDPOINTS"
+          echo "   ✅ Fully covered: $COVERED_ENDPOINTS"
+          echo "   ⚠️  Partial coverage: $PARTIAL_ENDPOINTS"
+          echo "   ❌ Uncovered: $UNCOVERED_ENDPOINTS"
+
+          if [ $UNCOVERED_ENDPOINTS -gt 0 ]; then
+            echo ""
+            echo "⚠️  Uncovered endpoints:"
+            jq -r '.endpoints[] | select(.coverage == 0) | "   - \(.method) \(.path)"' "$COVERAGE_FILE" | head -10
+          fi
+
+          # Сохраняем результат для badge
+          echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
+
+          # Проверка порога
+          echo ""
+          if [ "$COVERAGE" -lt "$THRESHOLD" ]; then
+            echo "❌ QUALITY GATE FAILED!"
+            echo "   Coverage ${COVERAGE}% is below threshold ${THRESHOLD}%"
+            exit 1
+          else
+            echo "✅ QUALITY GATE PASSED!"
+            echo "   Coverage ${COVERAGE}% meets threshold ${THRESHOLD}%"
+          fi
+
+      - name: Create coverage badge
+        if: success()
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_SECRET }}
+          gistID: ${{ secrets.GIST_ID }}
+          filename: api-coverage.json
+          label: "API Coverage"
+          message: "${{ steps.check-coverage.outputs.coverage }}%"
+          color: "${{ steps.check-coverage.outputs.coverage >= 50 && 'green' || 'red' }}"
