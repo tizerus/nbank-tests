@@ -13,13 +13,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import ui.BaseUiTest;
 import ui.pages.AdminPanel;
 import ui.pages.BankAlert;
+import ui.pages.BasePage;
+
 @ExtendWith(ScreenshotOnFailureExtension.class)
 public class CreateUserTest extends BaseUiTest {
 
     @Test
-    @AdminSession
+    //@AdminSession
     public void adminCanCreateUserTest() {
-        CreateUserRequest userRequest = RandomModelGenerator.generate(CreateUserRequest.class);
+        CreateUserRequest userRequest = CreateUserRequest.getAdmin();
+        BasePage.authAsUser(userRequest);
 
         boolean userExists = new AdminPanel().open().createUser(userRequest)
                 .checkAlertMsgAndAccept(BankAlert.USER_CREATED_SUCCESSFULLY)
