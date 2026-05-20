@@ -7,6 +7,7 @@ import api.requests.skeleton.requests.ValidatableCrudRequester;
 import api.requests.steps.AdminSteps;
 import api.specs.RequestSpecs;
 import api.specs.ResponseSpecs;
+import common.utils.WaitUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ui.BaseUiTest;
@@ -26,12 +27,14 @@ public class CreateAccountTest extends BaseUiTest {
         new UserDashboard().open()
                 .createUserAccount();
 
-        List<GetCustomerAccountsResponse> accCount = new ValidatableCrudRequester<GetCustomerAccountsResponse>(
-                RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
-                Endpoint.CUSTOMER_ACCOUNTS,
-                ResponseSpecs.requestReturnsOk())
-                .getAll(GetCustomerAccountsResponse[].class);
-
+        List<GetCustomerAccountsResponse> accCount = WaitUtils.waitForResult(
+                () -> new ValidatableCrudRequester<GetCustomerAccountsResponse>(
+                        RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+                        Endpoint.CUSTOMER_ACCOUNTS,
+                        ResponseSpecs.requestReturnsOk())
+                        .getAll(GetCustomerAccountsResponse[].class),
+                accounts -> !accounts.isEmpty() && accounts.get(0).getBalance() == 0
+                                                                            );
         Assertions.assertThat(accCount).hasSize(1);
         Assertions.assertThat(accCount.get(0).getBalance()).isZero();
 

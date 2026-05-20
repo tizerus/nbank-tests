@@ -40,4 +40,14 @@ public class WaitUtils {
         getDefaultAwait()
                 .until(condition);
     }
+
+    public static <T> T waitForResult(Callable<T> supplier, Predicate<T> condition, Duration timeout) {
+        return getAwaitWithTimeout(timeout)
+                .until(supplier, condition);
+    }
+
+    public static <T> T waitForResult(Callable<T> supplier, Predicate<T> condition) {
+        return getDefaultAwait()
+                .until(supplier, condition);
+    }
 }
