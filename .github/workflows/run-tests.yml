@@ -99,11 +99,15 @@ jobs:
       - name: Run swagger coverage
         if: always()
         run: |
-          chmod +x .swagger-coverage-commandline/bin/swagger-coverage-commandline
-
+          mkdir -p swagger-coverage-output
           .swagger-coverage-commandline/bin/swagger-coverage-commandline \
             -s http://localhost:4111/v3/api-docs \
             -i swagger-coverage-output
+
+          # Копируем результат в ожидаемое место
+          if [ -f "swagger-coverage-results.json" ]; then
+            cp swagger-coverage-results.json swagger-coverage-output/coverage.json
+          fi
 
       - name: Get coverage value
         id: get-coverage
@@ -113,6 +117,14 @@ jobs:
           COVERAGE=$(printf "%.0f" "$COVERAGE")
           echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
           echo "API Coverage: $COVERAGE%"
+
+      - name: Upload swagger coverage artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: swagger-coverage-data
+          path: swagger-coverage-output/
+          retention-days: 7
 
       - name: Get previous Allure report history
         uses: actions/checkout@v6.0.2
