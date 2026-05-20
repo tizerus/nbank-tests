@@ -1,12 +1,17 @@
 package ui.itteration1;
 
-import api.models.CreateAccountResponse;
+import api.generators.RandomModelGenerator;
+import api.models.CreateUserRequest;
+import api.models.CreateUserResponse;
 import api.models.GetCustomerAccountsResponse;
-import api.models.User;
+import api.requests.skeleton.Endpoint;
+import api.requests.skeleton.requests.ValidatableCrudRequester;
+import api.requests.steps.AdminSteps;
+import api.specs.RequestSpecs;
+import api.specs.ResponseSpecs;
 import common.annotations.UserSession;
 import common.extension.ScreenshotOnFailureExtension;
 import common.storage.SessionStorage;
-import common.storage.UserPool;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,29 +21,30 @@ import ui.pages.BasePage;
 import ui.pages.UserDashboard;
 
 import java.util.List;
-
 @ExtendWith(ScreenshotOnFailureExtension.class)
 public class CreateAccountTest extends BaseUiTest {
 
     @Test
     @UserSession
-    public void userCanCreateAccountTest() throws InterruptedException {
-        int numberOfAccs = 0;
-        UserPool pool = UserPool.getOrCreate("default", 10, numberOfAccs);
-        User user = pool.acquireUser();
+    public void userCanCreateAccountTest() {
+        CreateUserRequest userRequest = RandomModelGenerator.generate(CreateUserRequest.class);
 
-        BasePage.authAsUser(user);
+        new ValidatableCrudRequester<CreateUserResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.ADMIN_USER,
+                ResponseSpecs.entityCreated())
+                .post(userRequest);
+
+        BasePage.authAsUser(userRequest);
         new UserDashboard().open()
                 .createUserAccount();
 
-        List<CreateAccountResponse> existingUserAccounts = user.getAccountResponse();
-        Assertions.assertThat(existingUserAccounts).hasSize(numberOfAccs);
+        List<GetCustomerAccountsResponse> existingUserAccounts = SessionStorage.getUserSteps(userRequest).getAllAccounts();
+        Assertions.assertThat(existingUserAccounts).hasSize(1);
+        GetCustomerAccountsResponse createdUserAcc = existingUserAccounts.get(0);
+        Assertions.assertThat(createdUserAcc.getBalance()).isZero();
 
-        Assertions.assertThat(user.getAccountResponse().get(0).getBalance()).isZero();
-
-        new UserDashboard().checkAlertMsgAndAccept(BankAlert.ACCOUNT_NUMBER_CREATED.getMsg() +
-                (user.getAccountResponse().get(0).getAccountNumber()));
-        pool.releaseUser(user);
+        new UserDashboard().checkAlertMsgAndAccept(BankAlert.ACCOUNT_NUMBER_CREATED.getMsg() + createdUserAcc.getAccountNumber());
     }
 
 }
