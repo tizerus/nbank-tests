@@ -2,9 +2,11 @@ package ui.itteration1;
 
 import api.generators.RandomModelGenerator;
 import api.models.CreateUserRequest;
+import api.models.CreateUserResponse;
 import api.models.GetCustomerAccountsResponse;
 import api.requests.skeleton.Endpoint;
 import api.requests.skeleton.requests.ValidatableCrudRequester;
+import api.requests.steps.AdminSteps;
 import api.specs.RequestSpecs;
 import api.specs.ResponseSpecs;
 import common.annotations.UserSession;
@@ -23,9 +25,11 @@ import java.util.List;
 public class CreateAccountTest extends BaseUiTest {
 
     @Test
-    @UserSession
+    //@UserSession
     public void userCanCreateAccountTest() {
-        CreateUserRequest userRequest = RandomModelGenerator.generate(CreateUserRequest.class);
+        //CreateUserRequest userRequest = RandomModelGenerator.generate(CreateUserRequest.class);
+        CreateUserRequest userRequest = AdminSteps.createUserResponse();
+
 
         /*CreateUserResponse user = new ValidatableCrudRequester<CreateUserResponse>(
                 RequestSpecs.adminSpec(),
