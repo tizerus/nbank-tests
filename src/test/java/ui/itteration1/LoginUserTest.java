@@ -1,12 +1,10 @@
 package ui.itteration1;
 
-import com.codeborne.selenide.Condition;
 import api.models.CreateUserRequest;
-import common.annotations.Browsers;
-import common.extension.ScreenshotOnFailureExtension;
-import org.junit.jupiter.api.Test;
 import api.requests.steps.AdminSteps;
-import org.junit.jupiter.api.extension.ExtendWith;
+import com.codeborne.selenide.Condition;
+import common.annotations.Browsers;
+import org.junit.jupiter.api.Test;
 import ui.BaseUiTest;
 import ui.pages.AdminPanel;
 import ui.pages.LoginPage;

@@ -1,16 +1,13 @@
 package ui.itteration1;
 
 import api.comparison.ModelAssertions;
-import api.generators.RandomData;
 import api.generators.RandomModelGenerator;
 import api.models.CreateUserRequest;
 import api.models.CreateUserResponse;
 import api.requests.steps.AdminSteps;
 import common.annotations.AdminSession;
-import common.extension.ScreenshotOnFailureExtension;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import ui.BaseUiTest;
 import ui.pages.AdminPanel;
 import ui.pages.BankAlert;
