@@ -29,7 +29,7 @@ public class CreateAccountTest extends BaseUiTest {
     public void userCanCreateAccountTest() {
         CreateUserRequest userRequest = RandomModelGenerator.generate(CreateUserRequest.class);
 
-        new ValidatableCrudRequester<CreateUserResponse>(
+        CreateUserResponse user = new ValidatableCrudRequester<CreateUserResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.ADMIN_USER,
                 ResponseSpecs.entityCreated())
@@ -39,7 +39,7 @@ public class CreateAccountTest extends BaseUiTest {
         new UserDashboard().open()
                 .createUserAccount();
 
-        List<GetCustomerAccountsResponse> existingUserAccounts = SessionStorage.getUserSteps(userRequest).getAllAccounts();
+        List<GetCustomerAccountsResponse> existingUserAccounts = user.getAccounts();
         Assertions.assertThat(existingUserAccounts).hasSize(1);
         GetCustomerAccountsResponse createdUserAcc = existingUserAccounts.get(0);
         Assertions.assertThat(createdUserAcc.getBalance()).isZero();
