@@ -6,12 +6,10 @@ import api.models.CreateUserResponse;
 import api.models.GetCustomerAccountsResponse;
 import api.requests.skeleton.Endpoint;
 import api.requests.skeleton.requests.ValidatableCrudRequester;
-import api.requests.steps.AdminSteps;
 import api.specs.RequestSpecs;
 import api.specs.ResponseSpecs;
 import common.annotations.UserSession;
 import common.extension.ScreenshotOnFailureExtension;
-import common.storage.SessionStorage;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,6 +19,7 @@ import ui.pages.BasePage;
 import ui.pages.UserDashboard;
 
 import java.util.List;
+
 @ExtendWith(ScreenshotOnFailureExtension.class)
 public class CreateAccountTest extends BaseUiTest {
 
@@ -39,8 +38,15 @@ public class CreateAccountTest extends BaseUiTest {
         new UserDashboard().open()
                 .createUserAccount();
 
+        int accCount = new ValidatableCrudRequester<GetCustomerAccountsResponse>(
+                RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+                Endpoint.CUSTOMER_ACCOUNTS,
+                ResponseSpecs.requestReturnsOk())
+                .getAll(GetCustomerAccountsResponse[].class)
+                .size();
+
         List<GetCustomerAccountsResponse> existingUserAccounts = user.getAccounts();
-        Assertions.assertThat(existingUserAccounts).hasSize(1);
+        Assertions.assertThat(existingUserAccounts).hasSize(accCount);
         GetCustomerAccountsResponse createdUserAcc = existingUserAccounts.get(0);
         Assertions.assertThat(createdUserAcc.getBalance()).isZero();
 
