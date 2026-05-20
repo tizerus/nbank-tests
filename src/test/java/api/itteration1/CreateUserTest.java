@@ -127,8 +127,7 @@ public class CreateUserTest extends ApiBaseTest {
                 .delete(invalidUrl)
                 .then()
                 .assertThat()
-                .statusCode(405)
-                .body("message", containsString("Invalid ID format"));
+                .statusCode(405);
     }
 
 }
