@@ -1,6 +1,7 @@
 package ui.itteration1;
 
 import api.comparison.ModelAssertions;
+import api.generators.RandomData;
 import api.generators.RandomModelGenerator;
 import api.models.CreateUserRequest;
 import api.models.CreateUserResponse;
@@ -19,22 +20,22 @@ import ui.pages.BasePage;
 public class CreateUserTest extends BaseUiTest {
 
     @Test
-    //@AdminSession
     public void adminCanCreateUserTest() {
         CreateUserRequest userRequest = CreateUserRequest.getAdmin();
         BasePage.authAsUser(userRequest);
+        CreateUserRequest newUser = RandomModelGenerator.generate(CreateUserRequest.class);
 
-        boolean userExists = new AdminPanel().open().createUser(userRequest)
+        boolean userExists = new AdminPanel().open().createUser(newUser)
                 .checkAlertMsgAndAccept(BankAlert.USER_CREATED_SUCCESSFULLY)
                 .getAllUsers().stream()
-                .anyMatch(userBage -> userBage.getUsername().equals(userRequest.getUsername()));
+                .anyMatch(userBage -> userBage.getUsername().equals(newUser.getUsername()));
 
         Assertions.assertThat(userExists)
-                .withFailMessage("Пользователь с именем %s не наиден", userRequest.getUsername())
+                .withFailMessage("Пользователь с именем %s не наиден", newUser.getUsername())
                 .isTrue();
 
         CreateUserResponse createdUser = AdminSteps.getAllUsers().stream()
-                .filter(user -> user.getUsername().equals(userRequest.getUsername()))
+                .filter(user -> user.getUsername().equals(newUser.getUsername()))
                 .findFirst().get();
 
         ModelAssertions.assertThatModels(userRequest, createdUser);
