@@ -19,7 +19,6 @@ import ui.pages.UserDashboard;
 
 import java.util.List;
 
-@ExtendWith(ScreenshotOnFailureExtension.class)
 public class CreateAccountTest extends BaseUiTest {
 
     @Test

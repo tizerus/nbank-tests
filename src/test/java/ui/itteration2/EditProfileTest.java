@@ -16,7 +16,7 @@ import ui.pages.BasePage;
 import ui.pages.EditProfilePage;
 
 import java.util.stream.Stream;
-@ExtendWith(ScreenshotOnFailureExtension.class)
+
 public class EditProfileTest extends BaseUiTest {
 
     public static Stream<Arguments> invalidUserName() {

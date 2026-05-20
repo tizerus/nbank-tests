@@ -25,7 +25,7 @@ import ui.pages.UserDashboard;
 import java.util.stream.Stream;
 
 import static com.codeborne.selenide.Condition.visible;
-@ExtendWith(ScreenshotOnFailureExtension.class)
+
 public class UserTransactionTest extends BaseUiTest {
 
     public static Stream<Arguments> invalidTransferAmountData() {

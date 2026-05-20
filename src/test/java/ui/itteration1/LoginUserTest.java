@@ -13,7 +13,7 @@ import ui.pages.LoginPage;
 import ui.pages.UserDashboard;
 
 import static com.codeborne.selenide.Condition.visible;
-@ExtendWith(ScreenshotOnFailureExtension.class)
+
 public class LoginUserTest extends BaseUiTest {
 
     @Test

@@ -16,7 +16,6 @@ import ui.pages.AdminPanel;
 import ui.pages.BankAlert;
 import ui.pages.BasePage;
 
-@ExtendWith(ScreenshotOnFailureExtension.class)
 public class CreateUserTest extends BaseUiTest {
 
     @Test
