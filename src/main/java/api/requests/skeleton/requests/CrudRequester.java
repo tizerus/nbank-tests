@@ -87,7 +87,11 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface,
 
     @Override
     public Object delete(long id, BaseModel model) {
-        return null;
+        return given()
+                .spec(requestSpecification)
+                .delete(endpoint.getUrl() + "/" + id)
+                .then().assertThat()
+                .spec(responseSpecification);
     }
 
     @Override

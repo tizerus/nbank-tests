@@ -6,6 +6,7 @@ import api.generators.RandomModelGenerator;
 import api.models.CreateUserRequest;
 import api.models.CreateUserResponse;
 import api.models.UserRole;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -16,6 +17,7 @@ import api.requests.skeleton.requests.ValidatableCrudRequester;
 import api.specs.RequestSpecs;
 import api.specs.ResponseSpecs;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 public class CreateUserTest extends ApiBaseTest {
@@ -57,6 +59,31 @@ public class CreateUserTest extends ApiBaseTest {
                 ResponseSpecs.requestReturnsBadResponse(errorKey, error)
         )
                 .post(createUserRequest);
+    }
+
+    @Test
+    public void adminCanDeleteUserTest() {
+        CreateUserRequest createUserRequest = RandomModelGenerator.generate(CreateUserRequest.class);
+
+        CreateUserResponse createUserResponse = new ValidatableCrudRequester<CreateUserResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.ADMIN_USER,
+                ResponseSpecs.entityCreated())
+                .post(createUserRequest);
+
+        new CrudRequester(
+                RequestSpecs.adminSpec(),
+                Endpoint.ADMIN_USER,
+                ResponseSpecs.requestReturnsOk())
+                .delete(createUserResponse.getId(), null);
+
+        List<CreateUserResponse> userAfterDelete = new ValidatableCrudRequester<CreateUserResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.ADMIN_USER,
+                ResponseSpecs.requestReturnsOk())
+                .getAll();
+
+        Assertions.assertThat(createUserResponse).isNotIn(userAfterDelete);
     }
 
 }
