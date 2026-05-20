@@ -1,5 +1,6 @@
 package api.requests.skeleton;
 
+import api.config.Config;
 import api.models.CreateUserResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -66,5 +67,9 @@ public enum Endpoint {
     private final String url;
     private final Class<? extends BaseModel> requestModel;
     private final Class<? extends BaseModel> responseModel;
+
+    public String getUrl() {
+        return Config.getProperty("api.version") + url;
+    }
 
 }

@@ -41,8 +41,7 @@ public class SelenideThreadLocalConfigExtension implements BeforeEachCallback, A
             Configuration.browserCapabilities = getChromeOptions();
         }
 
-        // 3. Альтернативный подход: создаем свой WebDriver (более надежно)
-        // createAndSetWebDriver();
+        createAndSetWebDriver();
     }
 
     // Более надежный подход: полностью изолированный WebDriver
