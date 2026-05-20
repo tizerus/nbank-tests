@@ -99,21 +99,17 @@ jobs:
       - name: Run swagger coverage
         if: always()
         run: |
-          mkdir -p swagger-coverage-output
+          chmod +x .swagger-coverage-commandline/bin/swagger-coverage-commandline
+
           .swagger-coverage-commandline/bin/swagger-coverage-commandline \
             -s http://localhost:4111/v3/api-docs \
             -i swagger-coverage-output
-
-          # Копируем результат в ожидаемое место
-          if [ -f "swagger-coverage-results.json" ]; then
-            cp swagger-coverage-results.json swagger-coverage-output/coverage.json
-          fi
 
       - name: Get coverage value
         id: get-coverage
         if: always()
         run: |
-          COVERAGE=$(jq -r '.coverage // 0' swagger-coverage-output/coverage.json)
+          COVERAGE=$(jq -r '.coverage // 0' swagger-coverage-results.json)
           COVERAGE=$(printf "%.0f" "$COVERAGE")
           echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
           echo "API Coverage: $COVERAGE%"
