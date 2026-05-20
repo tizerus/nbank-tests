@@ -23,7 +23,7 @@ public class CreateAccountTest extends BaseUiTest {
     @Test
     @UserSession
     public void userCanCreateAccountTest() throws InterruptedException {
-        int numberOfAccs = 1;
+        int numberOfAccs = 0;
         UserPool pool = UserPool.getOrCreate("default", 10, numberOfAccs);
         User user = pool.acquireUser();
 
