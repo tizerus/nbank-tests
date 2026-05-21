@@ -6,6 +6,7 @@ import api.generators.RandomModelGenerator;
 import api.models.CreateUserRequest;
 import api.models.CreateUserResponse;
 import api.models.UserRole;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -16,7 +17,11 @@ import api.requests.skeleton.requests.ValidatableCrudRequester;
 import api.specs.RequestSpecs;
 import api.specs.ResponseSpecs;
 
+import java.util.List;
 import java.util.stream.Stream;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.containsString;
 
 public class CreateUserTest extends ApiBaseTest {
 
@@ -57,6 +62,72 @@ public class CreateUserTest extends ApiBaseTest {
                 ResponseSpecs.requestReturnsBadResponse(errorKey, error)
         )
                 .post(createUserRequest);
+    }
+
+    @Test
+    public void adminCanDeleteUserTest() {
+        CreateUserRequest createUserRequest = RandomModelGenerator.generate(CreateUserRequest.class);
+
+        CreateUserResponse createUserResponse = new ValidatableCrudRequester<CreateUserResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.ADMIN_USER,
+                ResponseSpecs.entityCreated())
+                .post(createUserRequest);
+
+        new CrudRequester(
+                RequestSpecs.adminSpec(),
+                Endpoint.ADMIN_USER,
+                ResponseSpecs.requestReturnsOk())
+                .delete(createUserResponse.getId(), null);
+
+        List<CreateUserResponse> userAfterDelete = new ValidatableCrudRequester<CreateUserResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.ADMIN_USER,
+                ResponseSpecs.requestReturnsOk())
+                .getAll();
+
+        Assertions.assertThat(createUserResponse).isNotIn(userAfterDelete);
+    }
+
+    @Test
+    public void adminCanNotDeleteNonExistentUserTest() {
+        long nonExistentId = 999999L;
+
+        new CrudRequester(
+                RequestSpecs.adminSpec(),
+                Endpoint.ADMIN_USER,
+                ResponseSpecs.requestReturns404())
+                .delete(nonExistentId, null);
+    }
+
+    @Test
+    public void unAuthUserCanNotDeleteUserTest() {
+        CreateUserRequest createUserRequest = RandomModelGenerator.generate(CreateUserRequest.class);
+
+        CreateUserResponse createUserResponse = new ValidatableCrudRequester<CreateUserResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.ADMIN_USER,
+                ResponseSpecs.entityCreated())
+                .post(createUserRequest);
+
+        new CrudRequester(
+                RequestSpecs.unAuthSpec(),
+                Endpoint.ADMIN_USER,
+                ResponseSpecs.requestReturns401())
+                .delete(createUserResponse.getId(), null);
+    }
+
+    @Test
+    public void adminCanNotDeleteUserWithInvalidIdFormatTest() {
+        // Используем прямой вызов с некорректным ID
+        String invalidUrl = Endpoint.ADMIN_USER.getUrl().replace("{id}", "invalid");
+
+        given()
+                .spec(RequestSpecs.adminSpec())
+                .delete(invalidUrl)
+                .then()
+                .assertThat()
+                .statusCode(405);
     }
 
 }

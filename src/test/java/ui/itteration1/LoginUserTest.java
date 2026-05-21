@@ -1,10 +1,10 @@
 package ui.itteration1;
 
-import com.codeborne.selenide.Condition;
 import api.models.CreateUserRequest;
+import api.requests.steps.AdminSteps;
+import com.codeborne.selenide.Condition;
 import common.annotations.Browsers;
 import org.junit.jupiter.api.Test;
-import api.requests.steps.AdminSteps;
 import ui.BaseUiTest;
 import ui.pages.AdminPanel;
 import ui.pages.LoginPage;

@@ -6,6 +6,7 @@ import api.ApiBaseTest;
 import api.models.DepositRequest;
 import api.models.DepositResponse;
 import api.models.User;
+import api.requests.skeleton.requests.ValidatableCrudRequester;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -108,6 +109,20 @@ public class UserDepositTest extends ApiBaseTest {
                         .id(1)
                         .balance(RandomData.generateFloatInclusive(0.01F, 5000))
                         .build());
+    }
+
+    @Test
+    public void wrongBodyDepositToAcc() {
+        User user = AdminSteps.createUserAndAcc(1);
+        DepositRequest depositRequest = DepositRequest.builder()
+                .balance(1)
+                .build();
+
+        new CrudRequester(
+                RequestSpecs.authAsUser(user.getUserName(), user.getPassword()),
+                Endpoint.DEPOSIT,
+                ResponseSpecs.requestReturns403())
+                .post(depositRequest);
     }
 
 }

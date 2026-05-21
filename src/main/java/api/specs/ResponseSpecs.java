@@ -54,4 +54,16 @@ public class ResponseSpecs {
                 .build();
     }
 
+    public static ResponseSpecification requestReturns404() {
+        return defaultResponseSpecBuilder()
+                .expectStatusCode(HttpStatus.SC_NOT_FOUND)
+                .build();
+    }
+
+    public static ResponseSpecification requestReturns400() {
+        return defaultResponseSpecBuilder()
+                .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
+                .build();
+    }
+
 }

@@ -7,6 +7,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import common.utils.StepLogger;
 import org.assertj.core.api.Assertions;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -30,6 +31,7 @@ public abstract class BasePage<T extends BasePage> {
     protected SelenideElement userNameText = $("span.user-name");
 
     public abstract String url();
+
     public T open() {
         return Selenide.open(url(), (Class<T>) this.getClass());
     }
@@ -54,21 +56,29 @@ public abstract class BasePage<T extends BasePage> {
     }
 
     public static void authAsUser(String user, String password) {
-        Selenide.open("/");
-        String authToken = RequestSpecs.getUserAuthHeader(user, password);
-        Selenide.executeJavaScript("localStorage.setItem('authToken', arguments[0]);", authToken);
+        StepLogger.log("Auth as user: " + user, () -> {
+            Selenide.open("/");
+            String authToken = RequestSpecs.getUserAuthHeader(user, password);
+            Selenide.executeJavaScript("localStorage.setItem('authToken', arguments[0]);", authToken);
+        });
     }
 
     public static void authAsUser(CreateUserRequest user) {
-        Selenide.open("/");
-        String authToken = RequestSpecs.getUserAuthHeader(user.getUsername(), user.getPassword());
-        Selenide.executeJavaScript("localStorage.setItem('authToken', arguments[0]);", authToken);
+        StepLogger.log("Auth as user: " + user.getUsername(), () -> {
+            Selenide.open("/");
+            String authToken = RequestSpecs.getUserAuthHeader(user.getUsername(), user.getPassword());
+            Selenide.executeJavaScript("localStorage.setItem('authToken', arguments[0]);", authToken);
+        });
+
     }
 
     public static void authAsUser(User user) {
-        Selenide.open("/");
-        String authToken = RequestSpecs.getUserAuthHeader(user.getUserName(), user.getPassword());
-        Selenide.executeJavaScript("localStorage.setItem('authToken', arguments[0]);", authToken);
+        StepLogger.log("Auth as user: " + user.getUserName(), () -> {
+            Selenide.open("/");
+            String authToken = RequestSpecs.getUserAuthHeader(user.getUserName(), user.getPassword());
+            Selenide.executeJavaScript("localStorage.setItem('authToken', arguments[0]);", authToken);
+        });
+
     }
 
     //ElementCollection -> List<BaseElement>

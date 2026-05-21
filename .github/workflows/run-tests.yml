@@ -32,6 +32,10 @@ jobs:
         with:
           maven-version: 3.9.11
 
+      - name: Install jq
+        if: always()
+        run: sudo apt-get install -y jq
+
       - name: Cache maven repo
         uses: actions/cache@v5.0.5
         with:
@@ -86,11 +90,116 @@ jobs:
           BASE_API_URL: "http://localhost:4111"
 
       - name: Run UI tests
-        run: mvn clean test -q -P ui -DskipCheckstyle=true
+        run: mvn test -q -P ui -DskipCheckstyle=true
         env:
           BASE_UI_URL: "http://nginx:80"
           BASE_API_URL: "http://localhost:4111"
           REMOTE: "http://localhost:4444/wd/hub"
+
+      - name: Run swagger coverage
+        if: always()
+        run: |
+          chmod +x .swagger-coverage-commandline/bin/swagger-coverage-commandline
+
+          .swagger-coverage-commandline/bin/swagger-coverage-commandline \
+            -s http://localhost:4111/v3/api-docs \
+            -i swagger-coverage-output
+
+      - name: Check API coverage threshold
+        id: check-coverage
+        run: |
+          COVERAGE_FILE="swagger-coverage-results.json"
+          THRESHOLD=50
+
+          if [ ! -f "$COVERAGE_FILE" ]; then
+            echo "❌ ERROR: Coverage file not found at $COVERAGE_FILE"
+            exit 1
+          fi
+
+          # Получаем данные о покрытии
+          TOTAL_ENDPOINTS=$(jq '.coverageOperationMap.counter.all' "$COVERAGE_FILE")
+          FULL=$(jq '.coverageOperationMap.counter.full' "$COVERAGE_FILE")
+          PARTY=$(jq '.coverageOperationMap.counter.party' "$COVERAGE_FILE")
+          EMPTY=$(jq '.coverageOperationMap.counter.empty' "$COVERAGE_FILE")
+
+          # Вычисляем процент покрытия: (full + party) / total * 100
+          COVERAGE=$(( (FULL + PARTY) * 100 / TOTAL_ENDPOINTS ))
+
+          echo "=========================================="
+          echo "📊 API Coverage Report"
+          echo "=========================================="
+          echo "Total endpoints: $TOTAL_ENDPOINTS"
+          echo "✅ Fully covered: $FULL"
+          echo "⚠️  Partially covered: $PARTY"
+          echo "❌ Uncovered: $EMPTY"
+          echo "------------------------------------------"
+          echo "🎯 Coverage: ${COVERAGE}%"
+          echo "🎯 Threshold: ${THRESHOLD}%"
+          echo "=========================================="
+
+          # Сохраняем результат для badge
+          echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
+
+          # Проверка порога
+          if [ "$COVERAGE" -lt "$THRESHOLD" ]; then
+            echo ""
+            echo "❌ QUALITY GATE FAILED!"
+            echo "   Coverage ${COVERAGE}% is below threshold ${THRESHOLD}%"
+
+            # Показываем непокрытые эндпоинты
+            echo ""
+            echo "📋 Uncovered endpoints (EMPTY):"
+            jq -r '.coverageOperationMap.empty[] | "   - \(.httpMethod) \(.path)"' "$COVERAGE_FILE" 2>/dev/null || echo "   None"
+
+            echo ""
+            echo "📋 Partially covered endpoints (PARTY):"
+            jq -r '.coverageOperationMap.party[] | "   - \(.httpMethod) \(.path)"' "$COVERAGE_FILE" 2>/dev/null || echo "   None"
+
+            exit 1
+          else
+            echo ""
+            echo "✅ QUALITY GATE PASSED!"
+            echo "   Coverage ${COVERAGE}% meets threshold ${THRESHOLD}%"
+            exit 0
+          fi
+
+      - name: Upload swagger coverage artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: swagger-coverage-data
+          path: swagger-coverage-output/
+          retention-days: 7
+
+      - name: Get previous Allure report history
+        uses: actions/checkout@v6.0.2
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+       # 2. Генерируем HTML-отчёт из результатов тестов (папка target/allure-results)
+      - name: Generate Allure Report
+        uses: simple-elf/allure-report-action@v1.13
+        if: always()
+        with:
+          gh_pages: gh-pages
+          allure_history: allure-history
+          allure_results: target/allure-results
+
+      - name: Generate swagger coverage report
+        if: always()
+        run:  sudo cp swagger-coverage-report.html allure-history/${{ github.run_number }}
+
+      # 3. Публикуем сгенерированный отчёт в ветку gh-pages
+      - name: Deploy Allure Report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4.1.0
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
 
       - name: Build Docker image and push to docker hub
         if: success()

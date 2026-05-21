@@ -25,7 +25,7 @@ public class EditProfileTest extends BaseUiTest {
 
     public static Stream<String> validUserNames() {
         return Stream.of(
-                "Johny Depp"
+                "Ivan Ivanou"
                 //"Carlos José"          //actual: Name must contain two words with letters only
                         );
     }

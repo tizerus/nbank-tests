@@ -1,4 +1,4 @@
-package utils;
+package common.utils;
 
 import org.awaitility.Awaitility;
 import org.awaitility.core.ConditionFactory;
@@ -39,5 +39,15 @@ public class WaitUtils {
     public static void waitForCondition(Callable<Boolean> condition) {
         getDefaultAwait()
                 .until(condition);
+    }
+
+    public static <T> T waitForResult(Callable<T> supplier, Predicate<T> condition, Duration timeout) {
+        return getAwaitWithTimeout(timeout)
+                .until(supplier, condition);
+    }
+
+    public static <T> T waitForResult(Callable<T> supplier, Predicate<T> condition) {
+        return getDefaultAwait()
+                .until(supplier, condition);
     }
 }
