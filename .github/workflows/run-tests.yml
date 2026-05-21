@@ -105,14 +105,63 @@ jobs:
             -s http://localhost:4111/v3/api-docs \
             -i swagger-coverage-output
 
-      - name: Get coverage value
-        id: get-coverage
-        if: always()
+      - name: Check API coverage threshold
+        id: check-coverage
         run: |
-          COVERAGE=$(jq -r '.coverage // 0' swagger-coverage-results.json)
-          COVERAGE=$(printf "%.0f" "$COVERAGE")
+          COVERAGE_FILE="swagger-coverage-results.json"
+          THRESHOLD=50
+
+          if [ ! -f "$COVERAGE_FILE" ]; then
+            echo "❌ ERROR: Coverage file not found at $COVERAGE_FILE"
+            exit 1
+          fi
+
+          # Получаем данные о покрытии
+          TOTAL_ENDPOINTS=$(jq '.coverageOperationMap.counter.all' "$COVERAGE_FILE")
+          FULL=$(jq '.coverageOperationMap.counter.full' "$COVERAGE_FILE")
+          PARTY=$(jq '.coverageOperationMap.counter.party' "$COVERAGE_FILE")
+          EMPTY=$(jq '.coverageOperationMap.counter.empty' "$COVERAGE_FILE")
+
+          # Вычисляем процент покрытия: (full + party) / total * 100
+          COVERAGE=$(( (FULL + PARTY) * 100 / TOTAL_ENDPOINTS ))
+
+          echo "=========================================="
+          echo "📊 API Coverage Report"
+          echo "=========================================="
+          echo "Total endpoints: $TOTAL_ENDPOINTS"
+          echo "✅ Fully covered: $FULL"
+          echo "⚠️  Partially covered: $PARTY"
+          echo "❌ Uncovered: $EMPTY"
+          echo "------------------------------------------"
+          echo "🎯 Coverage: ${COVERAGE}%"
+          echo "🎯 Threshold: ${THRESHOLD}%"
+          echo "=========================================="
+
+          # Сохраняем результат для badge
           echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
-          echo "API Coverage: $COVERAGE%"
+
+          # Проверка порога
+          if [ "$COVERAGE" -lt "$THRESHOLD" ]; then
+            echo ""
+            echo "❌ QUALITY GATE FAILED!"
+            echo "   Coverage ${COVERAGE}% is below threshold ${THRESHOLD}%"
+
+            # Показываем непокрытые эндпоинты
+            echo ""
+            echo "📋 Uncovered endpoints (EMPTY):"
+            jq -r '.coverageOperationMap.empty[] | "   - \(.httpMethod) \(.path)"' "$COVERAGE_FILE" 2>/dev/null || echo "   None"
+
+            echo ""
+            echo "📋 Partially covered endpoints (PARTY):"
+            jq -r '.coverageOperationMap.party[] | "   - \(.httpMethod) \(.path)"' "$COVERAGE_FILE" 2>/dev/null || echo "   None"
+
+            exit 1
+          else
+            echo ""
+            echo "✅ QUALITY GATE PASSED!"
+            echo "   Coverage ${COVERAGE}% meets threshold ${THRESHOLD}%"
+            exit 0
+          fi
 
       - name: Upload swagger coverage artifact
         if: always()
@@ -167,85 +216,3 @@ jobs:
           
           docker logout
           echo "✅ Docker image pushed successfully to Docker Hub"
-
-  quality-gate:
-    name: API Coverage Quality Gate
-    needs: run-tests  # Важно! Этот job зависит от run-tests
-    runs-on: ubuntu-latest
-    if: always()  # Запускается даже если предыдущий job failed (чтобы всегда видеть coverage)
-
-    steps:
-      - name: Download coverage report
-        uses: actions/download-artifact@v4
-        with:
-          name: swagger-coverage-data
-          path: ./coverage-report
-
-      - name: Install jq
-        run: sudo apt-get install -y jq
-
-      - name: Check coverage threshold
-        id: check-coverage
-        run: |
-          COVERAGE_FILE="./coverage-report/swagger-coverage-output/coverage.json"
-          THRESHOLD=50
-
-          echo "=== API Coverage Quality Gate ==="
-          echo "Threshold: ${THRESHOLD}%"
-
-          if [ ! -f "$COVERAGE_FILE" ]; then
-            echo "❌ ERROR: Coverage file not found!"
-            echo "Looking for: $COVERAGE_FILE"
-            echo "Available files:"
-            ls -la ./coverage-report/ || echo "No coverage report found"
-            exit 1
-          fi
-
-          COVERAGE=$(jq -r '.coverage // 0' "$COVERAGE_FILE")
-          COVERAGE=$(printf "%.0f" "$COVERAGE")
-
-          echo "Current API Coverage: ${COVERAGE}%"
-
-          # Детальный отчет
-          echo ""
-          echo "📊 Endpoint Coverage Summary:"
-          TOTAL_ENDPOINTS=$(jq '.endpoints | length' "$COVERAGE_FILE")
-          COVERED_ENDPOINTS=$(jq '[.endpoints[] | select(.coverage >= 100)] | length' "$COVERAGE_FILE")
-          PARTIAL_ENDPOINTS=$(jq '[.endpoints[] | select(.coverage > 0 and .coverage < 100)] | length' "$COVERAGE_FILE")
-          UNCOVERED_ENDPOINTS=$(jq '[.endpoints[] | select(.coverage == 0)] | length' "$COVERAGE_FILE")
-
-          echo "   Total endpoints: $TOTAL_ENDPOINTS"
-          echo "   ✅ Fully covered: $COVERED_ENDPOINTS"
-          echo "   ⚠️  Partial coverage: $PARTIAL_ENDPOINTS"
-          echo "   ❌ Uncovered: $UNCOVERED_ENDPOINTS"
-
-          if [ $UNCOVERED_ENDPOINTS -gt 0 ]; then
-            echo ""
-            echo "⚠️  Uncovered endpoints:"
-            jq -r '.endpoints[] | select(.coverage == 0) | "   - \(.method) \(.path)"' "$COVERAGE_FILE" | head -10
-          fi
-
-          # Сохраняем результат для badge
-          echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
-
-          # Проверка порога
-          echo ""
-          if [ "$COVERAGE" -lt "$THRESHOLD" ]; then
-            echo "❌ QUALITY GATE FAILED!"
-            echo "   Coverage ${COVERAGE}% is below threshold ${THRESHOLD}%"
-            exit 1
-          else
-            echo "✅ QUALITY GATE PASSED!"
-            echo "   Coverage ${COVERAGE}% meets threshold ${THRESHOLD}%"
-          fi
-
-      - name: Create coverage badge
-        if: success()
-        uses: schneegans/dynamic-badges-action@v1.7.0
-        with:
-          auth: ${{ secrets.GIST_SECRET }}
-          gistID: ${{ secrets.GIST_ID }}
-          filename: api-coverage.json
-          label: "API Coverage"
-          message: "${{ steps.check-coverage.outputs.coverage }}%"
-          color: "${{ steps.check-coverage.outputs.coverage >= 50 && 'green' || 'red' }}"
