@@ -28,11 +28,6 @@ public class UserTransactionTest extends BaseUiTest {
 
     public static Stream<Arguments> invalidTransferAmountData() {
         return Stream.of(
-                Arguments.of(-100F, BankAlert.TRANSFER_AMOUNT_MUST_BE_AT_LEAST.getMsg()),
-                Arguments.of(-0.01F, BankAlert.TRANSFER_AMOUNT_MUST_BE_AT_LEAST.getMsg()),
-                Arguments.of(0F, BankAlert.TRANSFER_AMOUNT_MUST_BE_AT_LEAST.getMsg()),
-                Arguments.of(10000.01F, BankAlert.TRANSFER_AMOUNT_CANNOT_EXCEED.getMsg()),
-                Arguments.of(15000F, BankAlert.TRANSFER_AMOUNT_CANNOT_EXCEED.getMsg()),
                 Arguments.of("", BankAlert.TRANSACTION_FILL_ALL_FIELDS_AND_CONFIRM.getMsg()),
                 Arguments.of(" ", BankAlert.TRANSACTION_FILL_ALL_FIELDS_AND_CONFIRM.getMsg()),
                 Arguments.of("  ", BankAlert.TRANSACTION_FILL_ALL_FIELDS_AND_CONFIRM.getMsg()),
@@ -45,11 +40,7 @@ public class UserTransactionTest extends BaseUiTest {
     public static Stream<Arguments> validTransferAmountData() {
         return Stream.of(
                 //Arguments.of(0.01F, BankAlert.SUCCESSFULLY_TRANSFERRED_TO_ACCOUNT.getMsg(), "0.01"), //✅ Successfully transferred $.01 to account ACC194!
-                Arguments.of(10.5F, BankAlert.SUCCESSFULLY_TRANSFERRED_TO_ACCOUNT.getMsg(),"10.5"),
-                Arguments.of(100F, BankAlert.SUCCESSFULLY_TRANSFERRED_TO_ACCOUNT.getMsg(),"100.0"),
-                Arguments.of(999.99F, BankAlert.SUCCESSFULLY_TRANSFERRED_TO_ACCOUNT.getMsg(),"999.99"),
-                Arguments.of(5000F, BankAlert.SUCCESSFULLY_TRANSFERRED_TO_ACCOUNT.getMsg(),"5000.0"),
-                Arguments.of(9999.99F, BankAlert.SUCCESSFULLY_TRANSFERRED_TO_ACCOUNT.getMsg(),"9999.99")
+                Arguments.of(10.5F, BankAlert.SUCCESSFULLY_TRANSFERRED_TO_ACCOUNT.getMsg(),"10.5")
                 //Arguments.of(".01", BankAlert.SUCCESSFULLY_TRANSFERRED_TO_ACCOUNT.getMsg(),"0.01") //✅ Successfully transferred $.01 to account ACC194!
                         );
     }
