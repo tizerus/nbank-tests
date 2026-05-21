@@ -1,5 +1,0 @@
-OS: Linux (6.17.0-1013-azure)
-Java version: 21.0.11
-Java vendor: Amazon.com Inc.
-User: runner
-Working directory: /home/runner/work/nbank-tests/nbank-tests
