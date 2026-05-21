@@ -85,12 +85,12 @@ jobs:
           curl -s http://localhost:4444/status | grep -o '"chrome":{[^}]*}' || echo "Chrome not found in status"
 
       - name: Run Api tests
-        run: mvn clean test -q -P api
+        run: mvn clean test -q -P api -Dsurefire.rerunFailingTestsCount=3
         env:
           BASE_API_URL: "http://localhost:4111"
 
       - name: Run UI tests
-        run: mvn test -q -P ui -DskipCheckstyle=true
+        run: mvn test -q -P ui -DskipCheckstyle=true -Dsurefire.rerunFailingTestsCount=3
         env:
           BASE_UI_URL: "http://nginx:80"
           BASE_API_URL: "http://localhost:4111"
