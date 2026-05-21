@@ -52,6 +52,28 @@ public class AutoScreenshotExtension implements TestExecutionExceptionHandler {
                     "text/plain",
                     systemInfo,
                     "txt");
+        } else {
+            Allure.step("Extension Autoscreenshot on failure: WebDriver is null");
+            String errorLog = getErrorLog(throwable);
+            Allure.addAttachment("❌ Extension Error details (driver unavailable)",
+                    "text/plain", errorLog, "txt");
+
+            String diagnosticInfo = String.format(
+                    "=== DIAGNOSTIC INFO ===\n" +
+                            "Driver status: NULL\n" +
+                            "Test: %s.%s\n" +
+                            "Exception: %s\n" +
+                            "Thread: %s\n" +
+                            "Time: %s\n" +
+                            "=== END ===",
+                    context.getRequiredTestClass().getSimpleName(),
+                    context.getRequiredTestMethod().getName(),
+                    throwable.getClass().getSimpleName(),
+                    Thread.currentThread().getName(),
+                    java.time.Instant.now()
+                                                 );
+            Allure.addAttachment("ℹ️ Diagnostic context",
+                    "text/plain", diagnosticInfo, "txt");
         }
 
         throw throwable;
