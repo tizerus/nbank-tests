@@ -3,6 +3,7 @@ package db;
 import api.config.Config;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import io.qameta.allure.Allure;
 import org.assertj.core.api.Assertions;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
@@ -28,6 +29,7 @@ public class DbService {
         config.setLeakDetectionThreshold(10000);
         config.setIdleTimeout(60000);
         config.setMaxLifetime(180000);
+        Allure.step("DB Config URL: " + config.getJdbcUrl());
 
         DATA_SOURCE = new HikariDataSource(config);
     }

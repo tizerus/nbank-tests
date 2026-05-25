@@ -7,7 +7,6 @@ import api.models.CreateUserRequest;
 import api.models.GetCustomerAccountsResponse;
 import db.DbService;
 import db.models.Accounts;
-import db.models.Customer;
 import org.junit.jupiter.api.Test;
 import api.requests.skeleton.Endpoint;
 import api.requests.skeleton.requests.ValidatableCrudRequester;
