@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS transactions
     id                 BIGSERIAL PRIMARY KEY,
     amount             DECIMAL(15, 2) NOT NULL,
     type               VARCHAR(20)    NOT NULL CHECK (type IN ('DEPOSIT', 'WITHDRAW', 'TRANSFER_OUT', 'TRANSFER_IN')),
-    transaction_time   TIMESTAMP      NOT NULL,
+    timestamp          TIMESTAMP      NOT NULL,
     account_id         BIGINT         NOT NULL REFERENCES accounts(id) ON DELETE CASCADE,
     related_account_id BIGINT         REFERENCES accounts(id) ON DELETE SET NULL,
     created_at         TIMESTAMP      DEFAULT CURRENT_TIMESTAMP
@@ -35,7 +35,7 @@ CREATE INDEX IF NOT EXISTS idx_customers_username ON customers(username);
 CREATE INDEX IF NOT EXISTS idx_accounts_customer_id ON accounts(customer_id);
 CREATE INDEX IF NOT EXISTS idx_accounts_account_number ON accounts(account_number);
 CREATE INDEX IF NOT EXISTS idx_transactions_account_id ON transactions(account_id);
-CREATE INDEX IF NOT EXISTS idx_transactions_time ON transactions(transaction_time);
+CREATE INDEX IF NOT EXISTS idx_transactions_time ON transactions(timestamp);
 
 -- Функция для обновления updated_at
 CREATE OR REPLACE FUNCTION update_updated_at_column()
