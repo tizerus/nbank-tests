@@ -77,6 +77,8 @@ jobs:
 
       - name: Check Postgres DB
         if: always()
+        env:
+          PGPASSWORD: "postgres"  # или ваш реальный пароль
         run: | 
           psql -h localhost -p 5433 -U postgres -d nbank -c "SELECT * FROM customers"
           psql -h localhost -p 5432 -U postgres -d nbank -c "SELECT * FROM customers"
