@@ -5,10 +5,8 @@ import common.extension.TimingExtension;
 import db.DbService;
 import org.apache.commons.lang3.time.StopWatch;
 import org.assertj.core.api.SoftAssertions;
-import org.jooq.DSLContext;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 
