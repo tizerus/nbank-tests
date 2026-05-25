@@ -6,6 +6,8 @@ import org.apache.http.HttpStatus;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 
+import java.util.List;
+
 public class ResponseSpecs {
 
     private ResponseSpecs() {
@@ -32,6 +34,20 @@ public class ResponseSpecs {
         return defaultResponseSpecBuilder()
                 .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
                 .expectBody(errorKey, Matchers.hasItem(errorValue))
+                .build();
+    }
+
+    public static ResponseSpecification requestReturnsBadResponse(String errorKey, String... errorValues) {
+        return defaultResponseSpecBuilder()
+                .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
+                .expectBody(errorKey, Matchers.containsInAnyOrder(errorValues))
+                .build();
+    }
+
+    public static ResponseSpecification requestReturnsBadResponse(String errorKey, List<String> errorValues) {
+        return defaultResponseSpecBuilder()
+                .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
+                .expectBody(errorKey, Matchers.containsInAnyOrder(errorValues.toArray()))
                 .build();
     }
 

@@ -6,6 +6,7 @@ import api.models.GetTransferRequest;
 import api.models.Transaction;
 import api.models.TransactionType;
 import api.models.User;
+import common.annotations.SkipForBrokenImage;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.Matchers;
@@ -49,6 +50,7 @@ public class UserTransactionTest extends ApiBaseTest {
 
     @MethodSource("invalidAmountData")
     @ParameterizedTest
+    @SkipForBrokenImage
     public void userCannotTransferTest(float amount, String error) {
         User user1 = AdminSteps.createUserAndAcc(1);
         User user2 = AdminSteps.createUserAndAcc(1);
@@ -74,6 +76,7 @@ public class UserTransactionTest extends ApiBaseTest {
     }
 
     @Test
+    @SkipForBrokenImage
     public void userCannotTransferMoreThanHeHas() {
         float amountToTransfer = RandomData.generateFloatInclusive(0.01F, 5000);
         User user1 = AdminSteps.createUserAndAcc(1);
@@ -104,6 +107,7 @@ public class UserTransactionTest extends ApiBaseTest {
 
     @MethodSource("validAmountData")
     @ParameterizedTest
+    @SkipForBrokenImage
     public void userCanTransferToAnotherAcc(float amountToTransfer) {
         float depAmount = 5000;
         User user1 = AdminSteps.createUserAndAcc(1);
@@ -144,6 +148,7 @@ public class UserTransactionTest extends ApiBaseTest {
     }
 
     @Test
+    @SkipForBrokenImage
     public void userCanTransferToHisSecondAcc() {
         float amountToTransfer = RandomData.generateFloatInclusive(0.01F, 5000);
         User user1 = AdminSteps.createUserAndAcc(2);

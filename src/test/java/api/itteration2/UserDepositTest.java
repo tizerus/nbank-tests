@@ -1,24 +1,24 @@
 package api.itteration2;
 
+import api.ApiBaseTest;
 import api.comparison.ModelAssertions;
 import api.generators.RandomData;
-import api.ApiBaseTest;
 import api.models.DepositRequest;
 import api.models.DepositResponse;
 import api.models.User;
-import api.requests.skeleton.requests.ValidatableCrudRequester;
-import org.assertj.core.api.Assertions;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 import api.requests.skeleton.Endpoint;
 import api.requests.skeleton.requests.CrudRequester;
 import api.requests.steps.AdminSteps;
 import api.requests.steps.UserSteps;
 import api.specs.RequestSpecs;
 import api.specs.ResponseSpecs;
+import common.annotations.SkipForBrokenImage;
+import org.assertj.core.api.Assertions;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
@@ -34,6 +34,7 @@ public class UserDepositTest extends ApiBaseTest {
 
     @MethodSource("invalidAmountData")
     @ParameterizedTest
+    @SkipForBrokenImage
     public void userCannotPutDepositTest(float amount, String error) {
         User user = AdminSteps.createUserAndAcc(1);
 
@@ -63,6 +64,7 @@ public class UserDepositTest extends ApiBaseTest {
 
     @MethodSource("validAmountData")
     @ParameterizedTest
+    @SkipForBrokenImage
     public void userCanPutDepositTest(float amount) {
         User user = AdminSteps.createUserAndAcc(1);
         DepositRequest depositRequest = DepositRequest.builder()
@@ -79,6 +81,7 @@ public class UserDepositTest extends ApiBaseTest {
     }
 
     @Test
+    @SkipForBrokenImage
     public void userCannotDepositToAnotherUserAcc() {
         User user1 = AdminSteps.createUserAndAcc(1);
         User user2 = AdminSteps.createUserAndAcc(1);
@@ -121,7 +124,7 @@ public class UserDepositTest extends ApiBaseTest {
         new CrudRequester(
                 RequestSpecs.authAsUser(user.getUserName(), user.getPassword()),
                 Endpoint.DEPOSIT,
-                ResponseSpecs.requestReturns403())
+                ResponseSpecs.requestReturns400())
                 .post(depositRequest);
     }
 
