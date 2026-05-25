@@ -2,10 +2,8 @@ package api;
 
 import common.extension.SkipForBrokenImageExtension;
 import common.extension.TimingExtension;
-import db.DbService;
 import org.apache.commons.lang3.time.StopWatch;
 import org.assertj.core.api.SoftAssertions;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,11 +14,6 @@ public class ApiBaseTest {
 
     protected SoftAssertions softAssert;
     private static final ThreadLocal<StopWatch> stopWatchThreadLocal = ThreadLocal.withInitial(StopWatch::new);
-
-    @AfterAll
-    public static void clear() {
-        DbService.closePool();
-    }
 
     @BeforeEach
     public void setupTest() {
