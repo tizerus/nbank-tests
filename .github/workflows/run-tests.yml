@@ -55,15 +55,28 @@ jobs:
           chmod +x ./restart_docker_compose.sh
           chmod -R 755 init-scripts
           ./restart_docker_compose.sh
-          
-          # Если бэкенд упал, показываем логи
-          if ! docker ps | grep -q backend; then
-          echo "=== Backend logs ==="
-          docker compose logs backend
-          echo "=== PostgreSQL logs ==="
-          docker compose logs postgres
-          exit 1
-          fi
+
+      - name: Debug backend failure
+        if: failure()
+        run: |
+          echo "=== Docker Compose logs ==="
+          cd ./infra/docker_compose
+          docker compose ps -a
+    
+          echo "=== Backend container logs ==="
+          docker compose logs backend --tail 200
+    
+          echo "=== PostgreSQL container logs ==="
+          docker compose logs postgres --tail 100
+    
+          echo "=== Check if backend container exists ==="
+          docker ps -a | grep backend
+    
+          echo "=== Check network connectivity ==="
+          docker network inspect nbank-network
+    
+          echo "=== Test connection from backend to postgres ==="
+          docker run --rm --network nbank-network appropriate/curl curl -v telnet://postgres:5432 || echo "Cannot connect to postgres"
 
       - name: Check nginx
         run: |
