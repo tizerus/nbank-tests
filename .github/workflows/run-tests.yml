@@ -76,11 +76,12 @@ jobs:
           docker exec docker_compose-nginx-1 curl -v http://backend:4111 || echo "Cannot reach backend"
 
       - name: Check Postgres DB
-        run:
-          psql -h localhost -p 5433 -U postgres -d nbank
-          psql -h localhost -p 5432 -U postgres -d nbank
-          psql -h postgres -p 5433 -U postgres -d nbank
-          psql -h postgres -p 5432 -U postgres -d nbank
+        if: always()
+        run: | 
+          psql -h localhost -p 5433 -U postgres -d nbank -c "SELECT * FROM customers"
+          psql -h localhost -p 5432 -U postgres -d nbank -c "SELECT * FROM customers"
+          psql -h postgres -p 5433 -U postgres -d nbank -c "SELECT * FROM customers"
+          psql -h postgres -p 5432 -U postgres -d nbank -c "SELECT * FROM customers"
 
       - name: Run Api tests
         run: mvn clean test -q -P api -Dsurefire.rerunFailingTestsCount=3
