@@ -50,6 +50,8 @@ jobs:
         run: |
           pwd
           cd ./infra/docker_compose
+          pwd
+          ls
           chmod +x ./restart_docker_compose.sh
           ./restart_docker_compose.sh
 
