@@ -11,12 +11,14 @@ services:
       - SPRING_DATASOURCE_PASSWORD=postgres
       - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy  # Ждем пока PostgreSQL станет здоровым, медленно поднимается в Github Actions
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:4111/actuator/health"]
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
+      start_period: 60s  # Даем бэкенду 60 секунд на старт
 
   postgres:
     image: postgres:15-alpine
@@ -33,9 +35,10 @@ services:
       - nbank-network
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres -d nbank" ]
-      interval: 10s
+      interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 10
+      start_period: 30s  # Даем PostgreSQL больше времени на инициализацию
 
   frontend:
     image: nobugsme/nbank-ui:latest
