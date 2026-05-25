@@ -51,8 +51,9 @@ jobs:
           pwd
           cd ./infra/docker_compose
           pwd
-          ls
+          ls init-scripts
           chmod +x ./restart_docker_compose.sh
+          chmod -R 755 init-scripts
           ./restart_docker_compose.sh
 
       - name: Check nginx
