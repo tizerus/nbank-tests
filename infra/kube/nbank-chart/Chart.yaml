@@ -1,0 +1,6 @@
+apiVersion: v2
+appVersion: v1.0.0
+description: helm chart for nbank
+name: nbank
+type: application
+version: 0.0.1
