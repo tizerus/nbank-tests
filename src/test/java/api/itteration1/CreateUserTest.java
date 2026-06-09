@@ -7,6 +7,7 @@ import api.models.CreateUserRequest;
 import api.models.CreateUserResponse;
 import api.models.UserRole;
 import common.annotations.SkipForBrokenImage;
+import db.DbHelper;
 import db.DbService;
 import db.models.Customer;
 import org.assertj.core.api.Assertions;
@@ -40,11 +41,7 @@ public class CreateUserTest extends ApiBaseTest {
                 .post(createUserRequest);
 
         ModelAssertions.assertThatModels(createUserRequest, createUserResponse).match();
-        Customer dbUser = DbService.withConnection(ctx -> ctx.select()
-                .from(CUSTOMERS.getTableName())
-                .where("id = ?", createUserResponse.getId())
-                .fetchInto(Customer.class)
-                .getFirst());
+        Customer dbUser = DbHelper.getCustomer(createUserResponse.getId());
 
         ModelAssertions.assertThatModels(dbUser, createUserResponse).match();
     }
