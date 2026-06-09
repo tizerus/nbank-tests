@@ -1,9 +1,12 @@
 package api.itteration1;
 
 import api.ApiBaseTest;
+import api.comparison.ModelAssertions;
 import api.models.CreateAccountResponse;
 import api.models.CreateUserRequest;
 import api.models.GetCustomerAccountsResponse;
+import db.DbHelper;
+import db.models.Accounts;
 import org.junit.jupiter.api.Test;
 import api.requests.skeleton.Endpoint;
 import api.requests.skeleton.requests.ValidatableCrudRequester;
@@ -33,6 +36,12 @@ public class CreateAccTest extends ApiBaseTest {
                 .extracting(GetCustomerAccountsResponse::getAccountNumber)
                 .as("Extracting all account numbers")
                 .contains(userAcc.getAccountNumber());
+
+        //DB check
+        Accounts dbUserAcc = DbHelper.getAccountById(userAcc.getId());
+
+        ModelAssertions.assertThatModels(dbUserAcc, accounts.getFirst()).match();
+
     }
 
 }

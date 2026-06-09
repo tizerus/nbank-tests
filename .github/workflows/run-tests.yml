@@ -32,9 +32,11 @@ jobs:
         with:
           maven-version: 3.9.11
 
-      - name: Install jq
+      - name: Install jq and curl
         if: always()
-        run: sudo apt-get install -y jq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq curl
 
       - name: Cache maven repo
         uses: actions/cache@v5.0.5
@@ -48,7 +50,10 @@ jobs:
         run: |
           pwd
           cd ./infra/docker_compose
+          pwd
+          ls init-scripts
           chmod +x ./restart_docker_compose.sh
+          chmod -R 755 init-scripts
           ./restart_docker_compose.sh
 
       - name: Check nginx
@@ -69,25 +74,12 @@ jobs:
           echo "=== Check that frontend is reachable from nginx ==="
           docker exec docker_compose-nginx-1 curl -v http://frontend:3000 || echo "Cannot reach frontend"
           docker exec docker_compose-nginx-1 curl -v http://backend:4111 || echo "Cannot reach backend"
-      - name: Debug Selenoid after startup
-        run: |
-          echo "=== Selenoid status API ==="
-          curl -s http://localhost:4444/status | jq '.' || curl -s http://localhost:4444/status
-    
-          echo -e "\n=== Selenoid logs ==="
-          docker logs docker_compose-selenoid-1 --tail 50
-    
-          echo -e "\n=== Check if browsers.json is mounted correctly ==="
-          docker exec docker_compose-selenoid-1 ls -la /etc/selenoid/
-          docker exec docker_compose-selenoid-1 cat /etc/selenoid/browsers.json 2>/dev/null || echo "browsers.json not found"
-    
-          echo -e "\n=== Check available browser versions ==="
-          curl -s http://localhost:4444/status | grep -o '"chrome":{[^}]*}' || echo "Chrome not found in status"
 
       - name: Run Api tests
         run: mvn clean test -q -P api -Dsurefire.rerunFailingTestsCount=3
         env:
           BASE_API_URL: "http://localhost:4111"
+          DB_URL: "jdbc:postgresql://localhost:5433/nbank"
 
       - name: Run UI tests
         run: mvn test -q -P ui -DskipCheckstyle=true -Dsurefire.rerunFailingTestsCount=3

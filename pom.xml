@@ -20,6 +20,8 @@
         <checkstyle.version>10.12.7</checkstyle.version>
         <skipCheckstyle>false</skipCheckstyle>
         <allure>2.29.1</allure>
+        <jooq.version>3.21.4</jooq.version>
+        <postgresql.version>42.7.11</postgresql.version>
         <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
         <swagger.coverage.version>1.5.0</swagger.coverage.version>
         <checkstyle.config.location>checkstyle.xml</checkstyle.config.location>
@@ -113,6 +115,25 @@
             <groupId>com.github.viclovsky</groupId>
             <artifactId>swagger-coverage-rest-assured</artifactId>
             <version>${swagger.coverage.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq</artifactId>
+            <version>${jooq.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- Source: https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>7.0.2</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

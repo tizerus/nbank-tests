@@ -45,13 +45,13 @@ public class User {
     }
 
     public float getBalance(String accName) {
-        return new ValidatableCrudRequester<Profile>(
+        return new ValidatableCrudRequester<GetCustomerAccountsResponse>(
                 RequestSpecs.authAsUser(getUserName(), getPassword()),
-                Endpoint.PROFILE,
+                Endpoint.CUSTOMER_ACCOUNTS,
                 ResponseSpecs.requestReturnsOk()
         )
-                .get()
-                .getAccounts().stream()
+                .getAll()
+                .stream()
                 .filter(accNumber -> accNumber.getAccountNumber().equals(accName))
                 .findFirst()
                 .orElseThrow(() -> new AssertionError("Аккаунт: " + accName + " не найден"))

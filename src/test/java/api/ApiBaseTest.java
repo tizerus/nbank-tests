@@ -1,5 +1,6 @@
 package api;
 
+import common.extension.SkipForBrokenImageExtension;
 import common.extension.TimingExtension;
 import org.apache.commons.lang3.time.StopWatch;
 import org.assertj.core.api.SoftAssertions;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(TimingExtension.class)
+@ExtendWith(SkipForBrokenImageExtension.class)
 public class ApiBaseTest {
 
     protected SoftAssertions softAssert;

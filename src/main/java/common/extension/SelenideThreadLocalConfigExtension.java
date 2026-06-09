@@ -5,6 +5,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -73,6 +74,8 @@ public class SelenideThreadLocalConfigExtension implements BeforeEachCallback, A
         if (name != null) {
             SelenideLogger.removeListener(name);
             listenerName.remove();
+        } else {
+            Assertions.fail("AfterEach: listenerName = null");
         }
 
         // 2. Закрываем драйвер (исправленная версия)
@@ -80,12 +83,14 @@ public class SelenideThreadLocalConfigExtension implements BeforeEachCallback, A
         if (driver != null) {
             driver.quit();
             driverThreadLocal.remove();
+        } else {
+            Assertions.fail("AfterEach: RemoteWebDriver = null");
         }
 
         try {
             Selenide.closeWebDriver();
         } catch (Exception e) {
-            System.err.println("Error closing WebDriver: " + e.getMessage());
+            Assertions.fail("AfterEach: cannot selenide closeWebDriver = null. Exception: " + e.getMessage());
         }
     }
 

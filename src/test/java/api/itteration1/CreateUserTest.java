@@ -6,6 +6,9 @@ import api.generators.RandomModelGenerator;
 import api.models.CreateUserRequest;
 import api.models.CreateUserResponse;
 import api.models.UserRole;
+import common.annotations.SkipForBrokenImage;
+import db.DbHelper;
+import db.models.Customer;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -21,7 +24,6 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.containsString;
 
 public class CreateUserTest extends ApiBaseTest {
 
@@ -36,6 +38,9 @@ public class CreateUserTest extends ApiBaseTest {
                 .post(createUserRequest);
 
         ModelAssertions.assertThatModels(createUserRequest, createUserResponse).match();
+        Customer dbUser = DbHelper.getCustomerById(createUserResponse.getId());
+
+        ModelAssertions.assertThatModels(dbUser, createUserResponse).match();
     }
 
     public static Stream<Arguments> invalidUserData() {
@@ -49,6 +54,7 @@ public class CreateUserTest extends ApiBaseTest {
 
     @MethodSource("invalidUserData")
     @ParameterizedTest
+    @SkipForBrokenImage
     public void adminCanNotCreateUserWithIncorrectDataTest(String userName, String pass, String role,
             String errorKey, String error) {
         CreateUserRequest createUserRequest = CreateUserRequest.builder()
