@@ -6,7 +6,6 @@ import api.models.CreateAccountResponse;
 import api.models.CreateUserRequest;
 import api.models.GetCustomerAccountsResponse;
 import db.DbHelper;
-import db.DbService;
 import db.models.Accounts;
 import org.junit.jupiter.api.Test;
 import api.requests.skeleton.Endpoint;
@@ -17,8 +16,6 @@ import api.specs.RequestSpecs;
 import api.specs.ResponseSpecs;
 
 import java.util.List;
-
-import static db.Tables.ACCOUNTS;
 
 public class CreateAccTest extends ApiBaseTest {
 
@@ -41,7 +38,7 @@ public class CreateAccTest extends ApiBaseTest {
                 .contains(userAcc.getAccountNumber());
 
         //DB check
-        Accounts dbUserAcc = DbHelper.getAccount(userAcc.getId());
+        Accounts dbUserAcc = DbHelper.getAccountById(userAcc.getId());
 
         ModelAssertions.assertThatModels(dbUserAcc, accounts.getFirst()).match();
 

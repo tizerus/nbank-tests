@@ -8,7 +8,6 @@ import api.models.CreateUserResponse;
 import api.models.UserRole;
 import common.annotations.SkipForBrokenImage;
 import db.DbHelper;
-import db.DbService;
 import db.models.Customer;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -24,9 +23,7 @@ import api.specs.ResponseSpecs;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static db.Tables.CUSTOMERS;
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.containsString;
 
 public class CreateUserTest extends ApiBaseTest {
 
@@ -41,7 +38,7 @@ public class CreateUserTest extends ApiBaseTest {
                 .post(createUserRequest);
 
         ModelAssertions.assertThatModels(createUserRequest, createUserResponse).match();
-        Customer dbUser = DbHelper.getCustomer(createUserResponse.getId());
+        Customer dbUser = DbHelper.getCustomerById(createUserResponse.getId());
 
         ModelAssertions.assertThatModels(dbUser, createUserResponse).match();
     }

@@ -17,11 +17,11 @@ public class DbHelper {
                 .getFirst());
     }
 
-    public static Accounts getAccount(long id) {
+    public static Accounts getAccountById(long id) {
         return getEntity(Accounts.class, ACCOUNTS.getTableName(), id);
     }
 
-    public static Customer getCustomer(long id) {
+    public static Customer getCustomerById(long id) {
         return getEntity(Customer.class, CUSTOMERS.getTableName(), id);
     }
 
